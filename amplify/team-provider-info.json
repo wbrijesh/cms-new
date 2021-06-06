@@ -1,0 +1,21 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-campaignmanagementsy-staging-75803-authRole",
+      "UnauthRoleArn": "arn:aws:iam::999905799800:role/amplify-campaignmanagementsy-staging-75803-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::999905799800:role/amplify-campaignmanagementsy-staging-75803-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-campaignmanagementsy-staging-75803-deployment",
+      "UnauthRoleName": "amplify-campaignmanagementsy-staging-75803-unauthRole",
+      "StackName": "amplify-campaignmanagementsy-staging-75803",
+      "StackId": "arn:aws:cloudformation:ap-south-1:999905799800:stack/amplify-campaignmanagementsy-staging-75803/423937b0-c378-11eb-b2cd-020f47b58592",
+      "AmplifyAppId": "d31m7m2v2iahi5",
+      "AuthTriggerTemplateURL": ""
+    },
+    "categories": {
+      "auth": {
+        "campaignmanagementsystem": {}
+      }
+    }
+  }
+}
