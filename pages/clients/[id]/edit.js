@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import Navbar from "../../components/navbar";
-import Content from "../../components/clientDetails";
+import Navbar from "../../../components/navbar";
+import Content from "../../../components/editClient";
 import { useRouter } from "next/router";
 import { DataStore } from "@aws-amplify/datastore";
-import { Client } from "../../models";
+import { Client } from "../../../models";
 
 function Home() {
   const [navigation, setNavigation] = useState([]);

@@ -2,7 +2,7 @@ import { DataStore } from "@aws-amplify/datastore";
 import { Client } from "../../models";
 import { useState, useEffect } from "react";
 import Navbar from "../../components/navbar";
-import Content from "../../components/clientsContent";
+import Content from "../../components/clientsHome";
 
 export default function Homepage() {
   const [navigation, setNavigation] = useState([]);

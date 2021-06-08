@@ -22,7 +22,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Content({ setNavigation, setSidebarOpen, thisClient }) {
+export default function Content({ setNavigation, setSidebarOpen, clientList }) {
   setNavigation(navigation);
   return (
     <>
@@ -63,24 +63,29 @@ export default function Content({ setNavigation, setSidebarOpen, thisClient }) {
                   <div className="mt-10 divide-y divide-gray-200">
                     <div className="mt-6">
                       <dl className="divide-y divide-gray-200">
-                        <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                          <dt className="text-sm font-medium text-gray-500">
-                            Name
-                          </dt>
-                          <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            <span className="flex-grow">{thisClient.name}</span>
-                            <span className="ml-4 flex-shrink-0">
-                              <Link href={`/clients/${thisClient.id}`}>
-                                <a
-                                  type="button"
-                                  className="bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                                >
-                                  Manage
-                                </a>
-                              </Link>
-                            </span>
-                          </dd>
-                        </div>
+                        {clientList.map((client) => (
+                          <div
+                            className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4"
+                            key={client.id}
+                          >
+                            <dt className="text-sm font-medium text-gray-500">
+                              Name
+                            </dt>
+                            <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                              <span className="flex-grow">{client.name}</span>
+                              <span className="ml-4 flex-shrink-0">
+                                <Link href={`/clients/${client.id}`}>
+                                  <a
+                                    type="button"
+                                    className="bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                  >
+                                    Manage
+                                  </a>
+                                </Link>
+                              </span>
+                            </dd>
+                          </div>
+                        ))}
                       </dl>
                     </div>
                   </div>
