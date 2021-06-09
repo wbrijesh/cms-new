@@ -85,7 +85,7 @@ export default function Content({ setNavigation, setSidebarOpen }) {
       submissionObject.main_contact_name = values.main_contact_name;
     }
     if (values.main_contact_email !== undefined) {
-      submissionObject.name = values.main_contact_email;
+      submissionObject.main_contact_email = values.main_contact_email;
     }
     if (values.main_contact_phone !== undefined) {
       submissionObject.main_contact_phone = values.main_contact_phone;
