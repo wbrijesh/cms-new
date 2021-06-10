@@ -15,9 +15,9 @@ export default function Homepage() {
       setClientList(models);
       console.log("CLIENTS LIST: ", clientList);
     }
-    DataStore.observe(Client).subscribe(() => {
-      getClientList();
-    });
+    // DataStore.observe(Client).subscribe(() => {
+    //   getClientList();
+    // });
   }, []);
 
   return (
