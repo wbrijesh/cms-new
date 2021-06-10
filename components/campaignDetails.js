@@ -13,7 +13,6 @@ import {
 } from "@heroicons/react/outline";
 
 import { Dialog, Transition } from "@headlessui/react";
-import { JS } from "@aws-amplify/core";
 
 const navigation = [
   { name: "Home", href: "/", icon: HomeIcon, current: false },
@@ -39,7 +38,6 @@ export default function Content({
   setNavigation,
   setSidebarOpen,
   thisCampaign,
-  clientName,
 }) {
   const [open, setOpen] = useState(false);
 
@@ -50,8 +48,6 @@ export default function Content({
     DataStore.delete(await DataStore.query(Campaign, id));
     router.push("/campaigns");
   };
-
-  console.log("client: ", clientName);
 
   let revenueTypesObject = [];
 
@@ -234,118 +230,6 @@ export default function Content({
                   </a>
                 </div>
               </div>
-
-              {/* "clientID": "a3f4095e-39de-43d2-baf4-f8c16f0f6f4d", 
-              "name": "Lorem
-              ipsum dolor sit amet", 
-              "reference": "Lorem ipsum dolor sit amet",
-              "booking_type": "Lorem ipsum dolor sit amet", 
-              "contact_person":
-              "Lorem ipsum dolor sit amet", 
-              "add_comm_type": "Lorem ipsum dolor
-              sit amet", 
-              "add_comm_value": 1020, 
-              "instructions": "Lorem ipsum
-              dolor sit amet", 
-              "delivery_comments": "Lorem ipsum dolor sit
-              amet", 
-              "date_created": "1970-01-01Z", 
-              "date_modified":
-              "1970-01-01Z", 
-              "status": "Lorem ipsum dolor sit amet",
-              "revenue_cpm": true, 
-              "revenue_cpc": true, 
-              "revenue_cpcv": true,
-              "revenue_cpview": true, 
-              "revenue_cpvisit": true, 
-              "revenue_cpl":
-              true, 
-              "revenue_cpa": true, 
-              "revenue_cpi": true, 
-              "revenue_cps":
-              true, 
-              "video_campaign": true, 
-              "video_startDate": "1970-01-01Z",
-              "video_endDate": "1970-01-01Z", 
-              "video_unitRate": 123.45,
-              "video_goal": 1020, 
-              "video_budget": 123.45, 
-              "video_revType":
-              "Lorem ipsum dolor sit amet", 
-              "display_campaign": true,
-              "display_startDate": "1970-01-01Z", 
-              "display_endDate":
-              "1970-01-01Z", 
-              "display_unitRate": 123.45, 
-              "display_goal": 1020,
-              "display_budget": 123.45, 
-              "display_revType": "Lorem ipsum dolor
-              sit amet", 
-              "native_campaign": true, 
-              "native_startDate":
-              "1970-01-01Z", 
-              "native_endDate": "1970-01-01Z", 
-              "native_unitRate":
-              123.45, 
-              "native_goal": 1020, 
-              "native_budget": 123.45,
-              "native_revType": "Lorem ipsum dolor sit amet", 
-              "search_campaign":
-              true, 
-              "search_startDate": "1970-01-01Z", 
-              "search_endDate":
-              "1970-01-01Z", 
-              "search_unitRate": 123.45, 
-              "search_goal": 1020,
-              "search_budget": 123.45, 
-              "search_revType": "Lorem ipsum dolor sit
-              amet", 
-              "social_campaign": true, 
-              "social_startDate": "1970-01-01Z",
-              "social_endDate": "1970-01-01Z", 
-              "social_unitRate": 123.45,
-              "social_goal": 1020, 
-              "social_budget": 123.45, 
-              "social_revType":
-              "Lorem ipsum dolor sit amet", 
-              "highImpact_campaign": true,
-              "highImpact_startDate": "1970-01-01Z", 
-              "highImpact_endDate":
-              "1970-01-01Z", 
-              "highImpact_unitRate": 123.45, 
-              "highImpact_goal":
-              1020, 
-              "highImpact_budget": 123.45, 
-              "highImpact_revType": "Lorem
-              ipsum dolor sit amet", 
-              "richMedia_campaign": true,
-              "richMedia_startDate": "1970-01-01Z", 
-              "richMedia_endDate":
-              "1970-01-01Z", 
-              "richMedia_unitRate": 123.45, 
-              "richMedia_goal":
-              1020, 
-              "richMedia_budget": 123.45, 
-              "nativrichMedia_revType": "Lorem
-              ipsum dolor sit amet", 
-              "pop_campaign": true, 
-              "pop_startDate":
-              "1970-01-01Z", 
-              "pop_endDate": "1970-01-01Z", 
-              "pop_unitRate":
-              123.45, 
-              "pop_goal": 1020, 
-              "pop_budget": 123.45, 
-              "pop_revType":
-              "Lorem ipsum dolor sit amet", 
-              "push_campaign": true,
-              "push_startDate": "1970-01-01Z", 
-              "push_endDate": "1970-01-01Z",
-              "push_unitRate": 123.45, 
-              "push_goal": 1020, 
-              "push_budget": 123.45,
-              "push_revType": "Lorem ipsum dolor sit amet" */}
-
               <div className="px-4 sm:px-6 md:px-0">
                 <div className="py-6">
                   {/* Description list with inline editing */}
@@ -363,16 +247,22 @@ export default function Content({
                           </dd>
                         </div>
                       </dl>
-                      <dl className="divide-y divide-gray-200">
+
+                      {/* TODO */}
+
+                      {/* <dl className="divide-y divide-gray-200">
                         <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
                           <dt className="text-sm font-medium text-gray-500">
                             Client
                           </dt>
                           <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            <span className="flex-grow">{clientName.name}</span>
+                            <span className="flex-grow">
+                              client name here
+                            </span>
                           </dd>
                         </div>
-                      </dl>
+                      </dl> */}
+
                       <dl className="divide-y divide-gray-200">
                         <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
                           <dt className="text-sm font-medium text-gray-500">
@@ -815,234 +705,6 @@ export default function Content({
                           </div>
                         </div>
                       </div>
-                      {/* <dl className="divide-y divide-gray-200">
-                        <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                          <dt className="text-sm font-medium text-gray-500">
-                            Campaign type
-                          </dt>
-                          <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            <span className="flex-grow">
-                              {thisCampaign.campaign_type}
-                            </span>
-                          </dd>
-                        </div>
-                      </dl>
-                      <dl className="divide-y divide-gray-200">
-                        <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                          <dt className="text-sm font-medium text-gray-500">
-                            Country
-                          </dt>
-                          <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            <span className="flex-grow">
-                              {thisCampaign.country}
-                            </span>
-                          </dd>
-                        </div>
-                      </dl>
-                      <dl className="divide-y divide-gray-200">
-                        <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                          <dt className="text-sm font-medium text-gray-500">
-                            Address
-                          </dt>
-                          <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            <span className="flex-grow">
-                              {thisCampaign.address}
-                            </span>
-                          </dd>
-                        </div>
-                      </dl>
-                      <dl className="divide-y divide-gray-200">
-                        <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                          <dt className="text-sm font-medium text-gray-500">
-                            Website
-                          </dt>
-                          <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            <span className="flex-grow">
-                              {thisCampaign.website}
-                            </span>
-                          </dd>
-                        </div>
-                      </dl>
-                      <dl className="divide-y divide-gray-200">
-                        <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                          <dt className="text-sm font-medium text-gray-500">
-                            Non person email
-                          </dt>
-                          <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            <span className="flex-grow">
-                              {thisCampaign.non_person_email}
-                            </span>
-                          </dd>
-                        </div>
-                      </dl>
-                      <dl className="divide-y divide-gray-200">
-                        <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                          <dt className="text-sm font-medium text-gray-500">
-                            Billing contact name
-                          </dt>
-                          <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            <span className="flex-grow">
-                              {thisCampaign.billing_contact_name}
-                            </span>
-                          </dd>
-                        </div>
-                      </dl>
-                      <dl className="divide-y divide-gray-200">
-                        <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                          <dt className="text-sm font-medium text-gray-500">
-                            Billing contact email
-                          </dt>
-                          <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            <span className="flex-grow">
-                              {thisCampaign.billing_contact_email}
-                            </span>
-                          </dd>
-                        </div>
-                      </dl>
-                      <dl className="divide-y divide-gray-200">
-                        <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                          <dt className="text-sm font-medium text-gray-500">
-                            Tax id
-                          </dt>
-                          <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            <span className="flex-grow">
-                              {thisCampaign.tax_id}
-                            </span>
-                          </dd>
-                        </div>
-                      </dl>
-                      <dl className="divide-y divide-gray-200">
-                        <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                          <dt className="text-sm font-medium text-gray-500">
-                            Main contact name
-                          </dt>
-                          <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            <span className="flex-grow">
-                              {thisCampaign.main_contact_name}
-                            </span>
-                          </dd>
-                        </div>
-                      </dl>
-                      <dl className="divide-y divide-gray-200">
-                        <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                          <dt className="text-sm font-medium text-gray-500">
-                            Main contact email
-                          </dt>
-                          <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            <span className="flex-grow">
-                              {thisCampaign.main_contact_email}
-                            </span>
-                          </dd>
-                        </div>
-                      </dl>
-                      <dl className="divide-y divide-gray-200">
-                        <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                          <dt className="text-sm font-medium text-gray-500">
-                            Main contact phone
-                          </dt>
-                          <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            <span className="flex-grow">
-                              {thisCampaign.main_contact_phone}
-                            </span>
-                          </dd>
-                        </div>
-                      </dl>
-                      <dl className="divide-y divide-gray-200">
-                        <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                          <dt className="text-sm font-medium text-gray-500">
-                            Skype or gmeet
-                          </dt>
-                          <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            <span className="flex-grow">
-                              {thisCampaign.skype_or_gmeet}
-                            </span>
-                          </dd>
-                        </div>
-                      </dl>
-                      <dl className="divide-y divide-gray-200">
-                        <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                          <dt className="text-sm font-medium text-gray-500">
-                            Sales manager email
-                          </dt>
-                          <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            <span className="flex-grow">
-                              {thisCampaign.sales_manager_email}
-                            </span>
-                          </dd>
-                        </div>
-                      </dl>
-                      <dl className="divide-y divide-gray-200">
-                        <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                          <dt className="text-sm font-medium text-gray-500">
-                            Account manager
-                          </dt>
-                          <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            <span className="flex-grow">
-                              {thisCampaign.account_manager}
-                            </span>
-                          </dd>
-                        </div>
-                      </dl>
-                      <dl className="divide-y divide-gray-200">
-                        <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                          <dt className="text-sm font-medium text-gray-500">
-                            Kickback type
-                          </dt>
-                          <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            <span className="flex-grow">
-                              {thisCampaign.kickback_type}
-                            </span>
-                          </dd>
-                        </div>
-                      </dl>
-                      <dl className="divide-y divide-gray-200">
-                        <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                          <dt className="text-sm font-medium text-gray-500">
-                            Kickback value
-                          </dt>
-                          <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            <span className="flex-grow">
-                              {thisCampaign.kickback_value}
-                            </span>
-                          </dd>
-                        </div>
-                      </dl>
-                      <dl className="divide-y divide-gray-200">
-                        <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                          <dt className="text-sm font-medium text-gray-500">
-                            Billing entity
-                          </dt>
-                          <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            <span className="flex-grow">
-                              {thisCampaign.billing_entity}
-                            </span>
-                          </dd>
-                        </div>
-                      </dl>
-                      <dl className="divide-y divide-gray-200">
-                        <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                          <dt className="text-sm font-medium text-gray-500">
-                            Date created
-                          </dt>
-                          <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            <span className="flex-grow">
-                              {thisCampaign.date_created}
-                            </span>
-                          </dd>
-                        </div>
-                      </dl>
-                      <dl className="divide-y divide-gray-200">
-                        <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                          <dt className="text-sm font-medium text-gray-500">
-                            Date modified
-                          </dt>
-                          <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            <span className="flex-grow">
-                              {thisCampaign.date_modified}
-                            </span>
-                          </dd>
-                        </div>
-                      </dl> */}
                     </div>
                   </div>
                 </div>

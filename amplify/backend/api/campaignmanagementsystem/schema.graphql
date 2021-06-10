@@ -1,4 +1,21 @@
-type Campaign @model @key(name: "byClient", fields: ["clientID"]) @auth(rules: [{allow: groups, groups: ["admin"], operations: [read, delete, update, create]}, {allow: groups, groups: ["adops"], operations: [read, create, update, delete]}, {allow: groups, groups: ["sales"], operations: [read, update]}]) {
+type Campaign
+  @model
+  @key(name: "byClient", fields: ["clientID"])
+  @auth(
+    rules: [
+      {
+        allow: groups
+        groups: ["admin"]
+        operations: [read, delete, update, create]
+      }
+      {
+        allow: groups
+        groups: ["adops"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["sales"], operations: [read, update] }
+    ]
+  ) {
   id: ID!
   clientID: ID
   name: String
@@ -86,7 +103,23 @@ type Campaign @model @key(name: "byClient", fields: ["clientID"]) @auth(rules: [
   push_revType: String
 }
 
-type Client @model @auth(rules: [{allow: groups, groups: ["admin"], operations: [read, create, update, delete]}, {allow: groups, groups: ["adops"], operations: [read, create, update, delete]}, {allow: groups, groups: ["sales"], operations: [read, update]}]) {
+type Client
+  @model
+  @auth(
+    rules: [
+      {
+        allow: groups
+        groups: ["admin"]
+        operations: [read, create, update, delete]
+      }
+      {
+        allow: groups
+        groups: ["adops"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["sales"], operations: [read, update] }
+    ]
+  ) {
   id: ID!
   name: String
   client_type: String
@@ -110,4 +143,3 @@ type Client @model @auth(rules: [{allow: groups, groups: ["admin"], operations: 
   date_modified: AWSDate
   Campaigns: [Campaign] @connection(keyName: "byClient", fields: ["id"])
 }
- 

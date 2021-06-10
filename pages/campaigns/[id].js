@@ -21,16 +21,20 @@ function Home() {
       setThisCampaign(models);
       const list = await DataStore.query(Client);
       setClientList(list);
+      // clientList.map((singleClient) => {
+      //   if (singleClient.id == thisCampaign.clientID) {
+      //     setClientName(singleClient);
+      //     console.log("found it");
+      //   }
+      // });
+      // const original = await DataStore.query(Campaign, id);
+      // await DataStore.save(
+      //   Campaign.copyOf(original, (updated) => {
+      //     updated.title = `title ${Date.now()}`;
+      //   })
+      // );
     };
-    async function getClientName() {
-      clientList.map((singleClient) => {
-        if (thisCampaign.clientID == singleClient.id) {
-          setClientName(singleClient);
-        }
-      });
-    }
     fetchCampaign();
-    getClientName();
   }, []);
 
   return (
