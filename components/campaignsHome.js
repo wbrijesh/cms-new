@@ -54,7 +54,7 @@ export default function Content({
                 <div className="mt-3 sm:mt-0 sm:ml-4">
                   <a
                     type="button"
-                    href="/camaigns/new"
+                    href="/campaigns/new"
                     className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                   >
                     Create new campaign
@@ -67,18 +67,18 @@ export default function Content({
                   <div className="mt-10 divide-y divide-gray-200">
                     <div className="mt-6">
                       <dl className="divide-y divide-gray-200">
-                        {campaignList.map((camaign) => (
+                        {campaignList.map((campaign) => (
                           <div
                             className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4"
-                            key={camaign.id}
+                            key={campaign.id}
                           >
                             <dt className="text-sm font-medium text-gray-500">
                               Name
                             </dt>
                             <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                              <span className="flex-grow">{camaign.name}</span>
+                              <span className="flex-grow">{campaign.name}</span>
                               <span className="ml-4 flex-shrink-0">
-                                <Link href={`/campaigns/${camaign.id}`}>
+                                <Link href={`/campaigns/${campaign.id}`}>
                                   <a
                                     type="button"
                                     className="bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"

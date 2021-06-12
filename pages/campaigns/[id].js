@@ -30,7 +30,7 @@ function Home() {
       // const original = await DataStore.query(Campaign, id);
       // await DataStore.save(
       //   Campaign.copyOf(original, (updated) => {
-      //     updated.title = `title ${Date.now()}`;
+      //     updated.clientID = "99fcaf30-9fb1-487a-9f73-e18c610b6dae";
       //   })
       // );
     };

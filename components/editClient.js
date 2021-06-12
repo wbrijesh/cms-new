@@ -61,6 +61,12 @@ export default function Content({ setNavigation, setSidebarOpen, thisClient }) {
         updated.date_modified = new Date().toISOString().slice(0, 10);
       })
     );
+    await DataStore.save(
+      Campaign.copyOf(original, (updated) => {
+        updated[field] = formik.values[field];
+        updated.date_modified = new Date().toISOString().slice(0, 10);
+      })
+    );
     goBack();
   }
 

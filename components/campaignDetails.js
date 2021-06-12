@@ -3,7 +3,6 @@ import { DataStore } from "@aws-amplify/datastore";
 import { Campaign } from "../models";
 import { useRouter } from "next/router";
 
-import Link from "next/link";
 import {
   BriefcaseIcon,
   DocumentReportIcon,
@@ -11,7 +10,6 @@ import {
   HomeIcon,
   ExclamationIcon,
 } from "@heroicons/react/outline";
-
 import { Dialog, Transition } from "@headlessui/react";
 
 const navigation = [
@@ -201,7 +199,7 @@ export default function Content({
             </div>
           </Dialog>
         </Transition.Root>
-        <div className="w-full max-w-4xl mx-auto md:px-8 xl:px-0">
+        <div className="w-full bg-transparent max-w-4xl mx-auto md:px-8 xl:px-0">
           <div className="relative z-10 flex-shrink-0 h-16 bg-white border-b border-gray-200 md:border-white flex">
             <button
               className="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 md:hidden"
@@ -420,291 +418,291 @@ export default function Content({
                           </dd>
                         </div>
                       </dl>
-                      <div className="flex flex-col">
-                        <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                          <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                            <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                              <table className="min-w-full divide-y divide-gray-200">
-                                <thead className="bg-gray-200">
-                                  <tr>
-                                    <th
-                                      scope="col"
-                                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                    >
-                                      Name
-                                    </th>
-                                    <th
-                                      scope="col"
-                                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                    >
-                                      Revenue type
-                                    </th>
-                                    <th
-                                      scope="col"
-                                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                    >
-                                      Start date
-                                    </th>
-                                    <th
-                                      scope="col"
-                                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                    >
-                                      End date
-                                    </th>
-                                    <th
-                                      scope="col"
-                                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                    >
-                                      Rate
-                                    </th>
-                                    <th
-                                      scope="col"
-                                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                    >
-                                      Goal
-                                    </th>
-                                    <th
-                                      scope="col"
-                                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                    >
-                                      Budget
-                                    </th>
-                                  </tr>
-                                </thead>
-                                <tbody className="bg-gray-50 divide-y divide-gray-200">
-                                  <>
-                                    {thisCampaign.video_campaign ? (
-                                      <tr key={thisCampaign.video_goal}>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                          Video
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.video_revType}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.video_startDate}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.video_endDate}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.video_unitRate}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.video_goal}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.video_budget}
-                                        </td>
-                                      </tr>
-                                    ) : null}
-                                    {thisCampaign.display_campaign ? (
-                                      <tr key={thisCampaign.display_goal}>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                          Display
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.display_revType}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.display_startDate}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.display_endDate}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.display_unitRate}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.display_goal}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.display_budget}
-                                        </td>
-                                      </tr>
-                                    ) : null}
-                                    {thisCampaign.native_campaign ? (
-                                      <tr key={thisCampaign.native_goal}>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                          Native
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.native_revType}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.native_startDate}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.native_endDate}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.native_unitRate}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.native_goal}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.native_budget}
-                                        </td>
-                                      </tr>
-                                    ) : null}
-                                    {thisCampaign.search_campaign ? (
-                                      <tr key={thisCampaign.search_goal}>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                          Search
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.search_revType}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.search_startDate}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.search_endDate}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.search_unitRate}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.search_goal}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.search_budget}
-                                        </td>
-                                      </tr>
-                                    ) : null}
-                                    {thisCampaign.social_campaign ? (
-                                      <tr key={thisCampaign.social_goal}>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                          Social
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.social_revType}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.social_startDate}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.social_endDate}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.social_unitRate}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.social_goal}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.social_budget}
-                                        </td>
-                                      </tr>
-                                    ) : null}
-                                    {thisCampaign.highImpact_campaign ? (
-                                      <tr key={thisCampaign.highImpact_goal}>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                          High impact
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.highImpact_revType}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.highImpact_startDate}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.highImpact_endDate}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.highImpact_unitRate}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.highImpact_goal}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.highImpact_budget}
-                                        </td>
-                                      </tr>
-                                    ) : null}
-                                    {thisCampaign.richMedia_campaign ? (
-                                      <tr key={thisCampaign.richMedia_goal}>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                          Rich media
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.nativrichMedia_revType}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.richMedia_startDate}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.richMedia_endDate}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.richMedia_unitRate}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.richMedia_goal}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.richMedia_budget}
-                                        </td>
-                                      </tr>
-                                    ) : null}
-                                    {thisCampaign.pop_campaign ? (
-                                      <tr key={thisCampaign.pop_goal}>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                          Pop
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.pop_revType}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.pop_startDate}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.pop_endDate}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.pop_unitRate}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.pop_goal}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.pop_budget}
-                                        </td>
-                                      </tr>
-                                    ) : null}
-                                    {thisCampaign.push_campaign ? (
-                                      <tr key={thisCampaign.push_goal}>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                          Push
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.push_revType}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.push_startDate}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.push_endDate}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.push_unitRate}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.push_goal}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {thisCampaign.push_budget}
-                                        </td>
-                                      </tr>
-                                    ) : null}
-                                  </>
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col">
+                <div className="-my-2 overflow-x-scroll sm:-mx-6 lg:-mx-8">
+                  <div className="py-2 align-middle inline-block overflow-scroll	 sm:px-6 lg:px-8">
+                    <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                      <table className="overflow-scroll	 divide-y divide-gray-200">
+                        <thead className="bg-gray-200">
+                          <tr>
+                            <th
+                              scope="col"
+                              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            >
+                              Name
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            >
+                              Revenue type
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            >
+                              Start date
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            >
+                              End date
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            >
+                              Rate
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            >
+                              Goal
+                            </th>
+                            <th
+                              scope="col"
+                              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            >
+                              Budget
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody className="bg-gray-50 divide-y divide-gray-200">
+                          <>
+                            {thisCampaign.video_campaign ? (
+                              <tr key={thisCampaign.video_goal}>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                  Video
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.video_revType}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.video_startDate}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.video_endDate}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.video_unitRate}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.video_goal}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.video_budget}
+                                </td>
+                              </tr>
+                            ) : null}
+                            {thisCampaign.display_campaign ? (
+                              <tr key={thisCampaign.display_goal}>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                  Display
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.display_revType}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.display_startDate}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.display_endDate}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.display_unitRate}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.display_goal}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.display_budget}
+                                </td>
+                              </tr>
+                            ) : null}
+                            {thisCampaign.native_campaign ? (
+                              <tr key={thisCampaign.native_goal}>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                  Native
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.native_revType}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.native_startDate}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.native_endDate}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.native_unitRate}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.native_goal}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.native_budget}
+                                </td>
+                              </tr>
+                            ) : null}
+                            {thisCampaign.search_campaign ? (
+                              <tr key={thisCampaign.search_goal}>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                  Search
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.search_revType}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.search_startDate}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.search_endDate}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.search_unitRate}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.search_goal}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.search_budget}
+                                </td>
+                              </tr>
+                            ) : null}
+                            {thisCampaign.social_campaign ? (
+                              <tr key={thisCampaign.social_goal}>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                  Social
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.social_revType}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.social_startDate}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.social_endDate}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.social_unitRate}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.social_goal}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.social_budget}
+                                </td>
+                              </tr>
+                            ) : null}
+                            {thisCampaign.highImpact_campaign ? (
+                              <tr key={thisCampaign.highImpact_goal}>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                  High impact
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.highImpact_revType}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.highImpact_startDate}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.highImpact_endDate}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.highImpact_unitRate}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.highImpact_goal}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.highImpact_budget}
+                                </td>
+                              </tr>
+                            ) : null}
+                            {thisCampaign.richMedia_campaign ? (
+                              <tr key={thisCampaign.richMedia_goal}>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                  Rich media
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.nativrichMedia_revType}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.richMedia_startDate}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.richMedia_endDate}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.richMedia_unitRate}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.richMedia_goal}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.richMedia_budget}
+                                </td>
+                              </tr>
+                            ) : null}
+                            {thisCampaign.pop_campaign ? (
+                              <tr key={thisCampaign.pop_goal}>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                  Pop
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.pop_revType}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.pop_startDate}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.pop_endDate}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.pop_unitRate}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.pop_goal}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.pop_budget}
+                                </td>
+                              </tr>
+                            ) : null}
+                            {thisCampaign.push_campaign ? (
+                              <tr key={thisCampaign.push_goal}>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                  Push
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.push_revType}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.push_startDate}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.push_endDate}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.push_unitRate}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.push_goal}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {thisCampaign.push_budget}
+                                </td>
+                              </tr>
+                            ) : null}
+                          </>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>

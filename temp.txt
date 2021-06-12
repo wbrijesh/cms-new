@@ -1,0 +1,182 @@
+{
+  /*  */
+}
+<div className="bg-gray-50 border border-gray-200 overflow-hidden sm:rounded-lg mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+  {/* VIDEO_CAMPAIGN */}
+  <form className="sm:col-span-3 px-4 sm:px-6 sm:pt-6">
+    <h1 className="text-md font-medium text-gray-700 mb-4">Video Campaign</h1>
+    <div classNames="a">
+      <label className="block text-sm font-medium text-gray-700">
+        Video campaign
+      </label>
+      <div className="mt-1 flex">
+        <input
+          type="text"
+          name="name"
+          id="name"
+          onChange={formik.handleChange}
+          placeholder={thisCampaign.video_campaign}
+          className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+        />
+        <button
+          onClick={(event) => asyncSubmit("video_campaign")}
+          className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
+
+  {/* VIDEO_STARTDATE */}
+  <form className="sm:col-span-3 px-4 sm:px-6 sm:pt-6 mt-10">
+    <div classNames="a">
+      <label className="block text-sm font-medium text-gray-700">
+        Video start date
+      </label>
+      <div className="mt-1 flex">
+        <input
+          type="text"
+          name="name"
+          id="name"
+          onChange={formik.handleChange}
+          placeholder={thisCampaign.video_startDate}
+          className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+        />
+        <button
+          onClick={(event) => asyncSubmit("video_startDate")}
+          className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
+
+  {/* VIDEO_ENDDATE */}
+  <form className="sm:col-span-3 px-4 sm:px-6">
+    <div classNames="a">
+      <label className="block text-sm font-medium text-gray-700">
+        Video end date
+      </label>
+      <div className="mt-1 flex">
+        <input
+          type="text"
+          name="name"
+          id="name"
+          onChange={formik.handleChange}
+          placeholder={thisCampaign.video_endDate}
+          className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+        />
+        <button
+          onClick={(event) => asyncSubmit("video_endDate")}
+          className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
+
+  {/* VIDEO_UNITRATE */}
+  <form className="sm:col-span-3 px-4 sm:px-6">
+    <div classNames="a">
+      <label className="block text-sm font-medium text-gray-700">
+        Video unit rate
+      </label>
+      <div className="mt-1 flex">
+        <input
+          type="text"
+          name="name"
+          id="name"
+          onChange={formik.handleChange}
+          placeholder={thisCampaign.video_unitRate}
+          className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+        />
+        <button
+          onClick={(event) => asyncSubmit("video_unitRate")}
+          className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
+
+  {/* VIDEO_GOAL */}
+  <form className="sm:col-span-3 px-4 sm:px-6">
+    <div classNames="a">
+      <label className="block text-sm font-medium text-gray-700">
+        Video goal
+      </label>
+      <div className="mt-1 flex">
+        <input
+          type="text"
+          name="name"
+          id="name"
+          onChange={formik.handleChange}
+          placeholder={thisCampaign.video_goal}
+          className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+        />
+        <button
+          onClick={(event) => asyncSubmit("video_goal")}
+          className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
+
+  {/* VIDEO_BUDGET */}
+  <form className="sm:col-span-3 px-4 sm:px-6">
+    <div classNames="a">
+      <label className="block text-sm font-medium text-gray-700">
+        Video budget
+      </label>
+      <div className="mt-1 flex">
+        <input
+          type="text"
+          name="name"
+          id="name"
+          onChange={formik.handleChange}
+          placeholder={thisCampaign.video_budget}
+          className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+        />
+        <button
+          onClick={(event) => asyncSubmit("video_budget")}
+          className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
+
+  {/* VIDEO_REVTYPE */}
+  <form className="sm:col-span-3 px-4 sm:px-6 sm:pb-6 ">
+    <div classNames="a">
+      <label className="block text-sm font-medium text-gray-700">
+        Video rev type
+      </label>
+      <div className="mt-1 flex">
+        <input
+          type="text"
+          name="name"
+          id="name"
+          onChange={formik.handleChange}
+          placeholder={thisCampaign.video_revType}
+          className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+        />
+        <button
+          onClick={(event) => asyncSubmit("video_revType")}
+          className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
+
+  {/* END */}
+</div>;
