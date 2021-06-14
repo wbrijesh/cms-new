@@ -109,7 +109,7 @@ export default function Content({ setNavigation, setSidebarOpen }) {
       submissionObject.billing_entity = values.billing_entity;
     }
     await DataStore.save(new Client(submissionObject));
-    window.location.reload();
+    // window.location.reload();
     router.push("/clients");
   }
   return (

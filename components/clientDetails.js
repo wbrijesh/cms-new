@@ -416,8 +416,8 @@ export default function Content({ setNavigation, setSidebarOpen, thisClient }) {
               <div className="mt-2 sm:flex sm:items-start sm:justify-between">
                 <div className="max-w-xl text-sm text-gray-500">
                   <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Recusandae voluptatibus corrupti atque repudiandae nam.
+                    All of your data and associated campaigns will be
+                    permanently removed. This action cannot be undone.
                   </p>
                 </div>
                 <div className="mt-5 sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:flex sm:items-center">
