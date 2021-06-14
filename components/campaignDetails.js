@@ -160,7 +160,6 @@ export default function Content({
   if (thisCampaign.push_campaign == true) {
     campaignTypesObject.push("Push campaign");
   }
-
   const cancelButtonRef = useRef(null);
   setNavigation(navigation);
 
@@ -192,7 +191,7 @@ export default function Content({
                   <Dialog.Overlay className="fixed inset-0 bg-red-50 bg-opacity-60 transition-opacity" />
                 </Transition.Child>
 
-                {/* This element is to trick the browser into centering the modal contents. */}
+                {/* This element is to trick the browser into centering the moda l contents. */}
                 <span
                   className="hidden sm:inline-block sm:align-middle sm:h-screen"
                   aria-hidden="true"
