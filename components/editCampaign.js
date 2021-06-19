@@ -201,7 +201,7 @@ export default function Content({
                   <ArrowCircleLeftIcon className="h-8 w-8" aria-hidden="true" />
                 </a>
                 <h1 className="text-3xl font-semibold text-gray-900">
-                  Edit campaign (formik version)
+                  Edit campaign
                 </h1>
               </div>
               <div className="space-y-8 divide-y divide-gray-200">
@@ -464,7 +464,7 @@ export default function Content({
                   {/* VIDEO */}
                   <div className="bg-gray-50 border border-gray-200 overflow-hidden sm:rounded-lg mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                     {/* VIDEO_CAMPAIGN */}
-                    <form className="sm:col-span-3 px-4 sm:px-6 sm:pt-6">
+                    <form className="sm:col-span-3 px-4 sm:px-6 sm:pt-3">
                       <h1 className="text-md font-medium text-gray-700 mb-4">
                         Video Campaign
                       </h1>
@@ -493,7 +493,7 @@ export default function Content({
                           Inactive
                           <button
                             onClick={(event) => asyncSubmit("video_campaign")}
-                            className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            className="ml-3 -mt-2 mb-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                           >
                             Save
                           </button>
@@ -674,7 +674,7 @@ export default function Content({
                         </form>
                       </>
                     ) : (
-                      <p>hidden</p>
+                      <></>
                     )}
 
                     {/* END */}
@@ -682,7 +682,7 @@ export default function Content({
                   {/* DISPLAY */}
                   <div className="bg-gray-50 border border-gray-200 overflow-hidden sm:rounded-lg mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                     {/* DISPLAY_CAMPAIGN */}
-                    <form className="sm:col-span-3 px-4 sm:px-6 sm:pt-6">
+                    <form className="sm:col-span-3 px-4 sm:px-6 sm:pt-3">
                       <h1 className="text-md font-medium text-gray-700 mb-4">
                         Display Campaign
                       </h1>
@@ -711,7 +711,7 @@ export default function Content({
                           Inactive
                           <button
                             onClick={(event) => asyncSubmit("display_campaign")}
-                            className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            className="ml-3 -mt-2 mb-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                           >
                             Save
                           </button>
@@ -892,7 +892,7 @@ export default function Content({
                         </form>
                       </>
                     ) : (
-                      <p>hidden</p>
+                      <></>
                     )}
 
                     {/* END */}
@@ -900,8 +900,8 @@ export default function Content({
                   {/* NATIVE */}
                   <div className="bg-gray-50 border border-gray-200 overflow-hidden sm:rounded-lg mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                     {/* NATIVE_CAMPAIGN */}
-                    <form className="sm:col-span-3 px-4 sm:px-6 sm:pt-6">
-                      <h1 className="text-md font-medium text-gray-700 mb-4">
+                    <form className="sm:col-span-3 px-4 sm:px-6 sm:pt-3">
+                      <h1 className="text-md font-medium text-gray-700 mb-3">
                         Native Campaign
                       </h1>
                       <div classNames="a">
@@ -929,7 +929,7 @@ export default function Content({
                           Inactive
                           <button
                             onClick={(event) => asyncSubmit("native_campaign")}
-                            className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            className="ml-3 -mt-2 mb-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                           >
                             Save
                           </button>
@@ -1112,7 +1112,7 @@ export default function Content({
                         </form>
                       </>
                     ) : (
-                      <p>hidden</p>
+                      <></>
                     )}
 
                     {/* END */}
@@ -1120,7 +1120,7 @@ export default function Content({
                   {/* SEARCH */}
                   <div className="bg-gray-50 border border-gray-200 overflow-hidden sm:rounded-lg mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                     {/* SEARCH_CAMPAIGN */}
-                    <form className="sm:col-span-3 px-4 sm:px-6 sm:pt-6">
+                    <form className="sm:col-span-3 px-4 sm:px-6 sm:pt-3">
                       <h1 className="text-md font-medium text-gray-700 mb-4">
                         Search Campaign
                       </h1>
@@ -1149,7 +1149,7 @@ export default function Content({
                           Inactive
                           <button
                             onClick={(event) => asyncSubmit("search_campaign")}
-                            className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            className="ml-3 -mt-2 mb-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                           >
                             Save
                           </button>
@@ -1332,7 +1332,7 @@ export default function Content({
                         </form>
                       </>
                     ) : (
-                      <p>hidden</p>
+                      <></>
                     )}
 
                     {/* END */}
@@ -1340,7 +1340,7 @@ export default function Content({
                   {/* SOCIAL */}
                   <div className="bg-gray-50 border border-gray-200 overflow-hidden sm:rounded-lg mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                     {/* SOCIAL_CAMPAIGN */}
-                    <form className="sm:col-span-3 px-4 sm:px-6 sm:pt-6">
+                    <form className="sm:col-span-3 px-4 sm:px-6 sm:pt-3">
                       <h1 className="text-md font-medium text-gray-700 mb-4">
                         Social Campaign
                       </h1>
@@ -1369,7 +1369,7 @@ export default function Content({
                           Inactive
                           <button
                             onClick={(event) => asyncSubmit("social_campaign")}
-                            className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            className="ml-3 -mt-2 mb-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                           >
                             Save
                           </button>
@@ -1552,7 +1552,7 @@ export default function Content({
                         </form>
                       </>
                     ) : (
-                      <p>hidden</p>
+                      <></>
                     )}
 
                     {/* END */}
@@ -1560,7 +1560,7 @@ export default function Content({
                   {/* HIGHIMPACT */}
                   <div className="bg-gray-50 border border-gray-200 overflow-hidden sm:rounded-lg mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                     {/* HIGHIMPACT_CAMPAIGN */}
-                    <form className="sm:col-span-3 px-4 sm:px-6 sm:pt-6">
+                    <form className="sm:col-span-3 px-4 sm:px-6 sm:pt-3">
                       <h1 className="text-md font-medium text-gray-700 mb-4">
                         HighImpact Campaign
                       </h1>
@@ -1591,7 +1591,7 @@ export default function Content({
                             onClick={(event) =>
                               asyncSubmit("highImpact_campaign")
                             }
-                            className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            className="ml-3 -mt-2 mb-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                           >
                             Save
                           </button>
@@ -1776,7 +1776,7 @@ export default function Content({
                         </form>
                       </>
                     ) : (
-                      <p>hidden</p>
+                      <></>
                     )}
 
                     {/* END */}
@@ -1784,7 +1784,7 @@ export default function Content({
                   {/* RICHMEDIA */}
                   <div className="bg-gray-50 border border-gray-200 overflow-hidden sm:rounded-lg mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                     {/* RICHMEDIA_CAMPAIGN */}
-                    <form className="sm:col-span-3 px-4 sm:px-6 sm:pt-6">
+                    <form className="sm:col-span-3 px-4 sm:px-6 sm:pt-3">
                       <h1 className="text-md font-medium text-gray-700 mb-4">
                         RichMedia Campaign
                       </h1>
@@ -1815,7 +1815,7 @@ export default function Content({
                             onClick={(event) =>
                               asyncSubmit("richMedia_campaign")
                             }
-                            className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            className="ml-3 -mt-2 mb-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                           >
                             Save
                           </button>
@@ -1998,7 +1998,7 @@ export default function Content({
                         </form>
                       </>
                     ) : (
-                      <p>hidden</p>
+                      <></>
                     )}
 
                     {/* END */}
@@ -2006,7 +2006,7 @@ export default function Content({
                   {/* POP */}
                   <div className="bg-gray-50 border border-gray-200 overflow-hidden sm:rounded-lg mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                     {/* POP_CAMPAIGN */}
-                    <form className="sm:col-span-3 px-4 sm:px-6 sm:pt-6">
+                    <form className="sm:col-span-3 px-4 sm:px-6 sm:pt-3">
                       <h1 className="text-md font-medium text-gray-700 mb-4">
                         Pop Campaign
                       </h1>
@@ -2035,7 +2035,7 @@ export default function Content({
                           Inactive
                           <button
                             onClick={(event) => asyncSubmit("pop_campaign")}
-                            className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            className="ml-3 -mt-2 mb-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                           >
                             Save
                           </button>
@@ -2210,7 +2210,7 @@ export default function Content({
                         </form>
                       </>
                     ) : (
-                      <p>hidden</p>
+                      <></>
                     )}
 
                     {/* END */}
@@ -2218,7 +2218,7 @@ export default function Content({
                   {/* PUSH */}
                   <div className="bg-gray-50 border border-gray-200 overflow-hidden sm:rounded-lg mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                     {/* PUSH_CAMPAIGN */}
-                    <form className="sm:col-span-3 px-4 sm:px-6 sm:pt-6">
+                    <form className="sm:col-span-3 px-4 sm:px-6 sm:pt-3">
                       <h1 className="text-md font-medium text-gray-700 mb-4">
                         Push Campaign
                       </h1>
@@ -2247,7 +2247,7 @@ export default function Content({
                           Inactive
                           <button
                             onClick={(event) => asyncSubmit("push_campaign")}
-                            className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            className="ml-3 -mt-2 mb-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                           >
                             Save
                           </button>
@@ -2424,7 +2424,7 @@ export default function Content({
                         </form>
                       </>
                     ) : (
-                      <p>hidden</p>
+                      <></>
                     )}
 
                     {/* END */}

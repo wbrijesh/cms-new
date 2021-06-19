@@ -28,5 +28,11 @@
       }
     }
   },
-  "hosting": {}
+  "hosting": {},
+  "storage": {
+    "campaignManagementSystem": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation"
+    }
+  }
 }

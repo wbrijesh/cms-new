@@ -2,6 +2,8 @@ import { useState, useEffect, Fragment, useRef } from "react";
 import { DataStore } from "@aws-amplify/datastore";
 import { Campaign } from "../models";
 import { useRouter } from "next/router";
+import { Storage } from "aws-amplify";
+import Link from "next/link";
 
 import {
   BriefcaseIcon,
@@ -160,6 +162,19 @@ export default function Content({
   if (thisCampaign.push_campaign == true) {
     campaignTypesObject.push("Push campaign");
   }
+
+  const [boURL, setBoURL] = useState(null);
+
+  const getBO = async () => {
+    if (thisCampaign.BO_file !== undefined) {
+      console.log("BO: ", thisCampaign.BO_file);
+      let downloadLink = await Storage.get(thisCampaign.BO_file);
+      setBoURL(downloadLink);
+      console.log(boURL);
+    }
+  };
+  getBO();
+
   const cancelButtonRef = useRef(null);
   setNavigation(navigation);
 
@@ -389,6 +404,31 @@ export default function Content({
                             </dd>
                           </div>
                         </dl>
+
+                        <dl className="divide-y divide-gray-200">
+                          <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
+                            <dt className="text-sm font-medium text-gray-500">
+                              BO File
+                            </dt>
+                            {boURL && (
+                              <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                {thisCampaign.BO_file ? (
+                                  <a
+                                    className="text-blue-500 underline"
+                                    href={boURL}
+                                  >
+                                    download file
+                                  </a>
+                                ) : (
+                                  <p className="text-red-500">
+                                    This campaign doesnt yet have BO
+                                  </p>
+                                )}
+                              </dd>
+                            )}
+                          </div>
+                        </dl>
+
                         <dl className="divide-y divide-gray-200">
                           <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
                             <dt className="text-sm font-medium text-gray-500">

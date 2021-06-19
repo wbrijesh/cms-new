@@ -121,7 +121,7 @@ export default function Content({ setNavigation, setSidebarOpen, thisClient }) {
                   <ArrowCircleLeftIcon className="h-8 w-8" aria-hidden="true" />
                 </a>
                 <h1 className="text-3xl font-semibold text-gray-900">
-                  Edit client (formik version)
+                  Edit client
                 </h1>
               </div>
               <div className="space-y-8 divide-y divide-gray-200">

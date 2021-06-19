@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { DataStore } from "@aws-amplify/datastore";
+import { Storage } from "aws-amplify";
 import { Campaign } from "../models";
 import { Form, Field } from "react-final-form";
 import { useRouter } from "next/router";
+import Dropzone from "./Dropzone";
+import { v4 as uuid } from "uuid";
+// import Dropzone from "react-dropzone";
 import {
   BriefcaseIcon,
   HomeIcon,
@@ -274,6 +278,12 @@ export default function Content({ setNavigation, setSidebarOpen }) {
     if (values.push_revType !== undefined) {
       submissionObject.push_revType = values.push_revType;
     }
+    if (values.BO_file !== undefined) {
+      console.log(values.BO_file[0]);
+      const fileName = `${uuid()}_${values.BO_file[0].name}`;
+      submissionObject.BO_file = fileName;
+      await Storage.put(fileName, values.BO_file[0]);
+    }
 
     console.log("submissionObject: ", submissionObject);
 
@@ -483,6 +493,51 @@ export default function Content({ setNavigation, setSidebarOpen }) {
                             </Field>
                           </div>
 
+                          {/* BO_UPLOAD */}
+                          <div className="sm:col-span-3">
+                            <label
+                              htmlFor="cover_photo"
+                              className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                            >
+                              BO File
+                            </label>
+                            <div className="mt-1 sm:mt-0 sm:col-span-2">
+                              <div className="max-w-lg flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                <div className="space-y-1 text-center">
+                                  <svg
+                                    className="mx-auto h-12 w-12 text-gray-400"
+                                    stroke="currentColor"
+                                    fill="none"
+                                    viewBox="0 0 48 48"
+                                    aria-hidden="true"
+                                  >
+                                    <path
+                                      d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                                      strokeWidth={2}
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                    />
+                                  </svg>
+                                  <div className="flex text-sm text-gray-600">
+                                    <label
+                                      htmlFor="file-upload"
+                                      className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                                    >
+                                      {/* <span>Upload a file</span> */}
+                                      <Field
+                                        name="BO_file"
+                                        component={Dropzone}
+                                      />
+                                    </label>
+                                  </div>
+                                  <p className="text-xs text-gray-500">
+                                    PDF XLS or DOC
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
                           {/* STATUS */}
                           <div className="sm:col-span-3">
                             <label className="block text-sm font-medium text-gray-700">
@@ -502,8 +557,6 @@ export default function Content({ setNavigation, setSidebarOpen }) {
                               )}
                             </Field>
                           </div>
-
-                          <br />
 
                           {/* VIDEO_CAMPAIGN */}
                           <div className="sm:col-span-3">

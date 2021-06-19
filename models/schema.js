@@ -597,6 +597,13 @@ export const schema = {
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
+                },
+                "BO_file": {
+                    "name": "BO_file",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -888,5 +895,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "635c4863466bfaae5480dea73fa12300"
+    "version": "a7a10d5bdc85ab694ca1241fa01cf283"
 };

@@ -11,6 +11,7 @@ function Home() {
   const [thisCampaign, setThisCampaign] = useState([]);
   const [clientList, setClientList] = useState([]);
   const [clientName, setClientName] = useState([]);
+  const [BO_file, setBO_file] = useState(null);
 
   const router = useRouter();
   const { id } = router.query;
