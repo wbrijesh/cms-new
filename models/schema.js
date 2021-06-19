@@ -604,6 +604,21 @@ export const schema = {
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
+                },
+                "clientName": {
+                    "name": "clientName",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "platforms": {
+                    "name": "platforms",
+                    "isArray": true,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
                 }
             },
             "syncable": true,
@@ -895,5 +910,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "a7a10d5bdc85ab694ca1241fa01cf283"
+    "version": "845a7fb4b0d9014d54d74bb023e90250"
 };

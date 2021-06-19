@@ -1,5 +1,5 @@
 import { DataStore } from "@aws-amplify/datastore";
-import { Campaign } from "../../models";
+import { Campaign, Client } from "../../models";
 import { useState, useEffect, useRef } from "react";
 import { Storage } from "aws-amplify";
 import Navbar from "../../components/navbar";
@@ -9,6 +9,8 @@ export default function Homepage() {
   const [navigation, setNavigation] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [campaignList, setCampaignList] = useState([]);
+  const [clientList, setClientList] = useState(null);
+
   // const [boFile, setBoFile] = useState(null);
   // const hiddenFileInput = useRef(null);
 
@@ -16,27 +18,32 @@ export default function Homepage() {
     async function getCampaignList() {
       const models = await DataStore.query(Campaign);
       setCampaignList(models);
-      console.log("CAMPAIGNS LIST: ", campaignList);
+      const models2 = await DataStore.query(Client);
+      setClientList(models2);
     }
     getCampaignList();
   }, []);
 
   return (
     <>
-      {campaignList && (
-        <div className="h-screen bg-white overflow-hidden flex">
-          <Navbar
-            navigation={navigation}
-            sidebarOpen={sidebarOpen}
-            setSidebarOpen={setSidebarOpen}
-          />
-          <NewCampaign
-            setNavigation={setNavigation}
-            setSidebarOpen={setSidebarOpen}
-            campaignList={campaignList}
-          />
-        </div>
-      )}
+      {
+        (campaignList,
+        clientList && (
+          <div className="h-screen bg-white overflow-hidden flex">
+            <Navbar
+              navigation={navigation}
+              sidebarOpen={sidebarOpen}
+              setSidebarOpen={setSidebarOpen}
+            />
+            <NewCampaign
+              setNavigation={setNavigation}
+              setSidebarOpen={setSidebarOpen}
+              campaignList={campaignList}
+              clientList={clientList}
+            />
+          </div>
+        ))
+      }
     </>
   );
 }

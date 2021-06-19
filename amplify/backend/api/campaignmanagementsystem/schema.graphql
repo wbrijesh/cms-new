@@ -85,6 +85,8 @@ type Campaign @model @key(name: "byClient", fields: ["clientID"]) @auth(rules: [
   push_budget: Float
   push_revType: String
   BO_file: String
+  clientName: String
+  platforms: [String]
 }
 
 type Client @model @auth(rules: [{allow: groups, groups: ["admin"], operations: [read, create, update, delete]}, {allow: groups, groups: ["adops"], operations: [read, create, update, delete]}, {allow: groups, groups: ["sales"], operations: [read, update]}]) {

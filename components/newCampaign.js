@@ -1,10 +1,12 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { DataStore } from "@aws-amplify/datastore";
 import { Storage } from "aws-amplify";
-import { Campaign } from "../models";
+import { Campaign, Client } from "../models";
 import { Form, Field } from "react-final-form";
+import { FormSpy } from "react-final-form";
 import { useRouter } from "next/router";
 import Dropzone from "./Dropzone";
+import Select from "react-select";
 import { v4 as uuid } from "uuid";
 // import Dropzone from "react-dropzone";
 import {
@@ -51,7 +53,13 @@ const composeValidators =
 
 console.log("Set date created to:", new Date().toISOString().slice(0, 10));
 
-export default function Content({ setNavigation, setSidebarOpen }) {
+const Condition = ({ when, is, children }) => (
+  <Field name={when} subscription={{ value: true }}>
+    {({ input: { value } }) => (value === is ? children : null)}
+  </Field>
+);
+
+export default function Content({ setNavigation, setSidebarOpen, clientList }) {
   setNavigation(navigation);
   const router = useRouter();
 
@@ -278,6 +286,12 @@ export default function Content({ setNavigation, setSidebarOpen }) {
     if (values.push_revType !== undefined) {
       submissionObject.push_revType = values.push_revType;
     }
+    if (values.clientName !== undefined) {
+      submissionObject.clientName = values.clientName;
+    }
+    if (values.platforms !== undefined) {
+      submissionObject.platforms = values.platforms;
+    }
     if (values.BO_file !== undefined) {
       console.log(values.BO_file[0]);
       const fileName = `${uuid()}_${values.BO_file[0].name}`;
@@ -291,6 +305,29 @@ export default function Content({ setNavigation, setSidebarOpen }) {
     // window.location.reload();
     router.push("/campaigns");
   }
+
+  console.log(clientList);
+
+  const platformOptionsObject = [
+    { value: "Target", label: "Target" },
+    { value: "DV360", label: "DV360" },
+    { value: "Google Search", label: "Google Search" },
+    { value: "Google Display", label: "Google Display" },
+    { value: "Taboola", label: "Taboola" },
+    { value: "Facebook", label: "Facebook" },
+    { value: "Twitter", label: "Twitter" },
+    { value: "LinkedIn", label: "LinkedIn" },
+    { value: "Voluum", label: "Voluum" },
+    { value: "PM_BDV", label: "PM_BDV" },
+    { value: "PM_ZP", label: "PM_ZP" },
+    { value: "PM_T2", label: "PM_T2" },
+    { value: "Other", label: "Other" },
+  ];
+
+  const ReactSelectAdapter = ({ input, ...rest }) => (
+    <Select {...input} {...rest} />
+  );
+
   return (
     <>
       <div className="flex-1 flex flex-col">
@@ -337,6 +374,26 @@ export default function Content({ setNavigation, setSidebarOpen }) {
                         </div>
 
                         <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                          {/* REFERENCE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Reference
+                            </label>
+                            <Field name="reference">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="text"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
+
                           {/* NAME */}
                           <div className="sm:col-span-3">
                             <label className="block text-sm font-medium text-gray-700">
@@ -354,6 +411,24 @@ export default function Content({ setNavigation, setSidebarOpen }) {
                                   </div>
                                 </>
                               )}
+                            </Field>
+                          </div>
+
+                          {/* CLIENT */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Client
+                            </label>
+
+                            <Field
+                              name="clientName"
+                              component="select"
+                              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                            >
+                              <option />
+                              {clientList.map((client) => (
+                                <option>{client.name}</option>
+                              ))}
                             </Field>
                           </div>
 
@@ -379,171 +454,6 @@ export default function Content({ setNavigation, setSidebarOpen }) {
                               Contact person
                             </label>
                             <Field name="contact_person">
-                              {({ input, meta }) => (
-                                <>
-                                  <div className="mt-1">
-                                    <input
-                                      type="text"
-                                      {...input}
-                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                    />
-                                  </div>
-                                </>
-                              )}
-                            </Field>
-                          </div>
-
-                          {/* ADD_COMM_TYPE */}
-                          <div className="sm:col-span-3">
-                            <label className="block text-sm font-medium text-gray-700">
-                              Add comm type
-                            </label>
-                            <Field name="add_comm_type">
-                              {({ input, meta }) => (
-                                <>
-                                  <div className="mt-1">
-                                    <input
-                                      type="text"
-                                      {...input}
-                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                    />
-                                  </div>
-                                </>
-                              )}
-                            </Field>
-                          </div>
-
-                          {/* ADD_COMM_VALUE */}
-                          <div className="sm:col-span-3">
-                            <label className="block text-sm font-medium text-gray-700">
-                              Add comm value
-                            </label>
-                            <Field name="add_comm_value">
-                              {({ input, meta }) => (
-                                <>
-                                  <div className="mt-1">
-                                    <input
-                                      type="text"
-                                      {...input}
-                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                    />
-                                  </div>
-                                </>
-                              )}
-                            </Field>
-                          </div>
-
-                          {/* REFERENCE */}
-                          <div className="sm:col-span-3">
-                            <label className="block text-sm font-medium text-gray-700">
-                              Reference
-                            </label>
-                            <Field name="reference">
-                              {({ input, meta }) => (
-                                <>
-                                  <div className="mt-1">
-                                    <input
-                                      type="text"
-                                      {...input}
-                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                    />
-                                  </div>
-                                </>
-                              )}
-                            </Field>
-                          </div>
-
-                          {/* INSTRUCTIONS */}
-                          <div className="sm:col-span-3">
-                            <label className="block text-sm font-medium text-gray-700">
-                              Instructions
-                            </label>
-                            <Field name="instructions">
-                              {({ input, meta }) => (
-                                <>
-                                  <div className="mt-1">
-                                    <input
-                                      type="text"
-                                      {...input}
-                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                    />
-                                  </div>
-                                </>
-                              )}
-                            </Field>
-                          </div>
-
-                          {/* DELIVERY_COMMENTS */}
-                          <div className="sm:col-span-3">
-                            <label className="block text-sm font-medium text-gray-700">
-                              Delivery comments
-                            </label>
-                            <Field name="delivery_comments">
-                              {({ input, meta }) => (
-                                <>
-                                  <div className="mt-1">
-                                    <input
-                                      type="text"
-                                      {...input}
-                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                    />
-                                  </div>
-                                </>
-                              )}
-                            </Field>
-                          </div>
-
-                          {/* BO_UPLOAD */}
-                          <div className="sm:col-span-3">
-                            <label
-                              htmlFor="cover_photo"
-                              className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
-                            >
-                              BO File
-                            </label>
-                            <div className="mt-1 sm:mt-0 sm:col-span-2">
-                              <div className="max-w-lg flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                                <div className="space-y-1 text-center">
-                                  <svg
-                                    className="mx-auto h-12 w-12 text-gray-400"
-                                    stroke="currentColor"
-                                    fill="none"
-                                    viewBox="0 0 48 48"
-                                    aria-hidden="true"
-                                  >
-                                    <path
-                                      d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                                      strokeWidth={2}
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    />
-                                  </svg>
-                                  <div className="flex text-sm text-gray-600">
-                                    <label
-                                      htmlFor="file-upload"
-                                      className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
-                                    >
-                                      {/* <span>Upload a file</span> */}
-                                      <Field
-                                        name="BO_file"
-                                        component={Dropzone}
-                                      />
-                                    </label>
-                                  </div>
-                                  <p className="text-xs text-gray-500">
-                                    PDF XLS or DOC
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* STATUS */}
-                          <div className="sm:col-span-3">
-                            <label className="block text-sm font-medium text-gray-700">
-                              Status
-                            </label>
-                            <Field name="status">
                               {({ input, meta }) => (
                                 <>
                                   <div className="mt-1">
@@ -738,1198 +648,1369 @@ export default function Content({ setNavigation, setSidebarOpen }) {
                             </Field>
                           </div>
 
+                          {/* PLATFORMS */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Platforms
+                            </label>
+                            <Field
+                              name="platforms"
+                              component={ReactSelectAdapter}
+                              isMulti
+                              options={platformOptionsObject}
+                            />
+                          </div>
+
+                          {/* ADD_COMM_TYPE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Add comm type
+                            </label>
+                            <Field
+                              name="add_comm_type"
+                              component="select"
+                              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                            >
+                              <option />
+                              <option>Revenue</option>
+                              <option>Cost</option>
+                            </Field>
+                          </div>
+
+                          {/* ADD_COMM_VALUE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Add comm value
+                            </label>
+                            <Field name="add_comm_value">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="text"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
+
+                          {/* BO_UPLOAD */}
+                          <div className="sm:col-span-3">
+                            <label
+                              htmlFor="cover_photo"
+                              className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                            >
+                              BO File
+                            </label>
+                            <div className="mt-1 sm:mt-0 sm:col-span-2">
+                              <div className="max-w-lg flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                <div className="space-y-1 text-center">
+                                  <svg
+                                    className="mx-auto h-12 w-12 text-gray-400"
+                                    stroke="currentColor"
+                                    fill="none"
+                                    viewBox="0 0 48 48"
+                                    aria-hidden="true"
+                                  >
+                                    <path
+                                      d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                                      strokeWidth={2}
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                    />
+                                  </svg>
+                                  <div className="flex text-sm text-gray-600">
+                                    <label
+                                      htmlFor="file-upload"
+                                      className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                                    >
+                                      {/* <span>Upload a file</span> */}
+                                      <Field
+                                        name="BO_file"
+                                        component={Dropzone}
+                                      />
+                                    </label>
+                                  </div>
+                                  <p className="text-xs text-gray-500">
+                                    PDF XLS or DOC
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* INSTRUCTIONS */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Instructions
+                            </label>
+                            <Field name="instructions">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="text"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
+
+                          {/* DELIVERY_COMMENTS */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Delivery comments
+                            </label>
+                            <Field name="delivery_comments">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="text"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
+
+                          {/* STATUS */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Status
+                            </label>
+                            <Field
+                              name="status"
+                              component="select"
+                              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                            >
+                              <option />
+                              <option>In Progress</option>
+                              <option>Paused</option>
+                              <option>Completed Success</option>
+                              <option>Completed Part Fail</option>
+                            </Field>
+                          </div>
+
                           {/* END */}
                         </div>
                       </div>
                     </div>
-                    {/* VIDEO */}
-                    <div className="bg-gray-50 p-6 border border-gray-300">
-                      <h3 className="text-lg font-medium mb-4 text-gray-500">
-                        Video
-                      </h3>
-                      <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                        {/* VIDEO_STARTDATE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Video start date
-                          </label>
-                          <Field name="video_startDate">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="date"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
 
-                        {/* VIDEO_ENDDATE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Video end date
-                          </label>
-                          <Field name="video_endDate">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="date"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                    <Condition when="video_campaign" is={true}>
+                      {/* VIDEO */}
+                      <div className="bg-gray-50 p-6 border border-gray-300">
+                        <h3 className="text-lg font-medium mb-4 text-gray-500">
+                          Video
+                        </h3>
+                        <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                          {/* VIDEO_STARTDATE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Video start date
+                            </label>
+                            <Field name="video_startDate">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="date"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* VIDEO_UNITRATE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Video unit rate
-                          </label>
-                          <Field name="video_unitRate">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="number"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* VIDEO_ENDDATE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Video end date
+                            </label>
+                            <Field name="video_endDate">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="date"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* VIDEO_GOAL */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Video goal
-                          </label>
-                          <Field name="video_goal">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="number"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* VIDEO_UNITRATE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Video unit rate
+                            </label>
+                            <Field name="video_unitRate">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="number"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* VIDEO_BUDGET */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Video budget
-                          </label>
-                          <Field name="video_budget">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="number"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* VIDEO_GOAL */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Video goal
+                            </label>
+                            <Field name="video_goal">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="number"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* VIDEO_REVTYPE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Video rev type
-                          </label>
-                          <Field
-                            name="video_revType"
-                            component="select"
-                            className="shadow-sm mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                          >
-                            <option />
-                            <option>revenue_cpm</option>
-                            <option>revenue_cpc</option>
-                            <option>revenue_cpcv</option>
-                            <option>revenue_cpview</option>
-                            <option>revenue_cpvisit</option>
-                            <option>revenue_cpl</option>
-                            <option>revenue_cpa</option>
-                            <option>revenue_cpi</option>
-                            <option>revenue_cps</option>
-                          </Field>
-                        </div>
+                          {/* VIDEO_BUDGET */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Video budget
+                            </label>
+                            <Field name="video_budget">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="number"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* VIDEO END */}
+                          {/* VIDEO_REVTYPE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Video rev type
+                            </label>
+                            <Field
+                              name="video_revType"
+                              component="select"
+                              className="shadow-sm mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                            >
+                              <option />
+                              <option>CPM</option>
+                              <option>CPC</option>
+                              <option>CPCV</option>
+                              <option>CPVIEW</option>
+                              <option>CPVISIT</option>
+                              <option>CPL</option>
+                              <option>CPA</option>
+                              <option>CPI</option>
+                              <option>CPS</option>
+                            </Field>
+                          </div>
+
+                          {/* VIDEO END */}
+                        </div>
                       </div>
-                    </div>
-                    {/* DISPLAY */}
-                    <div className="bg-gray-50 p-6 border border-gray-300">
-                      <h3 className="text-lg font-medium mb-4 text-gray-500">
-                        Display
-                      </h3>
-                      <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                        {/* DISPLAY_STARTDATE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Display start date
-                          </label>
-                          <Field name="display_startDate">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="date"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                    </Condition>
+                    <Condition when="display_campaign" is={true}>
+                      {/* DISPLAY */}
+                      <div className="bg-gray-50 p-6 border border-gray-300">
+                        <h3 className="text-lg font-medium mb-4 text-gray-500">
+                          Display
+                        </h3>
+                        <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                          {/* DISPLAY_STARTDATE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Display start date
+                            </label>
+                            <Field name="display_startDate">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="date"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* DISPLAY_ENDDATE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Display end date
-                          </label>
-                          <Field name="display_endDate">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="date"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* DISPLAY_ENDDATE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Display end date
+                            </label>
+                            <Field name="display_endDate">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="date"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* DISPLAY_UNITRATE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Display unit rate
-                          </label>
-                          <Field name="display_unitRate">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="number"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* DISPLAY_UNITRATE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Display unit rate
+                            </label>
+                            <Field name="display_unitRate">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="number"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* DISPLAY_GOAL */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Display goal
-                          </label>
-                          <Field name="display_goal">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="number"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* DISPLAY_GOAL */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Display goal
+                            </label>
+                            <Field name="display_goal">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="number"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* DISPLAY_BUDGET */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Display budget
-                          </label>
-                          <Field name="display_budget">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="number"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* DISPLAY_BUDGET */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Display budget
+                            </label>
+                            <Field name="display_budget">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="number"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* DISPLAY_REVTYPE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Display rev type
-                          </label>
-                          <Field
-                            name="display_revType"
-                            component="select"
-                            className="shadow-sm mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                          >
-                            <option />
-                            <option>revenue_cpm</option>
-                            <option>revenue_cpc</option>
-                            <option>revenue_cpcv</option>
-                            <option>revenue_cpview</option>
-                            <option>revenue_cpvisit</option>
-                            <option>revenue_cpl</option>
-                            <option>revenue_cpa</option>
-                            <option>revenue_cpi</option>
-                            <option>revenue_cps</option>
-                          </Field>
-                        </div>
+                          {/* DISPLAY_REVTYPE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Display rev type
+                            </label>
+                            <Field
+                              name="display_revType"
+                              component="select"
+                              className="shadow-sm mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                            >
+                              <option />
+                              <option>CPM</option>
+                              <option>CPC</option>
+                              <option>CPCV</option>
+                              <option>CPVIEW</option>
+                              <option>CPVISIT</option>
+                              <option>CPL</option>
+                              <option>CPA</option>
+                              <option>CPI</option>
+                              <option>CPS</option>
+                            </Field>
+                          </div>
 
-                        {/* DISPLAY END */}
+                          {/* DISPLAY END */}
+                        </div>
                       </div>
-                    </div>
-                    {/* NATIVE */}
-                    <div className="bg-gray-50 p-6 border border-gray-300">
-                      <h3 className="text-lg font-medium mb-4 text-gray-500">
-                        Native
-                      </h3>
-                      <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                        {/* NATIVE_STARTDATE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Native start date
-                          </label>
-                          <Field name="native_startDate">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="date"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                    </Condition>
+                    <Condition when="native_campaign" is={true}>
+                      {/* NATIVE */}
+                      <div className="bg-gray-50 p-6 border border-gray-300">
+                        <h3 className="text-lg font-medium mb-4 text-gray-500">
+                          Native
+                        </h3>
+                        <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                          {/* NATIVE_STARTDATE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Native start date
+                            </label>
+                            <Field name="native_startDate">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="date"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* NATIVE_ENDDATE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Native end date
-                          </label>
-                          <Field name="native_endDate">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="date"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* NATIVE_ENDDATE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Native end date
+                            </label>
+                            <Field name="native_endDate">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="date"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* NATIVE_UNITRATE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Native unit rate
-                          </label>
-                          <Field name="native_unitRate">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="number"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* NATIVE_UNITRATE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Native unit rate
+                            </label>
+                            <Field name="native_unitRate">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="number"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* NATIVE_GOAL */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Native goal
-                          </label>
-                          <Field name="native_goal">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="number"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* NATIVE_GOAL */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Native goal
+                            </label>
+                            <Field name="native_goal">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="number"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* NATIVE_BUDGET */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Native budget
-                          </label>
-                          <Field name="native_budget">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="number"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* NATIVE_BUDGET */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Native budget
+                            </label>
+                            <Field name="native_budget">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="number"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* NATIVE_REVTYPE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Native rev type
-                          </label>
-                          <Field
-                            name="native_revType"
-                            component="select"
-                            className="shadow-sm mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                          >
-                            <option />
-                            <option>revenue_cpm</option>
-                            <option>revenue_cpc</option>
-                            <option>revenue_cpcv</option>
-                            <option>revenue_cpview</option>
-                            <option>revenue_cpvisit</option>
-                            <option>revenue_cpl</option>
-                            <option>revenue_cpa</option>
-                            <option>revenue_cpi</option>
-                            <option>revenue_cps</option>
-                          </Field>
-                        </div>
+                          {/* NATIVE_REVTYPE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Native rev type
+                            </label>
+                            <Field
+                              name="native_revType"
+                              component="select"
+                              className="shadow-sm mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                            >
+                              <option />
+                              <option>CPM</option>
+                              <option>CPC</option>
+                              <option>CPCV</option>
+                              <option>CPVIEW</option>
+                              <option>CPVISIT</option>
+                              <option>CPL</option>
+                              <option>CPA</option>
+                              <option>CPI</option>
+                              <option>CPS</option>
+                            </Field>
+                          </div>
 
-                        {/* NATIVE END */}
+                          {/* NATIVE END */}
+                        </div>
                       </div>
-                    </div>
-                    {/* SEARCH */}
-                    <div className="bg-gray-50 p-6 border border-gray-300">
-                      <h3 className="text-lg font-medium mb-4 text-gray-500">
-                        Search
-                      </h3>
-                      <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                        {/* SEARCH_STARTDATE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Search start date
-                          </label>
-                          <Field name="search_startDate">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="date"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                    </Condition>
+                    <Condition when="search_campaign" is={true}>
+                      {/* SEARCH */}
+                      <div className="bg-gray-50 p-6 border border-gray-300">
+                        <h3 className="text-lg font-medium mb-4 text-gray-500">
+                          Search
+                        </h3>
+                        <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                          {/* SEARCH_STARTDATE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Search start date
+                            </label>
+                            <Field name="search_startDate">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="date"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* SEARCH_ENDDATE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Search end date
-                          </label>
-                          <Field name="search_endDate">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="date"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* SEARCH_ENDDATE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Search end date
+                            </label>
+                            <Field name="search_endDate">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="date"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* SEARCH_UNITRATE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Search unit rate
-                          </label>
-                          <Field name="search_unitRate">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="number"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* SEARCH_UNITRATE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Search unit rate
+                            </label>
+                            <Field name="search_unitRate">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="number"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* SEARCH_GOAL */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Search goal
-                          </label>
-                          <Field name="search_goal">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="number"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* SEARCH_GOAL */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Search goal
+                            </label>
+                            <Field name="search_goal">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="number"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* SEARCH_BUDGET */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Search budget
-                          </label>
-                          <Field name="search_budget">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="number"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* SEARCH_BUDGET */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Search budget
+                            </label>
+                            <Field name="search_budget">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="number"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* SEARCH_REVTYPE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Search rev type
-                          </label>
-                          <Field
-                            name="search_revType"
-                            component="select"
-                            className="shadow-sm mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                          >
-                            <option />
-                            <option>revenue_cpm</option>
-                            <option>revenue_cpc</option>
-                            <option>revenue_cpcv</option>
-                            <option>revenue_cpview</option>
-                            <option>revenue_cpvisit</option>
-                            <option>revenue_cpl</option>
-                            <option>revenue_cpa</option>
-                            <option>revenue_cpi</option>
-                            <option>revenue_cps</option>
-                          </Field>
-                        </div>
+                          {/* SEARCH_REVTYPE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Search rev type
+                            </label>
+                            <Field
+                              name="search_revType"
+                              component="select"
+                              className="shadow-sm mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                            >
+                              <option />
+                              <option>CPM</option>
+                              <option>CPC</option>
+                              <option>CPCV</option>
+                              <option>CPVIEW</option>
+                              <option>CPVISIT</option>
+                              <option>CPL</option>
+                              <option>CPA</option>
+                              <option>CPI</option>
+                              <option>CPS</option>
+                            </Field>
+                          </div>
 
-                        {/* SEARCH END */}
+                          {/* SEARCH END */}
+                        </div>
                       </div>
-                    </div>
-                    {/* SOCIAL */}
-                    <div className="bg-gray-50 p-6 border border-gray-300">
-                      <h3 className="text-lg font-medium mb-4 text-gray-500">
-                        Social
-                      </h3>
-                      <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                        {/* SOCIAL_STARTDATE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Social start date
-                          </label>
-                          <Field name="social_startDate">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="date"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                    </Condition>
+                    <Condition when="social_campaign" is={true}>
+                      {/* SOCIAL */}
+                      <div className="bg-gray-50 p-6 border border-gray-300">
+                        <h3 className="text-lg font-medium mb-4 text-gray-500">
+                          Social
+                        </h3>
+                        <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                          {/* SOCIAL_STARTDATE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Social start date
+                            </label>
+                            <Field name="social_startDate">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="date"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* SOCIAL_ENDDATE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Social end date
-                          </label>
-                          <Field name="social_endDate">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="date"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* SOCIAL_ENDDATE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Social end date
+                            </label>
+                            <Field name="social_endDate">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="date"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* SOCIAL_UNITRATE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Social unit rate
-                          </label>
-                          <Field name="social_unitRate">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="number"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* SOCIAL_UNITRATE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Social unit rate
+                            </label>
+                            <Field name="social_unitRate">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="number"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* SOCIAL_GOAL */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Social goal
-                          </label>
-                          <Field name="social_goal">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="number"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* SOCIAL_GOAL */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Social goal
+                            </label>
+                            <Field name="social_goal">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="number"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* SOCIAL_BUDGET */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Social budget
-                          </label>
-                          <Field name="social_budget">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="number"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* SOCIAL_BUDGET */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Social budget
+                            </label>
+                            <Field name="social_budget">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="number"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* SOCIAL_REVTYPE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Social rev type
-                          </label>
-                          <Field
-                            name="social_revType"
-                            component="select"
-                            className="shadow-sm mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                          >
-                            <option />
-                            <option>revenue_cpm</option>
-                            <option>revenue_cpc</option>
-                            <option>revenue_cpcv</option>
-                            <option>revenue_cpview</option>
-                            <option>revenue_cpvisit</option>
-                            <option>revenue_cpl</option>
-                            <option>revenue_cpa</option>
-                            <option>revenue_cpi</option>
-                            <option>revenue_cps</option>
-                          </Field>
-                        </div>
+                          {/* SOCIAL_REVTYPE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Social rev type
+                            </label>
+                            <Field
+                              name="social_revType"
+                              component="select"
+                              className="shadow-sm mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                            >
+                              <option />
+                              <option>CPM</option>
+                              <option>CPC</option>
+                              <option>CPCV</option>
+                              <option>CPVIEW</option>
+                              <option>CPVISIT</option>
+                              <option>CPL</option>
+                              <option>CPA</option>
+                              <option>CPI</option>
+                              <option>CPS</option>
+                            </Field>
+                          </div>
 
-                        {/* SOCIAL END */}
+                          {/* SOCIAL END */}
+                        </div>
                       </div>
-                    </div>
-                    {/* HIGHIMPACT */}
-                    <div className="bg-gray-50 p-6 border border-gray-300">
-                      <h3 className="text-lg font-medium mb-4 text-gray-500">
-                        HighImpact
-                      </h3>
-                      <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                        {/* HIGHIMPACT_STARTDATE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            HighImpact start date
-                          </label>
-                          <Field name="highImpact_startDate">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="date"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                    </Condition>
+                    <Condition when="highImpact_campaign" is={true}>
+                      {/* HIGHIMPACT */}
+                      <div className="bg-gray-50 p-6 border border-gray-300">
+                        <h3 className="text-lg font-medium mb-4 text-gray-500">
+                          HighImpact
+                        </h3>
+                        <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                          {/* HIGHIMPACT_STARTDATE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              HighImpact start date
+                            </label>
+                            <Field name="highImpact_startDate">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="date"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* HIGHIMPACT_ENDDATE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            HighImpact end date
-                          </label>
-                          <Field name="highImpact_endDate">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="date"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* HIGHIMPACT_ENDDATE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              HighImpact end date
+                            </label>
+                            <Field name="highImpact_endDate">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="date"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* HIGHIMPACT_UNITRATE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            HighImpact unit rate
-                          </label>
-                          <Field name="highImpact_unitRate">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="number"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* HIGHIMPACT_UNITRATE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              HighImpact unit rate
+                            </label>
+                            <Field name="highImpact_unitRate">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="number"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* HIGHIMPACT_GOAL */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            HighImpact goal
-                          </label>
-                          <Field name="highImpact_goal">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="number"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* HIGHIMPACT_GOAL */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              HighImpact goal
+                            </label>
+                            <Field name="highImpact_goal">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="number"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* HIGHIMPACT_BUDGET */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            HighImpact budget
-                          </label>
-                          <Field name="highImpact_budget">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="number"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* HIGHIMPACT_BUDGET */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              HighImpact budget
+                            </label>
+                            <Field name="highImpact_budget">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="number"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* HIGHIMPACT_REVTYPE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            HighImpact rev type
-                          </label>
-                          <Field
-                            name="highImpact_revType"
-                            component="select"
-                            className="shadow-sm mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                          >
-                            <option />
-                            <option>revenue_cpm</option>
-                            <option>revenue_cpc</option>
-                            <option>revenue_cpcv</option>
-                            <option>revenue_cpview</option>
-                            <option>revenue_cpvisit</option>
-                            <option>revenue_cpl</option>
-                            <option>revenue_cpa</option>
-                            <option>revenue_cpi</option>
-                            <option>revenue_cps</option>
-                          </Field>
-                        </div>
+                          {/* HIGHIMPACT_REVTYPE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              HighImpact rev type
+                            </label>
+                            <Field
+                              name="highImpact_revType"
+                              component="select"
+                              className="shadow-sm mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                            >
+                              <option />
+                              <option>CPM</option>
+                              <option>CPC</option>
+                              <option>CPCV</option>
+                              <option>CPVIEW</option>
+                              <option>CPVISIT</option>
+                              <option>CPL</option>
+                              <option>CPA</option>
+                              <option>CPI</option>
+                              <option>CPS</option>
+                            </Field>
+                          </div>
 
-                        {/* HIGHIMPACT END */}
+                          {/* HIGHIMPACT END */}
+                        </div>
                       </div>
-                    </div>
-                    {/* RICHMEDIA */}
-                    <div className="bg-gray-50 p-6 border border-gray-300">
-                      <h3 className="text-lg font-medium mb-4 text-gray-500">
-                        RichMedia
-                      </h3>
-                      <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                        {/* RICHMEDIA_STARTDATE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            RichMedia start date
-                          </label>
-                          <Field name="richMedia_startDate">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="date"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                    </Condition>
+                    <Condition when="richMedia_campaign" is={true}>
+                      {/* RICHMEDIA */}
+                      <div className="bg-gray-50 p-6 border border-gray-300">
+                        <h3 className="text-lg font-medium mb-4 text-gray-500">
+                          RichMedia
+                        </h3>
+                        <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                          {/* RICHMEDIA_STARTDATE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              RichMedia start date
+                            </label>
+                            <Field name="richMedia_startDate">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="date"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* RICHMEDIA_ENDDATE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            RichMedia end date
-                          </label>
-                          <Field name="richMedia_endDate">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="date"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* RICHMEDIA_ENDDATE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              RichMedia end date
+                            </label>
+                            <Field name="richMedia_endDate">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="date"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* RICHMEDIA_UNITRATE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            RichMedia unit rate
-                          </label>
-                          <Field name="richMedia_unitRate">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="number"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* RICHMEDIA_UNITRATE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              RichMedia unit rate
+                            </label>
+                            <Field name="richMedia_unitRate">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="number"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* RICHMEDIA_GOAL */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            RichMedia goal
-                          </label>
-                          <Field name="richMedia_goal">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="number"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* RICHMEDIA_GOAL */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              RichMedia goal
+                            </label>
+                            <Field name="richMedia_goal">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="number"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* RICHMEDIA_BUDGET */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            RichMedia budget
-                          </label>
-                          <Field name="richMedia_budget">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="number"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* RICHMEDIA_BUDGET */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              RichMedia budget
+                            </label>
+                            <Field name="richMedia_budget">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="number"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* RICHMEDIA_REVTYPE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            RichMedia rev type
-                          </label>
-                          <Field
-                            name="richMedia_revType"
-                            component="select"
-                            className="shadow-sm mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                          >
-                            <option />
-                            <option>revenue_cpm</option>
-                            <option>revenue_cpc</option>
-                            <option>revenue_cpcv</option>
-                            <option>revenue_cpview</option>
-                            <option>revenue_cpvisit</option>
-                            <option>revenue_cpl</option>
-                            <option>revenue_cpa</option>
-                            <option>revenue_cpi</option>
-                            <option>revenue_cps</option>
-                          </Field>
-                        </div>
+                          {/* RICHMEDIA_REVTYPE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              RichMedia rev type
+                            </label>
+                            <Field
+                              name="richMedia_revType"
+                              component="select"
+                              className="shadow-sm mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                            >
+                              <option />
+                              <option>CPM</option>
+                              <option>CPC</option>
+                              <option>CPCV</option>
+                              <option>CPVIEW</option>
+                              <option>CPVISIT</option>
+                              <option>CPL</option>
+                              <option>CPA</option>
+                              <option>CPI</option>
+                              <option>CPS</option>
+                            </Field>
+                          </div>
 
-                        {/* RICHMEDIA END */}
+                          {/* RICHMEDIA END */}
+                        </div>
                       </div>
-                    </div>
-                    {/* POP */}
-                    <div className="bg-gray-50 p-6 border border-gray-300">
-                      <h3 className="text-lg font-medium mb-4 text-gray-500">
-                        Pop
-                      </h3>
-                      <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                        {/* POP_STARTDATE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Pop start date
-                          </label>
-                          <Field name="pop_startDate">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="date"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                    </Condition>
+                    <Condition when="pop_campaign" is={true}>
+                      {/* POP */}
+                      <div className="bg-gray-50 p-6 border border-gray-300">
+                        <h3 className="text-lg font-medium mb-4 text-gray-500">
+                          Pop
+                        </h3>
+                        <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                          {/* POP_STARTDATE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Pop start date
+                            </label>
+                            <Field name="pop_startDate">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="date"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* POP_ENDDATE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Pop end date
-                          </label>
-                          <Field name="pop_endDate">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="date"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* POP_ENDDATE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Pop end date
+                            </label>
+                            <Field name="pop_endDate">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="date"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* POP_UNITRATE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Pop unit rate
-                          </label>
-                          <Field name="pop_unitRate">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="number"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* POP_UNITRATE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Pop unit rate
+                            </label>
+                            <Field name="pop_unitRate">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="number"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* POP_GOAL */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Pop goal
-                          </label>
-                          <Field name="pop_goal">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="number"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* POP_GOAL */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Pop goal
+                            </label>
+                            <Field name="pop_goal">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="number"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* POP_BUDGET */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Pop budget
-                          </label>
-                          <Field name="pop_budget">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="number"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* POP_BUDGET */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Pop budget
+                            </label>
+                            <Field name="pop_budget">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="number"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* POP_REVTYPE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Pop rev type
-                          </label>
-                          <Field
-                            name="pop_revType"
-                            component="select"
-                            className="shadow-sm mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                          >
-                            <option />
-                            <option>revenue_cpm</option>
-                            <option>revenue_cpc</option>
-                            <option>revenue_cpcv</option>
-                            <option>revenue_cpview</option>
-                            <option>revenue_cpvisit</option>
-                            <option>revenue_cpl</option>
-                            <option>revenue_cpa</option>
-                            <option>revenue_cpi</option>
-                            <option>revenue_cps</option>
-                          </Field>
-                        </div>
+                          {/* POP_REVTYPE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Pop rev type
+                            </label>
+                            <Field
+                              name="pop_revType"
+                              component="select"
+                              className="shadow-sm mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                            >
+                              <option />
+                              <option>CPM</option>
+                              <option>CPC</option>
+                              <option>CPCV</option>
+                              <option>CPVIEW</option>
+                              <option>CPVISIT</option>
+                              <option>CPL</option>
+                              <option>CPA</option>
+                              <option>CPI</option>
+                              <option>CPS</option>
+                            </Field>
+                          </div>
 
-                        {/* POP END */}
+                          {/* POP END */}
+                        </div>
                       </div>
-                    </div>
-                    {/* PUSH */}
-                    <div className="bg-gray-50 p-6 border border-gray-300">
-                      <h3 className="text-lg font-medium mb-4 text-gray-500">
-                        Push
-                      </h3>
-                      <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                        {/* PUSH_STARTDATE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Push start date
-                          </label>
-                          <Field name="push_startDate">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="date"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                    </Condition>
+                    <Condition when="push_campaign" is={true}>
+                      {/* PUSH */}
+                      <div className="bg-gray-50 p-6 border border-gray-300">
+                        <h3 className="text-lg font-medium mb-4 text-gray-500">
+                          Push
+                        </h3>
+                        <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                          {/* PUSH_STARTDATE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Push start date
+                            </label>
+                            <Field name="push_startDate">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="date"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* PUSH_ENDDATE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Push end date
-                          </label>
-                          <Field name="push_endDate">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="date"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* PUSH_ENDDATE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Push end date
+                            </label>
+                            <Field name="push_endDate">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="date"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* PUSH_UNITRATE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Push unit rate
-                          </label>
-                          <Field name="push_unitRate">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="number"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* PUSH_UNITRATE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Push unit rate
+                            </label>
+                            <Field name="push_unitRate">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="number"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* PUSH_GOAL */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Push goal
-                          </label>
-                          <Field name="push_goal">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="number"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* PUSH_GOAL */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Push goal
+                            </label>
+                            <Field name="push_goal">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="number"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* PUSH_BUDGET */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Push budget
-                          </label>
-                          <Field name="push_budget">
-                            {({ input, meta }) => (
-                              <>
-                                <div className="mt-1">
-                                  <input
-                                    type="number"
-                                    {...input}
-                                    className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                  />
-                                </div>
-                              </>
-                            )}
-                          </Field>
-                        </div>
+                          {/* PUSH_BUDGET */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Push budget
+                            </label>
+                            <Field name="push_budget">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <input
+                                      type="number"
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
 
-                        {/* PUSH_REVTYPE */}
-                        <div className="sm:col-span-3">
-                          <label className="block text-sm font-medium text-gray-700">
-                            Push rev type
-                          </label>
-                          <Field
-                            name="push_revType"
-                            component="select"
-                            className="shadow-sm mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                          >
-                            <option />
-                            <option>revenue_cpm</option>
-                            <option>revenue_cpc</option>
-                            <option>revenue_cpcv</option>
-                            <option>revenue_cpview</option>
-                            <option>revenue_cpvisit</option>
-                            <option>revenue_cpl</option>
-                            <option>revenue_cpa</option>
-                            <option>revenue_cpi</option>
-                            <option>revenue_cps</option>
-                          </Field>
-                        </div>
+                          {/* PUSH_REVTYPE */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Push rev type
+                            </label>
+                            <Field
+                              name="push_revType"
+                              component="select"
+                              className="shadow-sm mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                            >
+                              <option />
+                              <option>CPM</option>
+                              <option>CPC</option>
+                              <option>CPCV</option>
+                              <option>CPVIEW</option>
+                              <option>CPVISIT</option>
+                              <option>CPL</option>
+                              <option>CPA</option>
+                              <option>CPI</option>
+                              <option>CPS</option>
+                            </Field>
+                          </div>
 
-                        {/* PUSH END */}
+                          {/* PUSH END */}
+                        </div>
                       </div>
-                    </div>
+                    </Condition>
 
                     <div className="pt-5">
                       <div className="flex justify-end">

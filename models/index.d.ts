@@ -91,6 +91,8 @@ export declare class Campaign {
   readonly push_budget?: number;
   readonly push_revType?: string;
   readonly BO_file?: string;
+  readonly clientName?: string;
+  readonly platforms?: (string | null)[];
   constructor(init: ModelInit<Campaign>);
   static copyOf(source: Campaign, mutator: (draft: MutableModel<Campaign>) => MutableModel<Campaign> | void): Campaign;
 }

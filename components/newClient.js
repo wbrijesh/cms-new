@@ -217,16 +217,16 @@ export default function Content({ setNavigation, setSidebarOpen }) {
                             </Field>
                           </div>
 
-                          {/* COUNTRY */}
-                          <div className="sm:col-span-3">
+                          {/* ADDRESS */}
+                          <div className="sm:col-span-6">
                             <label className="block text-sm font-medium text-gray-700">
-                              Country
+                              Address
                             </label>
-                            <Field name="country">
+                            <Field name="address">
                               {({ input, meta }) => (
                                 <>
                                   <div className="mt-1">
-                                    <input
+                                    <textarea
                                       type="text"
                                       {...input}
                                       className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
@@ -234,6 +234,23 @@ export default function Content({ setNavigation, setSidebarOpen }) {
                                   </div>
                                 </>
                               )}
+                            </Field>
+                          </div>
+
+                          {/* COUNTRY */}
+                          <div className="sm:col-span-3">
+                            <label className="block text-sm font-medium text-gray-700">
+                              Country
+                            </label>
+                            <Field
+                              name="country"
+                              component="select"
+                              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                            >
+                              <option />
+                              <option>UAE</option>
+                              <option>Singapore</option>
+                              <option>India</option>
                             </Field>
                           </div>
 
@@ -250,26 +267,6 @@ export default function Content({ setNavigation, setSidebarOpen }) {
                                       type="url"
                                       {...input}
                                       className="flex-1 focus:ring-blue-500 focus:border-blue-500 block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
-                                    />
-                                  </div>
-                                </>
-                              )}
-                            </Field>
-                          </div>
-
-                          {/* ADDRESS */}
-                          <div className="sm:col-span-6">
-                            <label className="block text-sm font-medium text-gray-700">
-                              Address
-                            </label>
-                            <Field name="address">
-                              {({ input, meta }) => (
-                                <>
-                                  <div className="mt-1">
-                                    <textarea
-                                      type="text"
-                                      {...input}
-                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
                                     />
                                   </div>
                                 </>
@@ -369,96 +366,103 @@ export default function Content({ setNavigation, setSidebarOpen }) {
                             </Field>
                           </div>
 
-                          {/* MAIN CONTACT NAME */}
-                          <div className="sm:col-span-3">
-                            <label
-                              htmlFor="email"
-                              className="block text-sm font-medium text-gray-700"
-                            >
-                              Main contact name
-                            </label>
-                            <Field name="main_contact_name">
-                              {({ input, meta }) => (
-                                <>
-                                  <div className="mt-1">
-                                    <input
-                                      type="text"
-                                      {...input}
-                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                    />
-                                  </div>
-                                </>
-                              )}
-                            </Field>
-                          </div>
+                          <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 sm:col-span-6">
+                            <h4 className="text-gray-800 font-semibold mb-4">
+                              Contact person details
+                            </h4>
+                            <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                              {/* MAIN CONTACT NAME */}
+                              <div className="sm:col-span-3">
+                                <label
+                                  htmlFor="email"
+                                  className="block text-sm font-medium text-gray-700"
+                                >
+                                  Main contact name
+                                </label>
+                                <Field name="main_contact_name">
+                                  {({ input, meta }) => (
+                                    <>
+                                      <div className="mt-1">
+                                        <input
+                                          type="text"
+                                          {...input}
+                                          className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                        />
+                                      </div>
+                                    </>
+                                  )}
+                                </Field>
+                              </div>
 
-                          {/* MAIN CONTACT EMAIL */}
-                          <div className="sm:col-span-3">
-                            <label
-                              htmlFor="email"
-                              className="block text-sm font-medium text-gray-700"
-                            >
-                              Main contact email
-                            </label>
-                            <Field name="main_contact_email">
-                              {({ input, meta }) => (
-                                <>
-                                  <div className="mt-1">
-                                    <input
-                                      type="email"
-                                      {...input}
-                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                    />
-                                  </div>
-                                </>
-                              )}
-                            </Field>
-                          </div>
+                              {/* MAIN CONTACT EMAIL */}
+                              <div className="sm:col-span-3">
+                                <label
+                                  htmlFor="email"
+                                  className="block text-sm font-medium text-gray-700"
+                                >
+                                  Main contact email
+                                </label>
+                                <Field name="main_contact_email">
+                                  {({ input, meta }) => (
+                                    <>
+                                      <div className="mt-1">
+                                        <input
+                                          type="email"
+                                          {...input}
+                                          className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                        />
+                                      </div>
+                                    </>
+                                  )}
+                                </Field>
+                              </div>
 
-                          {/* MAIN CONTACT PHONE */}
-                          <div className="sm:col-span-3">
-                            <label
-                              htmlFor="email"
-                              className="block text-sm font-medium text-gray-700"
-                            >
-                              Main contact phone
-                            </label>
-                            <Field name="main_contact_phone">
-                              {({ input, meta }) => (
-                                <>
-                                  <div className="mt-1">
-                                    <input
-                                      type="tel"
-                                      {...input}
-                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                    />
-                                  </div>
-                                </>
-                              )}
-                            </Field>
-                          </div>
+                              {/* MAIN CONTACT PHONE */}
+                              <div className="sm:col-span-3">
+                                <label
+                                  htmlFor="email"
+                                  className="block text-sm font-medium text-gray-700"
+                                >
+                                  Main contact phone
+                                </label>
+                                <Field name="main_contact_phone">
+                                  {({ input, meta }) => (
+                                    <>
+                                      <div className="mt-1">
+                                        <input
+                                          type="tel"
+                                          {...input}
+                                          className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                        />
+                                      </div>
+                                    </>
+                                  )}
+                                </Field>
+                              </div>
 
-                          {/* SKYPE OR GMEET */}
-                          <div className="sm:col-span-3">
-                            <label
-                              htmlFor="email"
-                              className="block text-sm font-medium text-gray-700"
-                            >
-                              Skype or Gmeet
-                            </label>
-                            <Field name="skype_or_gmeet">
-                              {({ input, meta }) => (
-                                <>
-                                  <div className="mt-1">
-                                    <input
-                                      type="text"
-                                      {...input}
-                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                    />
-                                  </div>
-                                </>
-                              )}
-                            </Field>
+                              {/* SKYPE OR GMEET */}
+                              <div className="sm:col-span-3">
+                                <label
+                                  htmlFor="email"
+                                  className="block text-sm font-medium text-gray-700"
+                                >
+                                  Skype or Gmeet
+                                </label>
+                                <Field name="skype_or_gmeet">
+                                  {({ input, meta }) => (
+                                    <>
+                                      <div className="mt-1">
+                                        <input
+                                          type="text"
+                                          {...input}
+                                          className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                        />
+                                      </div>
+                                    </>
+                                  )}
+                                </Field>
+                              </div>
+                            </div>
                           </div>
 
                           {/* SALES MANAGER EMAIL */}
@@ -562,26 +566,20 @@ export default function Content({ setNavigation, setSidebarOpen }) {
                             </Field>
                           </div>
 
-                          {/* BILLING ENTITY */}
+                          {/* BILLING ENTITY*/}
                           <div className="sm:col-span-3">
-                            <label
-                              htmlFor="email"
-                              className="block text-sm font-medium text-gray-700"
-                            >
+                            <label className="block text-sm font-medium text-gray-700">
                               Billing entity
                             </label>
-                            <Field name="billing_entity">
-                              {({ input, meta }) => (
-                                <>
-                                  <div className="mt-1">
-                                    <input
-                                      type="text"
-                                      {...input}
-                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                                    />
-                                  </div>
-                                </>
-                              )}
+                            <Field
+                              name="billing_entity"
+                              component="select"
+                              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                            >
+                              <option />
+                              <option>UAE</option>
+                              <option>Singapore</option>
+                              <option>India</option>
                             </Field>
                           </div>
 
