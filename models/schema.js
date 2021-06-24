@@ -1,5 +1,55 @@
 export const schema = {
     "models": {
+        "SalesTeam": {
+            "name": "SalesTeam",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "name": {
+                    "name": "name",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "email": {
+                    "name": "email",
+                    "isArray": false,
+                    "type": "AWSEmail",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            },
+            "syncable": true,
+            "pluralName": "SalesTeams",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "private",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
         "Campaign": {
             "name": "Campaign",
             "fields": {
@@ -493,8 +543,8 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "nativrichMedia_revType": {
-                    "name": "nativrichMedia_revType",
+                "richMedia_revType": {
+                    "name": "richMedia_revType",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -614,11 +664,10 @@ export const schema = {
                 },
                 "platforms": {
                     "name": "platforms",
-                    "isArray": true,
+                    "isArray": false,
                     "type": "String",
                     "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -910,5 +959,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "845a7fb4b0d9014d54d74bb023e90250"
+    "version": "035d9a685ce81e32e83daffe7c18b15c"
 };

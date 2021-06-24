@@ -10,6 +10,7 @@ import {
   MenuAlt2Icon,
   HomeIcon,
   ExclamationIcon,
+  UserAddIcon,
 } from "@heroicons/react/outline";
 
 import { Dialog, Transition } from "@headlessui/react";
@@ -23,6 +24,7 @@ const navigation = [
     icon: DocumentReportIcon,
     current: false,
   },
+  { name: "Sales", href: "/sales-team", icon: UserAddIcon, current: false },
 ];
 
 function classNames(...classes) {

@@ -10,6 +10,7 @@ import {
   HomeIcon,
   DocumentReportIcon,
   MenuAlt2Icon,
+  UserAddIcon,
 } from "@heroicons/react/outline";
 
 const navigation = [
@@ -21,6 +22,7 @@ const navigation = [
     icon: DocumentReportIcon,
     current: true,
   },
+  { name: "Sales", href: "/sales-team", icon: UserAddIcon, current: false },
 ];
 
 function classNames(...classes) {
@@ -52,6 +54,16 @@ const publishingOptions = [
     slug: "created this anytime: ",
     current: true,
   },
+];
+
+const people = [
+  {
+    name: "Jane Cooper",
+    title: "Regional Paradigm Technician",
+    role: "Admin",
+    email: "jane.cooper@example.com",
+  },
+  // More people...
 ];
 
 export default function Content({
@@ -211,24 +223,176 @@ export default function Content({
               <div className="px-4 sm:px-6 md:px-0">
                 <div className="py-6">
                   {/* Description list with inline editing */}
-                  <div className="mt-10 divide-y divide-gray-200">
-                    <div className="mt-6">
-                      <dl className="divide-y divide-gray-200">
-                        {campaignList.map((campaign) => (
-                          <>
-                            {campaign.date_created > selected.date ? (
-                              <div
-                                className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4"
-                                key={campaign.id}
-                              >
-                                <dt className="text-sm font-medium text-gray-500">
+                  <div className="flex flex-col">
+                    <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                      <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                        <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                          <table className="min-w-full divide-y divide-gray-200">
+                            <thead className="bg-gray-50">
+                              <tr>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                >
+                                  Reference
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                >
                                   Name
-                                </dt>
-                                <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                  <span className="flex-grow">
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                >
+                                  Client
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                >
+                                  Type
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                >
+                                  Revenue
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                >
+                                  Budget
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                >
+                                  Modified
+                                </th>
+                                <th scope="col" className="relative px-6 py-3">
+                                  <span className="sr-only">Edit</span>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody className="bg-white divide-y divide-gray-200">
+                              {campaignList.map((campaign) => (
+                                <tr key={campaign.id}>
+                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">
+                                    {campaign.reference == null ? (
+                                      ""
+                                    ) : (
+                                      <>{campaign.reference}</>
+                                    )}
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {campaign.name}
-                                  </span>
-                                  <span className="ml-4 flex-shrink-0">
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    {campaign.clientName}
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    {campaign.video_campaign == true ? (
+                                      <>Video, </>
+                                    ) : (
+                                      <></>
+                                    )}
+                                    {campaign.display_campaign == true ? (
+                                      <>Display, </>
+                                    ) : (
+                                      <></>
+                                    )}
+                                    {campaign.native_campaign == true ? (
+                                      <>Native, </>
+                                    ) : (
+                                      <></>
+                                    )}
+                                    {campaign.search_campaign == true ? (
+                                      <>Search, </>
+                                    ) : (
+                                      <></>
+                                    )}
+                                    {campaign.social_campaign == true ? (
+                                      <>Social, </>
+                                    ) : (
+                                      <></>
+                                    )}
+                                    {campaign.highImpact_campaign == true ? (
+                                      <>High impact, </>
+                                    ) : (
+                                      <></>
+                                    )}
+                                    {campaign.richMedia_campaign == true ? (
+                                      <>Rich media, </>
+                                    ) : (
+                                      <></>
+                                    )}
+                                    {campaign.pop_campaign == true ? (
+                                      <>Pop, </>
+                                    ) : (
+                                      <></>
+                                    )}
+                                    {campaign.push_campaign == true ? (
+                                      <>Push, </>
+                                    ) : (
+                                      <></>
+                                    )}
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    {campaign.video_revType !== null
+                                      ? campaign.video_revType
+                                      : "" + ", " + campaign.video_revType !==
+                                        null
+                                      ? campaign.display_revType
+                                      : "" + ", " + campaign.display_revType !==
+                                        null
+                                      ? campaign.native_revType
+                                      : "" + ", " + campaign.native_revType !==
+                                        null
+                                      ? campaign.search_revType
+                                      : "" + ", " + campaign.search_revType !==
+                                        null
+                                      ? campaign.social_revType
+                                      : "" + ", " + campaign.social_revType !==
+                                        null
+                                      ? campaign.highImpact_revType
+                                      : "" +
+                                          ", " +
+                                          campaign.highImpact_revType !==
+                                        null
+                                      ? campaign.pop_revType
+                                      : "" + ", " + campaign.pop_revType !==
+                                        null
+                                      ? campaign.push_revType
+                                      : "" + ", " + campaign.push_revType !==
+                                        null
+                                      ? campaign.video_revType
+                                      : ""}
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    $
+                                    {
+                                      (
+                                        campaign.video_budget +
+                                        campaign.display_budget +
+                                        campaign.native_budget +
+                                        campaign.search_budget +
+                                        campaign.social_budget +
+                                        campaign.highImpact_budget +
+                                        campaign.richMedia_budget +
+                                        campaign.pop_budget +
+                                        campaign.push_budget
+                                      )
+                                        .toString()
+                                        .match(/^-?\d+(?:\.\d{0,2})?/)[0]
+                                    }
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    {campaign.date_modified}
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <Link href={`/campaigns/${campaign.id}`}>
                                       <a
                                         type="button"
@@ -237,15 +401,13 @@ export default function Content({
                                         Manage
                                       </a>
                                     </Link>
-                                  </span>
-                                </dd>
-                              </div>
-                            ) : (
-                              <></>
-                            )}
-                          </>
-                        ))}
-                      </dl>
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

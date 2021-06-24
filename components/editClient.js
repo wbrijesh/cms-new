@@ -7,6 +7,7 @@ import {
   DocumentReportIcon,
   MenuAlt2Icon,
   ArrowCircleLeftIcon,
+  UserAddIcon,
 } from "@heroicons/react/outline";
 import { useRouter } from "next/router";
 
@@ -19,6 +20,7 @@ const navigation = [
     icon: DocumentReportIcon,
     current: false,
   },
+  { name: "Sales", href: "/sales-team", icon: UserAddIcon, current: false },
 ];
 
 function classNames(...classes) {

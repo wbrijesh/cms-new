@@ -1,18 +1,24 @@
-if (values.push_startDate !== undefined) {
-  submissionObject.push_startDate = values.push_startDate;
+const fieldOutput = {
+  0: { value: "abc" },
+  1: { value: "lmn" },
+  2: { value: "xyz" },
+};
+const commaSepStr = "abc,lmn,xyz";
+
+let genCommaSepStr = "";
+
+for (const f in fieldOutput) {
+  genCommaSepStr += `${fieldOutput[f].value},`;
 }
-if (values.push_endDate !== undefined) {
-  submissionObject.push_endDate = values.push_endDate;
-}
-if (values.push_unitRate !== undefined) {
-  submissionObject.push_unitRate = values.push_unitRate;
-}
-if (values.push_goal !== undefined) {
-  submissionObject.push_goal = values.push_goal;
-}
-if (values.push_budget !== undefined) {
-  submissionObject.push_budget = values.push_budget;
-}
-if (values.push_revType !== undefined) {
-  submissionObject.push_revType = values.push_revType;
-}
+
+console.log("GENEREATED: ", genCommaSepStr.slice(0, -1));
+
+// console.log(commaSepStr.split(","));
+// let numbers = [1, 2, 3];
+// numbers.map(
+//   (number) =>
+//     console.log(
+//       `Array Positiion : ${number} = `,
+//       commaSepStr.split(",")[number - 1]
+//     ),
+// );

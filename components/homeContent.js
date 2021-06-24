@@ -4,6 +4,7 @@ import {
   HomeIcon,
   MenuAlt2Icon,
   DocumentReportIcon,
+  UserAddIcon,
 } from "@heroicons/react/outline";
 
 const navigation = [
@@ -15,6 +16,7 @@ const navigation = [
     icon: DocumentReportIcon,
     current: false,
   },
+  { name: "Sales", href: "/sales-team", icon: UserAddIcon, current: false },
 ];
 
 function classNames(...classes) {

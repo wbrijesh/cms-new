@@ -7,6 +7,7 @@ import {
   DocumentReportIcon,
   MenuAlt2Icon,
   ArrowCircleLeftIcon,
+  UserAddIcon,
 } from "@heroicons/react/outline";
 import { useRouter } from "next/router";
 
@@ -19,6 +20,7 @@ const navigation = [
     icon: DocumentReportIcon,
     current: false,
   },
+  { name: "Sales", href: "/sales-team", icon: UserAddIcon, current: false },
 ];
 
 function classNames(...classes) {
@@ -60,7 +62,17 @@ export default function Content({
     const original = await DataStore.query(Campaign, thisCampaign.id);
     console.log(original[0]);
 
-    if (field == "video_campaign" || field == "display_campaign") {
+    if (
+      field == "video_campaign" ||
+      field == "display_campaign" ||
+      field == "native_campaign" ||
+      field == "search_campaign" ||
+      field == "social_campaign" ||
+      field == "highImpact_campaign" ||
+      field == "richMedia_campaign" ||
+      field == "pop_campaign" ||
+      field == "push_campaign"
+    ) {
       await DataStore.save(
         Campaign.copyOf(thisCampaign, (updated) => {
           if (formik.values[field] == "true") {
@@ -153,7 +165,7 @@ export default function Content({
       richMedia_unitRate: thisCampaign.richMedia_unitRate,
       richMedia_goal: thisCampaign.richMedia_goal,
       richMedia_budget: thisCampaign.richMedia_budget,
-      nativrichMedia_revType: thisCampaign.nativnativrichMedia_revType,
+      richMedia_revType: thisCampaign.richMedia_revType,
       pop_campaign: thisCampaign.pop_campaign,
       pop_startDate: thisCampaign.pop_startDate,
       pop_endDate: thisCampaign.pop_endDate,
@@ -1960,7 +1972,7 @@ export default function Content({
                           </div>
                         </form>
 
-                        {/* nativrichMedia_revType */}
+                        {/* richMedia_revType */}
                         <form className="sm:col-span-3 px-4 sm:px-6 sm:pb-6 ">
                           <div classNames="a">
                             <label className="block text-sm font-medium text-gray-700">
@@ -1969,8 +1981,8 @@ export default function Content({
                             <div className="mt-1 flex">
                               <select
                                 type="text"
-                                name="nativrichMedia_revType"
-                                id="nativrichMedia_revType"
+                                name="richMedia_revType"
+                                id="richMedia_revType"
                                 onChange={formik.handleChange}
                                 className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
                               >
@@ -1987,7 +1999,7 @@ export default function Content({
                               </select>
                               <button
                                 onClick={(event) =>
-                                  asyncSubmit("nativrichMedia_revType")
+                                  asyncSubmit("richMedia_revType")
                                 }
                                 className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                               >

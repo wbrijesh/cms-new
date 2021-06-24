@@ -12,6 +12,7 @@ function Home() {
   const [clientList, setClientList] = useState([]);
   const [clientName, setClientName] = useState([]);
   const [BO_file, setBO_file] = useState(null);
+  const [JSONPlatforms, setJSONPlatforms] = useState(null);
 
   const router = useRouter();
   const { id } = router.query;
@@ -22,6 +23,9 @@ function Home() {
       setThisCampaign(models);
       const list = await DataStore.query(Client);
       setClientList(list);
+      let test = thisCampaign.platforms;
+      let testJSON = JSON.parse(test);
+      console.log(testJSON);
       // clientList.map((singleClient) => {
       //   if (singleClient.id == thisCampaign.clientID) {
       //     setClientName(singleClient);

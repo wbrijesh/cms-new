@@ -2,8 +2,9 @@ import { useState, useEffect, Fragment, useRef } from "react";
 import { DataStore } from "@aws-amplify/datastore";
 import { Campaign } from "../models";
 import { useRouter } from "next/router";
-import { Storage } from "aws-amplify";
+import { JS, Storage } from "aws-amplify";
 import Link from "next/link";
+import $, { timers } from "jquery";
 
 import {
   BriefcaseIcon,
@@ -11,6 +12,7 @@ import {
   MenuAlt2Icon,
   HomeIcon,
   ExclamationIcon,
+  UserAddIcon,
 } from "@heroicons/react/outline";
 import { Dialog, Transition } from "@headlessui/react";
 
@@ -28,6 +30,7 @@ const navigation = [
     icon: DocumentReportIcon,
     current: true,
   },
+  { name: "Sales", href: "/sales-team", icon: UserAddIcon, current: false },
 ];
 
 function classNames(...classes) {
@@ -104,7 +107,6 @@ export default function Content({
   } else {
     revenueTypesObject.push(thisCampaign.push_revType);
   }
-
   // if (thisCampaign.revenue_cpm == true) {
   //   revenueTypesObject.push("Revenue CPM");
   // }
@@ -133,7 +135,7 @@ export default function Content({
   //   revenueTypesObject.push("Revenue CPS");
   // }
 
-  let campaignTypesObject = [];
+  let campaignTypesObject = new Array();
 
   if (thisCampaign.video_campaign == true) {
     campaignTypesObject.push("Video campaign");
@@ -162,6 +164,19 @@ export default function Content({
   if (thisCampaign.push_campaign == true) {
     campaignTypesObject.push("Push campaign");
   }
+
+  const [showCampaigns, setShowCamapigns] = useState(false);
+
+  // if (campaignTypesObject[0] == undefined) {
+  //   console.log("Campaign array generations conditions not met");
+  //   console.log("if: ", campaignTypesObject);
+  // } else {
+  //   let newCampaignTypesObject = campaignTypesObject;
+  //   console.log("conditions met");
+  //   console.log("else: ", campaignTypesObject);
+  // }
+
+  console.log("CAMPAIGN TYPES LENGTH: ", campaignTypesObject.length);
 
   const [boURL, setBoURL] = useState(null);
 
@@ -505,14 +520,47 @@ export default function Content({
                               Campaign types
                             </dt>
                             <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                              {campaignTypesObject[0] !== undefined ? (
+                                <span className="flex-grow">
+                                  {/* {campaignTypesObject.map((campaignType) => {
+                                    return ( */}
+                                  <span className="mr-3 mb-1.5 inline-flex items-center px-2.5 py-0.5 border border-gray-300 rounded-md text-sm font-medium bg-gray-100 text-gray-800">
+                                    {/* {campaignType} */}true
+                                  </span>
+                                  {/* );
+                                  })} */}
+                                </span>
+                              ) : (
+                                <span className="flex-grow">
+                                  {campaignTypesObject.map((campaignType) => {
+                                    return (
+                                      <span className="mr-3 mb-1.5 inline-flex items-center px-2.5 py-0.5 border border-gray-300 rounded-md text-sm font-medium bg-gray-100 text-gray-800">
+                                        {campaignType}
+                                      </span>
+                                    );
+                                  })}
+                                </span>
+                              )}
+                            </dd>
+                          </div>
+                        </dl>
+                        {/* PLATFORMS */}
+                        <dl className="divide-y divide-gray-200">
+                          <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
+                            <dt className="text-sm font-medium text-gray-500">
+                              Platforms
+                            </dt>
+                            <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                               <span className="flex-grow">
-                                {campaignTypesObject.map((campaignType) => {
-                                  return (
+                                {thisCampaign.platforms ? (
+                                  <>
                                     <span className="mr-3 mb-1.5 inline-flex items-center px-2.5 py-0.5 border border-gray-300 rounded-md text-sm font-medium bg-gray-100 text-gray-800">
-                                      {campaignType}
+                                      {thisCampaign.platforms}
                                     </span>
-                                  );
-                                })}
+                                  </>
+                                ) : (
+                                  <></>
+                                )}
                               </span>
                             </dd>
                           </div>
@@ -742,7 +790,7 @@ export default function Content({
                                     Rich media
                                   </td>
                                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {thisCampaign.nativrichMedia_revType}
+                                    {thisCampaign.richMedia_revType}
                                   </td>
                                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {thisCampaign.richMedia_startDate}

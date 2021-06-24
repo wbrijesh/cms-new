@@ -16,7 +16,6 @@ import {
   DocumentReportIcon,
   MenuAlt2Icon,
   ArrowCircleLeftIcon,
-  UserAddIcon,
 } from "@heroicons/react/outline";
 
 const navigation = [
@@ -33,7 +32,6 @@ const navigation = [
     icon: DocumentReportIcon,
     current: true,
   },
-  { name: "Sales", href: "/sales-team", icon: UserAddIcon, current: false },
 ];
 
 function classNames(...classes) {
@@ -67,11 +65,8 @@ const Condition = ({ when, is, children }) => (
 export default function Content({ setNavigation, setSidebarOpen, clientList }) {
   setNavigation(navigation);
   const router = useRouter();
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function submitFormFunc(values) {
-    setIsSubmitting(true);
-
     let submissionObject = {
       date_created: new Date().toISOString().slice(0, 10),
     };
@@ -105,63 +100,32 @@ export default function Content({ setNavigation, setSidebarOpen, clientList }) {
     if (values.status !== undefined) {
       submissionObject.status = values.status;
     }
-
-    let campaignTypesAuto = "";
-
     if (values.video_campaign !== undefined) {
       submissionObject.video_campaign = values.video_campaign;
-      campaignTypesAuto += ` Video campaign,`;
-    } else {
-      submissionObject.video_campaign = false;
     }
     if (values.display_campaign !== undefined) {
       submissionObject.display_campaign = values.display_campaign;
-      campaignTypesAuto += ` Display campaign,`;
-    } else {
-      submissionObject.display_campaign = false;
     }
     if (values.native_campaign !== undefined) {
       submissionObject.native_campaign = values.native_campaign;
-      campaignTypesAuto += ` Native campaign,`;
-    } else {
-      submissionObject.native_campaign = false;
     }
     if (values.search_campaign !== undefined) {
       submissionObject.search_campaign = values.search_campaign;
-      campaignTypesAuto += ` Search campaign,`;
-    } else {
-      submissionObject.search_campaign = false;
     }
     if (values.social_campaign !== undefined) {
       submissionObject.social_campaign = values.social_campaign;
-      campaignTypesAuto += ` Social campaign,`;
-    } else {
-      submissionObject.social_campaign = false;
     }
     if (values.highImpact_campaign !== undefined) {
       submissionObject.highImpact_campaign = values.highImpact_campaign;
-      campaignTypesAuto += ` High impact campaign,`;
-    } else {
-      submissionObject.highImpact_campaign = false;
     }
     if (values.richMedia_campaign !== undefined) {
       submissionObject.richMedia_campaign = values.richMedia_campaign;
-      campaignTypesAuto += ` Rich media campaign,`;
-    } else {
-      submissionObject.richMedia_campaign = false;
     }
     if (values.pop_campaign !== undefined) {
       submissionObject.pop_campaign = values.pop_campaign;
-      campaignTypesAuto += ` Pop campaign,`;
-    } else {
-      submissionObject.pop_campaign = false;
     }
-
     if (values.push_campaign !== undefined) {
       submissionObject.push_campaign = values.push_campaign;
-      campaignTypesAuto += ` ${submissionObject.video_campaign}`;
-    } else {
-      submissionObject.push_campaign = false;
     }
     if (values.video_startDate !== undefined) {
       submissionObject.video_startDate = values.video_startDate;
@@ -329,12 +293,6 @@ export default function Content({ setNavigation, setSidebarOpen, clientList }) {
       submissionObject.clientName = values.clientName;
     }
     if (values.platforms !== undefined) {
-      let genCommaSepStr = "";
-      for (const f in values.platforms) {
-        genCommaSepStr += `${values.platforms[f].value},`;
-      }
-      console.log("GENEREATED PLATFORMS STRING: ", genCommaSepStr.slice(0, -1));
-      submissionObject.platforms = genCommaSepStr.slice(0, -1);
       // submissionObject.platforms = JSON.stringify(
       //   Object.assign({}, values.platforms)
       // );
@@ -343,6 +301,12 @@ export default function Content({ setNavigation, setSidebarOpen, clientList }) {
       //   {},
       //   values.platforms
       // ).toString();
+      let txt = "";
+      for (let x in values.platforms) {
+        txt += values.platforms[x] + ",";
+      }
+      txt = txt.slice(0, -1);
+      submissionObject.platforms = txt;
     }
     if (values.BO_file !== undefined) {
       console.log(values.BO_file[0]);
@@ -352,7 +316,6 @@ export default function Content({ setNavigation, setSidebarOpen, clientList }) {
     }
 
     console.log("submissionObject: ", submissionObject);
-    console.log("campaignTypesAuto: ", campaignTypesAuto.substring(1));
 
     await DataStore.save(new Campaign(submissionObject));
     // window.location.reload();
@@ -367,7 +330,6 @@ export default function Content({ setNavigation, setSidebarOpen, clientList }) {
     { value: "Google Search", label: "Google Search" },
     { value: "Google Display", label: "Google Display" },
     { value: "Taboola", label: "Taboola" },
-    { value: "Outbrain", label: "Outbrain" },
     { value: "Facebook", label: "Facebook" },
     { value: "Twitter", label: "Twitter" },
     { value: "LinkedIn", label: "LinkedIn" },
@@ -494,6 +456,7 @@ export default function Content({ setNavigation, setSidebarOpen, clientList }) {
                             <Field
                               name="booking_type"
                               component="select"
+                              // multiple="multiple"
                               className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
                             >
                               <option />
@@ -709,11 +672,24 @@ export default function Content({ setNavigation, setSidebarOpen, clientList }) {
                             </label>
                             <Field
                               name="platforms"
-                              classNamePrefix="select"
-                              component={ReactSelectAdapter}
-                              isMulti
-                              options={platformOptionsObject}
-                            />
+                              component="select"
+                              multiple="multiple"
+                              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                            >
+                              <option>Target</option>
+                              <option>DV360</option>
+                              <option>Google</option>
+                              <option>Google</option>
+                              <option>Taboola</option>
+                              <option>Facebook</option>
+                              <option>Twitter</option>
+                              <option>LinkedIn</option>
+                              <option>Voluum</option>
+                              <option>PM_BDV</option>
+                              <option>PM_ZP</option>
+                              <option>PM_T2</option>
+                              <option>Other</option>
+                            </Field>
                           </div>
 
                           {/* ADD_COMM_TYPE */}
@@ -2079,33 +2055,7 @@ export default function Content({ setNavigation, setSidebarOpen, clientList }) {
                           type="submit"
                           className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                         >
-                          {isSubmitting == true ? (
-                            <>
-                              <svg
-                                class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                              >
-                                <circle
-                                  class="opacity-25"
-                                  cx="12"
-                                  cy="12"
-                                  r="10"
-                                  stroke="currentColor"
-                                  stroke-width="4"
-                                ></circle>
-                                <path
-                                  class="opacity-75"
-                                  fill="currentColor"
-                                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                                ></path>
-                              </svg>
-                              Submitting form and uploading BO
-                            </>
-                          ) : (
-                            <>Save</>
-                          )}
+                          Save
                         </button>
                       </div>
                     </div>

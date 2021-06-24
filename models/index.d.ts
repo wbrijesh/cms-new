@@ -4,6 +4,14 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 
 
+export declare class SalesTeam {
+  readonly id: string;
+  readonly name?: string;
+  readonly email?: string;
+  constructor(init: ModelInit<SalesTeam>);
+  static copyOf(source: SalesTeam, mutator: (draft: MutableModel<SalesTeam>) => MutableModel<SalesTeam> | void): SalesTeam;
+}
+
 export declare class Campaign {
   readonly id: string;
   readonly clientID?: string;
@@ -75,7 +83,7 @@ export declare class Campaign {
   readonly richMedia_unitRate?: number;
   readonly richMedia_goal?: number;
   readonly richMedia_budget?: number;
-  readonly nativrichMedia_revType?: string;
+  readonly richMedia_revType?: string;
   readonly pop_campaign?: boolean;
   readonly pop_startDate?: string;
   readonly pop_endDate?: string;
@@ -92,7 +100,7 @@ export declare class Campaign {
   readonly push_revType?: string;
   readonly BO_file?: string;
   readonly clientName?: string;
-  readonly platforms?: (string | null)[];
+  readonly platforms?: string;
   constructor(init: ModelInit<Campaign>);
   static copyOf(source: Campaign, mutator: (draft: MutableModel<Campaign>) => MutableModel<Campaign> | void): Campaign;
 }
