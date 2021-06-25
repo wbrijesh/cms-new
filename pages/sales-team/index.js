@@ -1,26 +1,25 @@
 import { DataStore } from "@aws-amplify/datastore";
-import { SalesTeam } from "../../models";
+import { Salesteam } from "../../models";
 import { useState, useEffect } from "react";
 import Navbar from "../../components/navbar";
 import Content from "../../components/salesHome";
 
-function salesTeam() {
-  const [navigation, setNavigation] = useState(null);
+export default function index() {
+  const [salesTeam, setSalesTeam] = useState(null);
+  const [navigation, setNavigation] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [salesList, setSalesList] = useState(null);
   useEffect(() => {
-    async function getSalesList() {
-      const models = await DataStore.query(SalesTeam);
-      setSalesList(models);
+    async function fetchSalesTeam() {
+      const models = await DataStore.query(Salesteam);
+      setSalesTeam(models);
     }
-    getSalesList();
+    fetchSalesTeam();
   }, []);
-
   return (
     <>
-      <div className="h-screen bg-white overflow-hidden flex">
-        <>sales home</>
-        {/* <Navbar
+      {salesTeam && (
+        <div className="h-screen bg-white overflow-hidden flex">
+          <Navbar
             navigation={navigation}
             sidebarOpen={sidebarOpen}
             setSidebarOpen={setSidebarOpen}
@@ -28,10 +27,10 @@ function salesTeam() {
           <Content
             setNavigation={setNavigation}
             setSidebarOpen={setSidebarOpen}
-          /> */}
-      </div>
+            salesTeam={salesTeam}
+          />
+        </div>
+      )}
     </>
   );
 }
-
-export default salesTeam;

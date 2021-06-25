@@ -4,12 +4,12 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 
 
-export declare class SalesTeam {
+export declare class Salesteam {
   readonly id: string;
   readonly name?: string;
   readonly email?: string;
-  constructor(init: ModelInit<SalesTeam>);
-  static copyOf(source: SalesTeam, mutator: (draft: MutableModel<SalesTeam>) => MutableModel<SalesTeam> | void): SalesTeam;
+  constructor(init: ModelInit<Salesteam>);
+  static copyOf(source: Salesteam, mutator: (draft: MutableModel<Salesteam>) => MutableModel<Salesteam> | void): Salesteam;
 }
 
 export declare class Campaign {

@@ -65,16 +65,37 @@ export default function Content({ setNavigation, setSidebarOpen, clientList }) {
                   <div className="mt-10 divide-y divide-gray-200">
                     <div className="mt-6">
                       <dl className="divide-y divide-gray-200">
+                        <div
+                          className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4"
+                          key="1"
+                        >
+                          <dt className="text-sm font-medium text-gray-900">
+                            Name
+                          </dt>
+                          <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            <span className="flex-grow">Date Modified</span>
+                            <span className="ml-4 flex-shrink-0">
+                              <a
+                                type="button"
+                                className="bg-white rounded-md font-medium text-gray-900 hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                              >
+                                Manage
+                              </a>
+                            </span>
+                          </dd>
+                        </div>
                         {clientList.map((client) => (
                           <div
                             className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4"
                             key={client.id}
                           >
                             <dt className="text-sm font-medium text-gray-500">
-                              Name
+                              {client.name}
                             </dt>
                             <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                              <span className="flex-grow">{client.name}</span>
+                              <span className="flex-grow">
+                                {client.date_modified}
+                              </span>
                               <span className="ml-4 flex-shrink-0">
                                 <Link href={`/clients/${client.id}`}>
                                   <a
