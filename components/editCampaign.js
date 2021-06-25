@@ -1,6 +1,11 @@
 import { DataStore } from "@aws-amplify/datastore";
 import { Campaign } from "../models";
-import { useFormik } from "formik";
+import { useState } from "react";
+import { useFormik, Formik } from "formik";
+import { Form, Field } from "react-final-form";
+import Dropzone from "./Dropzone";
+import { Storage } from "aws-amplify";
+import { v4 as uuid } from "uuid";
 import {
   BriefcaseIcon,
   HomeIcon,
@@ -8,6 +13,7 @@ import {
   MenuAlt2Icon,
   ArrowCircleLeftIcon,
   UserAddIcon,
+  UploadIcon,
 } from "@heroicons/react/outline";
 import { useRouter } from "next/router";
 
@@ -185,6 +191,30 @@ export default function Content({
     //   asyncSubmit();
     // },
   });
+
+  const [uploading, setUploading] = useState(false);
+
+  async function uploadBOFunc(values) {
+    console.log(values);
+    let submissionObject = [];
+    if (values.BO_file !== undefined) {
+      setUploading(true);
+
+      const fileName = `${uuid()}_${values.BO_file[0].name}`;
+      submissionObject.BO_file = fileName;
+      await Storage.put(fileName, values.BO_file[0]);
+
+      await DataStore.save(
+        Campaign.copyOf(thisCampaign, (updated) => {
+          updated.BO_file = fileName;
+          updated.date_modified = new Date().toISOString().slice(0, 10);
+        })
+      );
+    }
+    router.push("/campaigns");
+
+    console.log("Submission Object:", submissionObject);
+  }
 
   return (
     <>
@@ -473,6 +503,86 @@ export default function Content({
 
                     {/* END */}
                   </div>
+                  <Form
+                    onSubmit={(values) => uploadBOFunc(values)}
+                    render={({ handleSubmit }) => (
+                      <form
+                        onSubmit={handleSubmit}
+                        className="px-4 md:px-0 md:ml-0 md:mr-0 mt-10 space-y-8 divide-y divide-gray-200"
+                      >
+                        <div className="mt-1 sm:mt-0 sm:col-span-2">
+                          <div className="max-w-lg flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                            <div className="space-y-1 text-center">
+                              <svg
+                                className="mx-auto h-12 w-12 text-gray-400"
+                                stroke="currentColor"
+                                fill="none"
+                                viewBox="0 0 48 48"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                                  strokeWidth={2}
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                              <div className="flex text-sm text-gray-600">
+                                <label
+                                  htmlFor="file-upload"
+                                  className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
+                                >
+                                  <Field name="BO_file" component={Dropzone} />
+                                </label>
+                              </div>
+                              <p className="text-xs text-gray-500">
+                                PDF XLS or DOC
+                              </p>
+                              <button
+                                type="submit"
+                                className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                              >
+                                {uploading == true ? (
+                                  <>
+                                    <svg
+                                      class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="none"
+                                      viewBox="0 0 24 24"
+                                    >
+                                      <circle
+                                        class="opacity-25"
+                                        cx="12"
+                                        cy="12"
+                                        r="10"
+                                        stroke="currentColor"
+                                        stroke-width="4"
+                                      ></circle>
+                                      <path
+                                        class="opacity-75"
+                                        fill="currentColor"
+                                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                      ></path>
+                                    </svg>
+                                    Now uploading BO
+                                  </>
+                                ) : (
+                                  <>
+                                    <UploadIcon
+                                      className="-ml-0.5 mr-2 h-4 w-4"
+                                      aria-hidden="true"
+                                    />
+                                    Save
+                                  </>
+                                )}
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    )}
+                  />
+
                   {/* VIDEO */}
                   <div className="bg-gray-50 border border-gray-200 overflow-hidden sm:rounded-lg mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                     {/* VIDEO_CAMPAIGN */}
