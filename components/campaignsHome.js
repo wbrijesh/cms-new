@@ -341,34 +341,50 @@ export default function Content({
                                     )}
                                   </td>
                                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {campaign.video_revType !== null
-                                      ? campaign.video_revType
-                                      : "" + ", " + campaign.video_revType !==
-                                        null
-                                      ? campaign.display_revType
-                                      : "" + ", " + campaign.display_revType !==
-                                        null
-                                      ? campaign.native_revType
-                                      : "" + ", " + campaign.native_revType !==
-                                        null
-                                      ? campaign.search_revType
-                                      : "" + ", " + campaign.search_revType !==
-                                        null
-                                      ? campaign.social_revType
-                                      : "" + ", " + campaign.social_revType !==
-                                        null
-                                      ? campaign.highImpact_revType
-                                      : "" +
-                                          ", " +
-                                          campaign.highImpact_revType !==
-                                        null
-                                      ? campaign.pop_revType
-                                      : "" + ", " + campaign.pop_revType !==
-                                        null
-                                      ? campaign.push_revType
-                                      : "" + ", " + campaign.push_revType !==
-                                        null
-                                      ? campaign.video_revType
+                                    {campaign.video_campaign == true &&
+                                    campaign.video_revType !== null &&
+                                    campaign.video_revType !== undefined
+                                      ? campaign.video_revType + ", "
+                                      : ""}
+                                    {campaign.display_campaign == true &&
+                                    campaign.display_revType !== null &&
+                                    campaign.display_revType !== undefined
+                                      ? campaign.display_revType + ", "
+                                      : ""}
+                                    {campaign.native_campaign == true &&
+                                    campaign.native_revType !== null &&
+                                    campaign.native_revType !== undefined
+                                      ? campaign.native_revType + ", "
+                                      : ""}
+                                    {campaign.search_campaign == true &&
+                                    campaign.search_revType !== null &&
+                                    campaign.search_revType !== undefined
+                                      ? campaign.search_revType + ", "
+                                      : ""}
+                                    {campaign.social_campaign == true &&
+                                    campaign.social_revType !== null &&
+                                    campaign.social_revType !== undefined
+                                      ? campaign.social_revType + ", "
+                                      : ""}
+                                    {campaign.highimpact_campaign == true &&
+                                    campaign.highimpact_revType !== null &&
+                                    campaign.highimpact_revType !== undefined
+                                      ? campaign.highimpact_revType + ", "
+                                      : ""}
+                                    {campaign.richmedia_campaign == true &&
+                                    campaign.richmedia_revType !== null &&
+                                    campaign.richmedia_revType !== undefined
+                                      ? campaign.richmedia_revType + ", "
+                                      : ""}
+                                    {campaign.pop_campaign == true &&
+                                    campaign.pop_revType !== null &&
+                                    campaign.pop_revType !== undefined
+                                      ? campaign.pop_revType + ", "
+                                      : ""}
+                                    {campaign.push_campaign == true &&
+                                    campaign.push_revType !== null &&
+                                    campaign.push_revType !== undefined
+                                      ? campaign.push_revType + ", "
                                       : ""}
                                   </td>
                                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">

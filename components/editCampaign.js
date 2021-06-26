@@ -773,15 +773,15 @@ export default function Content({
                                 className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
                               >
                                 <option />
-                                <option>revenue_cpm</option>
-                                <option>revenue_cpc</option>
-                                <option>revenue_cpcv</option>
-                                <option>revenue_cpview</option>
-                                <option>revenue_cpvisit</option>
-                                <option>revenue_cpl</option>
-                                <option>revenue_cpa</option>
-                                <option>revenue_cpi</option>
-                                <option>revenue_cps</option>
+                                <option>CPM</option>
+                                <option>CPC</option>
+                                <option>CPCV</option>
+                                <option>CPVIEW</option>
+                                <option>CPVISIT</option>
+                                <option>CPL</option>
+                                <option>CPA</option>
+                                <option>CPI</option>
+                                <option>CPS</option>
                               </select>
                               <button
                                 onClick={(event) =>
@@ -991,15 +991,15 @@ export default function Content({
                                 className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
                               >
                                 <option />
-                                <option>revenue_cpm</option>
-                                <option>revenue_cpc</option>
-                                <option>revenue_cpcv</option>
-                                <option>revenue_cpview</option>
-                                <option>revenue_cpvisit</option>
-                                <option>revenue_cpl</option>
-                                <option>revenue_cpa</option>
-                                <option>revenue_cpi</option>
-                                <option>revenue_cps</option>
+                                <option>CPM</option>
+                                <option>CPC</option>
+                                <option>CPCV</option>
+                                <option>CPVIEW</option>
+                                <option>CPVISIT</option>
+                                <option>CPL</option>
+                                <option>CPA</option>
+                                <option>CPI</option>
+                                <option>CPS</option>
                               </select>
                               <button
                                 onClick={(event) =>
@@ -1211,15 +1211,15 @@ export default function Content({
                                 className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
                               >
                                 <option />
-                                <option>revenue_cpm</option>
-                                <option>revenue_cpc</option>
-                                <option>revenue_cpcv</option>
-                                <option>revenue_cpview</option>
-                                <option>revenue_cpvisit</option>
-                                <option>revenue_cpl</option>
-                                <option>revenue_cpa</option>
-                                <option>revenue_cpi</option>
-                                <option>revenue_cps</option>
+                                <option>CPM</option>
+                                <option>CPC</option>
+                                <option>CPCV</option>
+                                <option>CPVIEW</option>
+                                <option>CPVISIT</option>
+                                <option>CPL</option>
+                                <option>CPA</option>
+                                <option>CPI</option>
+                                <option>CPS</option>
                               </select>
                               <button
                                 onClick={(event) =>
@@ -1431,15 +1431,15 @@ export default function Content({
                                 className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
                               >
                                 <option />
-                                <option>revenue_cpm</option>
-                                <option>revenue_cpc</option>
-                                <option>revenue_cpcv</option>
-                                <option>revenue_cpview</option>
-                                <option>revenue_cpvisit</option>
-                                <option>revenue_cpl</option>
-                                <option>revenue_cpa</option>
-                                <option>revenue_cpi</option>
-                                <option>revenue_cps</option>
+                                <option>CPM</option>
+                                <option>CPC</option>
+                                <option>CPCV</option>
+                                <option>CPVIEW</option>
+                                <option>CPVISIT</option>
+                                <option>CPL</option>
+                                <option>CPA</option>
+                                <option>CPI</option>
+                                <option>CPS</option>
                               </select>
                               <button
                                 onClick={(event) =>
@@ -1651,15 +1651,15 @@ export default function Content({
                                 className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
                               >
                                 <option />
-                                <option>revenue_cpm</option>
-                                <option>revenue_cpc</option>
-                                <option>revenue_cpcv</option>
-                                <option>revenue_cpview</option>
-                                <option>revenue_cpvisit</option>
-                                <option>revenue_cpl</option>
-                                <option>revenue_cpa</option>
-                                <option>revenue_cpi</option>
-                                <option>revenue_cps</option>
+                                <option>CPM</option>
+                                <option>CPC</option>
+                                <option>CPCV</option>
+                                <option>CPVIEW</option>
+                                <option>CPVISIT</option>
+                                <option>CPL</option>
+                                <option>CPA</option>
+                                <option>CPI</option>
+                                <option>CPS</option>
                               </select>
                               <button
                                 onClick={(event) =>
@@ -1875,15 +1875,15 @@ export default function Content({
                                 className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
                               >
                                 <option />
-                                <option>revenue_cpm</option>
-                                <option>revenue_cpc</option>
-                                <option>revenue_cpcv</option>
-                                <option>revenue_cpview</option>
-                                <option>revenue_cpvisit</option>
-                                <option>revenue_cpl</option>
-                                <option>revenue_cpa</option>
-                                <option>revenue_cpi</option>
-                                <option>revenue_cps</option>
+                                <option>CPM</option>
+                                <option>CPC</option>
+                                <option>CPCV</option>
+                                <option>CPVIEW</option>
+                                <option>CPVISIT</option>
+                                <option>CPL</option>
+                                <option>CPA</option>
+                                <option>CPI</option>
+                                <option>CPS</option>
                               </select>
                               <button
                                 onClick={(event) =>
@@ -2097,15 +2097,15 @@ export default function Content({
                                 className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
                               >
                                 <option />
-                                <option>revenue_cpm</option>
-                                <option>revenue_cpc</option>
-                                <option>revenue_cpcv</option>
-                                <option>revenue_cpview</option>
-                                <option>revenue_cpvisit</option>
-                                <option>revenue_cpl</option>
-                                <option>revenue_cpa</option>
-                                <option>revenue_cpi</option>
-                                <option>revenue_cps</option>
+                                <option>CPM</option>
+                                <option>CPC</option>
+                                <option>CPCV</option>
+                                <option>CPVIEW</option>
+                                <option>CPVISIT</option>
+                                <option>CPL</option>
+                                <option>CPA</option>
+                                <option>CPI</option>
+                                <option>CPS</option>
                               </select>
                               <button
                                 onClick={(event) =>
@@ -2311,15 +2311,15 @@ export default function Content({
                                 className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
                               >
                                 <option />
-                                <option>revenue_cpm</option>
-                                <option>revenue_cpc</option>
-                                <option>revenue_cpcv</option>
-                                <option>revenue_cpview</option>
-                                <option>revenue_cpvisit</option>
-                                <option>revenue_cpl</option>
-                                <option>revenue_cpa</option>
-                                <option>revenue_cpi</option>
-                                <option>revenue_cps</option>
+                                <option>CPM</option>
+                                <option>CPC</option>
+                                <option>CPCV</option>
+                                <option>CPVIEW</option>
+                                <option>CPVISIT</option>
+                                <option>CPL</option>
+                                <option>CPA</option>
+                                <option>CPI</option>
+                                <option>CPS</option>
                               </select>
                               <button
                                 onClick={(event) => asyncSubmit("pop_revType")}
@@ -2525,15 +2525,15 @@ export default function Content({
                                 className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
                               >
                                 <option />
-                                <option>revenue_cpm</option>
-                                <option>revenue_cpc</option>
-                                <option>revenue_cpcv</option>
-                                <option>revenue_cpview</option>
-                                <option>revenue_cpvisit</option>
-                                <option>revenue_cpl</option>
-                                <option>revenue_cpa</option>
-                                <option>revenue_cpi</option>
-                                <option>revenue_cps</option>
+                                <option>CPM</option>
+                                <option>CPC</option>
+                                <option>CPCV</option>
+                                <option>CPVIEW</option>
+                                <option>CPVISIT</option>
+                                <option>CPL</option>
+                                <option>CPA</option>
+                                <option>CPI</option>
+                                <option>CPS</option>
                               </select>
                               <button
                                 onClick={(event) => asyncSubmit("push_revType")}
