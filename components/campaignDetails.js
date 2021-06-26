@@ -197,6 +197,7 @@ export default function Content({
 
   const [permission, setPermission] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
+  const [deletePermission, setDeletePermission] = useState(null);
 
   const newFunc = async () => {
     let thisUser = await Auth.currentAuthenticatedUser();
@@ -213,17 +214,20 @@ export default function Content({
     ) {
       console.log("Logged in as admin, all permissions granted");
       setPermission(true);
+      setDeletePermission(true);
     } else if (
       thisUser.signInUserSession.accessToken.payload["cognito:groups"][0] ===
       "adops"
     ) {
       console.log("Logged in as adops");
       setPermission(true);
+      setDeletePermission(true);
     } else if (
       thisUser.attributes.email === thisCampaign.allowed_sales_manager_email
     ) {
       console.log("email matches");
       setPermission(true);
+      setDeletePermission(false);
     } else {
       setPermission(false);
     }
@@ -920,28 +924,58 @@ export default function Content({
                     </div>
                   </div>
                 </div>
-                <div className="bg-red-50 border border-red-100 my-12 rounded-xl px-4 py-5 sm:p-6">
-                  <h3 className="text-lg leading-6 font-medium text-gray-900">
-                    Delete this campaign
-                  </h3>
-                  <div className="mt-2 sm:flex sm:items-start sm:justify-between">
-                    <div className="max-w-xl text-sm text-gray-500">
-                      <p>
-                        All of your data and associated campaigns will be
-                        permanently removed. This action cannot be undone.
-                      </p>
+                {deletePermission === true ? (
+                  <>
+                    <div className="bg-red-50 border border-red-100 my-12 rounded-xl px-4 py-5 sm:p-6">
+                      <h3 className="text-lg leading-6 font-medium text-gray-900">
+                        Delete this campaign
+                      </h3>
+                      <div className="mt-2 sm:flex sm:items-start sm:justify-between">
+                        <div className="max-w-xl text-sm text-gray-500">
+                          <p>
+                            All of your data and associated campaigns will be
+                            permanently removed. This action cannot be undone.
+                          </p>
+                        </div>
+                        <div className="mt-5 sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:flex sm:items-center">
+                          <button
+                            type="button"
+                            onClick={() => setOpen(true)}
+                            className="inline-flex items-center border-2 border-red-200 items-center justify-center px-4 py-2 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 hover:border-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:text-sm"
+                          >
+                            Delete campaign
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                    <div className="mt-5 sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:flex sm:items-center">
-                      <button
-                        type="button"
-                        onClick={() => setOpen(true)}
-                        className="inline-flex items-center border-2 border-red-200 items-center justify-center px-4 py-2 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 hover:border-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:text-sm"
-                      >
-                        Delete campaign
-                      </button>
+                  </>
+                ) : (
+                  <>
+                    <div className="bg-red-50 border border-red-100 my-12 rounded-xl px-4 py-5 sm:p-6">
+                      <h3 className="text-lg leading-6 font-medium text-gray-900">
+                        Delete this campaign
+                      </h3>
+                      <div className="mt-2 sm:flex sm:items-start sm:justify-between">
+                        <div className="max-w-xl text-sm text-gray-500">
+                          <p>
+                            This action is not permitted to sales team, contact
+                            admin or adops for help.
+                          </p>
+                        </div>
+                        <div className="mt-5 sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:flex sm:items-center">
+                          {/* <button
+                            type="button"
+                            onClick={null}
+                            disabled
+                            className="disabled:opacity-50 cursor-not-allowed inline-flex items-center border-2 border-red-200 items-center justify-center px-4 py-2 font-medium rounded-md text-red-700 bg-red-100 sm:text-sm"
+                          >
+                            Delete campaign
+                          </button> */}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
+                  </>
+                )}
               </div>
             </main>
           </div>

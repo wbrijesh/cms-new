@@ -95,6 +95,7 @@ export default function Content({
 
   const [permission, setPermission] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
+  const [createPermission, setCreatePermission] = useState(null);
 
   const newFunc = async () => {
     let thisUser = await Auth.currentAuthenticatedUser();
@@ -111,12 +112,14 @@ export default function Content({
     ) {
       console.log("Logged in as admin, all permissions granted");
       setPermission(true);
+      setCreatePermission(true);
     } else if (
       thisUser.signInUserSession.accessToken.payload["cognito:groups"][0] ===
       "adops"
     ) {
       console.log("Logged in as adops");
       setPermission(true);
+      setCreatePermission(true);
     } else if (
       thisUser.attributes.email === thisCampaign.allowed_sales_manager_email
     ) {
@@ -124,6 +127,7 @@ export default function Content({
       setPermission(true);
     } else {
       setPermission(false);
+      setCreatePermission(false);
     }
     console.log("user email: ", thisUser.attributes.email);
     console.log(
@@ -260,13 +264,15 @@ export default function Content({
                           </>
                         )}
                       </Listbox>
-                      <a
-                        type="button"
-                        href="/campaigns/new"
-                        className="ml-2 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                      >
-                        Create new campaign
-                      </a>
+                      {createPermission && (
+                        <a
+                          type="button"
+                          href="/campaigns/new"
+                          className="ml-2 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                        >
+                          Create new campaign
+                        </a>
+                      )}
                     </div>
                   </div>
                   <div className="px-4 sm:px-6 md:px-0">
