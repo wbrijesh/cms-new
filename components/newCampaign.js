@@ -9,6 +9,7 @@ import Dropzone from "./Dropzone";
 import Select from "react-select";
 import Multiselect from "multiselect-react-dropdown";
 import { v4 as uuid } from "uuid";
+import moment from "moment";
 // import Dropzone from "react-dropzone";
 import {
   BriefcaseIcon,
@@ -93,9 +94,13 @@ export default function Content({ setNavigation, setSidebarOpen, clientList }) {
     if (values.add_comm_value !== undefined) {
       submissionObject.add_comm_value = values.add_comm_value;
     }
-    if (values.reference !== undefined) {
-      submissionObject.reference = values.reference;
-    }
+
+    // if (values.reference !== undefined) {
+    //   submissionObject.reference = values.reference;
+    // }
+    let year = moment().format("YYYY");
+    submissionObject.reference = `CMP-${year}-TODO`;
+
     if (values.instructions !== undefined) {
       submissionObject.instructions = values.instructions;
     }
@@ -357,6 +362,7 @@ export default function Content({ setNavigation, setSidebarOpen, clientList }) {
     await DataStore.save(new Campaign(submissionObject));
     // window.location.reload();
     router.push("/campaigns");
+    window.location(reload);
   }
 
   console.log(clientList);
@@ -429,7 +435,7 @@ export default function Content({ setNavigation, setSidebarOpen, clientList }) {
 
                         <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                           {/* REFERENCE */}
-                          <div className="sm:col-span-3">
+                          {/* <div className="sm:col-span-3">
                             <label className="block text-sm font-medium text-gray-700">
                               Reference
                             </label>
@@ -446,7 +452,7 @@ export default function Content({ setNavigation, setSidebarOpen, clientList }) {
                                 </>
                               )}
                             </Field>
-                          </div>
+                          </div> */}
 
                           {/* NAME */}
                           <div className="sm:col-span-3">
