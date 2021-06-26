@@ -5,6 +5,9 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      cursor: {
+        copy: "copy",
+      },
       colors: {
         darkblue: colors.blueGray,
       },

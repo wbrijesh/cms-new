@@ -123,9 +123,9 @@ export default function Content({
                             Change published status
                           </Listbox.Label>
                           <div className="relative">
-                            <div className="inline-flex shadow-sm rounded-md divide-x divide-blue-600">
-                              <div className="relative z-0 inline-flex shadow-sm rounded-md divide-x divide-blue-600">
-                                <div className="relative inline-flex items-center bg-blue-500 py-2 pl-3 pr-4 border border-transparent rounded-l-md shadow-sm text-white">
+                            <div className="inline-flex shadow-sm rounded-md divide-x-2 divide-blue-500">
+                              <div className="relative border-2 border-blue-500 rounded-md z-0 inline-flex shadow-sm rounded-md divide-x-2 divide-blue-500">
+                                <div className="relative inline-flex items-center bg-gray-50 py-2 pl-3 pr-4 rounded-l-md shadow-sm text-blue-600">
                                   <CheckIcon
                                     className="h-5 w-5"
                                     aria-hidden="true"
@@ -134,12 +134,12 @@ export default function Content({
                                     {selected.title}
                                   </p>
                                 </div>
-                                <Listbox.Button className="relative inline-flex items-center bg-blue-500 p-2 rounded-l-none rounded-r-md text-sm font-medium text-white hover:bg-blue-600 focus:outline-none focus:z-10 focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-blue-500">
+                                <Listbox.Button className="relative inline-flex items-center bg-gray-50 p-2 rounded-l-none rounded-r-md text-sm font-medium text-blue-600 hover:bg-blue-gray-200 focus:outline-none">
                                   <span className="sr-only">
                                     Change published status
                                   </span>
                                   <ChevronDownIcon
-                                    className="h-5 w-5 text-white"
+                                    className="h-5 w-5 text-blue-600"
                                     aria-hidden="true"
                                   />
                                 </Listbox.Button>
@@ -163,9 +163,9 @@ export default function Content({
                                     className={({ active }) =>
                                       classNames(
                                         active
-                                          ? "text-white bg-blue-500"
+                                          ? "cursor-copy text-white bg-blue-500"
                                           : "text-gray-900",
-                                        "cursor-default select-none relative p-4 text-sm"
+                                        "cursor-copy select-none relative p-2.5 pb-1 text-sm"
                                       )
                                     }
                                     value={option}
