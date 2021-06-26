@@ -486,9 +486,7 @@ export default function Content({
                                       download file
                                     </a>
                                   ) : (
-                                    <p className="text-red-500">
-                                      This campaign doesnt yet have BO
-                                    </p>
+                                    <p className="text-gray-400">N/A</p>
                                   )}
                                 </dd>
                               )}
@@ -573,13 +571,13 @@ export default function Content({
                               <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                 {campaignTypesObject[0] !== undefined ? (
                                   <span className="flex-grow">
-                                    {/* {campaignTypesObject.map((campaignType) => {
-                                    return ( */}
-                                    <span className="mr-3 mb-1.5 inline-flex items-center px-2.5 py-0.5 border border-gray-300 rounded-md text-sm font-medium bg-gray-100 text-gray-800">
-                                      {/* {campaignType} */}true
-                                    </span>
-                                    {/* );
-                                  })} */}
+                                    {campaignTypesObject.map((campaignType) => {
+                                      return (
+                                        <span className="mr-3 mb-1.5 inline-flex items-center px-2.5 py-0.5 border border-gray-300 rounded-md text-sm font-medium bg-gray-100 text-gray-800">
+                                          {campaignType}
+                                        </span>
+                                      );
+                                    })}
                                   </span>
                                 ) : (
                                   <span className="flex-grow">
