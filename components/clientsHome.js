@@ -1,5 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
+import { Auth } from "aws-amplify";
+
 import {
   BriefcaseIcon,
   DocumentReportIcon,
