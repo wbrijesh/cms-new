@@ -65,10 +65,17 @@ const Condition = ({ when, is, children }) => (
   </Field>
 );
 
-export default function Content({ setNavigation, setSidebarOpen, clientList }) {
+export default function Content({
+  setNavigation,
+  setSidebarOpen,
+  clientList,
+  campaignList,
+}) {
   setNavigation(navigation);
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  console.log(campaignList);
 
   async function submitFormFunc(values) {
     setIsSubmitting(true);
@@ -99,7 +106,7 @@ export default function Content({ setNavigation, setSidebarOpen, clientList }) {
     //   submissionObject.reference = values.reference;
     // }
     let year = moment().format("YYYY");
-    submissionObject.reference = `CMP-${year}-TODO`;
+    submissionObject.reference = `CMP-${year}-${campaignList.length + 1}`;
 
     if (values.instructions !== undefined) {
       submissionObject.instructions = values.instructions;
