@@ -106,7 +106,9 @@ export default function Content({
     //   submissionObject.reference = values.reference;
     // }
     let year = moment().format("YYYY");
-    submissionObject.reference = `CMP-${year}-${campaignList.length + 1}`;
+    submissionObject.reference = `CMP-${year}-${(campaignList.length + 1)
+      .toString()
+      .padStart(4, "0")}`;
 
     if (values.instructions !== undefined) {
       submissionObject.instructions = values.instructions;
