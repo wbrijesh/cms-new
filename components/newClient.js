@@ -110,10 +110,10 @@ export default function Content({ setNavigation, setSidebarOpen }) {
     if (values.billing_entity !== undefined) {
       submissionObject.billing_entity = values.billing_entity;
     }
-    // await DataStore.save(new Client(submissionObject));
-    // // window.location.reload();
-    // router.push("/clients");
-    console.log(submissionObject);
+    await DataStore.save(new Client(submissionObject));
+    // window.location.reload();
+    router.push("/clients");
+    // console.log(submissionObject);
   }
 
   const [salesTeam, setSalesTeam] = useState(null);

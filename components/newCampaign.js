@@ -338,7 +338,12 @@ export default function Content({
       submissionObject.push_revType = values.push_revType;
     }
     if (values.clientName !== undefined) {
-      submissionObject.clientName = values.clientName;
+      submissionObject.clientName = JSON.parse(values.clientName).name;
+      submissionObject.allowed_sales_manager_email = JSON.parse(
+        values.clientName
+      ).sales_manager_email;
+      // console.log("Stringified Client: ", values.clientName);
+      // console.log("JSON Client: ", JSON.parse(values.clientName));
     }
     if (values.platforms !== undefined) {
       let genCommaSepStr = "";
@@ -369,7 +374,6 @@ export default function Content({
     await DataStore.save(new Campaign(submissionObject));
     // window.location.reload();
     router.push("/campaigns");
-    window.location(reload);
   }
 
   console.log(clientList);
@@ -494,7 +498,9 @@ export default function Content({
                             >
                               <option />
                               {clientList.map((client) => (
-                                <option>{client.name}</option>
+                                <option value={JSON.stringify(client)}>
+                                  {client.name}
+                                </option>
                               ))}
                             </Field>
                           </div>

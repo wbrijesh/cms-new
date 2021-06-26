@@ -93,6 +93,7 @@ type Campaign @model @key(name: "byClient", fields: ["clientID"]) @auth(rules: [
   BO_file: String
   clientName: String
   platforms: String
+  allowed_sales_manager_email: AWSEmail
 }
 
 type Client @model @auth(rules: [{allow: groups, groups: ["admin"], operations: [read, create, update, delete]}, {allow: groups, groups: ["adops"], operations: [read, create, update, delete]}, {allow: groups, groups: ["sales"], operations: [read, update]}]) {

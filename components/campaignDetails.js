@@ -44,6 +44,7 @@ export default function Content({
   thisCampaign,
 }) {
   const [open, setOpen] = useState(false);
+  thisCampaign && console.log(thisCampaign);
 
   const router = useRouter();
   const { id } = router.query;
@@ -194,36 +195,43 @@ export default function Content({
   const cancelButtonRef = useRef(null);
   setNavigation(navigation);
 
-  console.log(thisCampaign);
-
   const [permission, setPermission] = useState(false);
+  const [userDetails, setUserDetails] = useState(null);
+
+  const newFunc = async () => {
+    let thisUser = await Auth.currentAuthenticatedUser();
+    setUserDetails(thisUser.attributes.email);
+  };
+  newFunc();
 
   const verifyAccess = async () => {
     let thisUser = await Auth.currentAuthenticatedUser();
-    console.log(
-      thisUser.signInUserSession.accessToken.payload["cognito:groups"][0]
-    );
+    console.log(thisUser);
     if (
       thisUser.signInUserSession.accessToken.payload["cognito:groups"][0] ===
       "admin"
     ) {
       console.log("Logged in as admin, all permissions granted");
       setPermission(true);
-    }
-    if (
+    } else if (
       thisUser.signInUserSession.accessToken.payload["cognito:groups"][0] ===
       "adops"
     ) {
       console.log("Logged in as adops");
       setPermission(true);
-    }
-    if (
-      thisUser.signInUserSession.accessToken.payload["cognito:groups"][0] ===
-      "sales"
+    } else if (
+      thisUser.attributes.email === thisCampaign.allowed_sales_manager_email
     ) {
-      console.log("Logged in as sales");
+      console.log("email matches");
+      setPermission(true);
+    } else {
       setPermission(false);
     }
+    console.log("user email: ", thisUser.attributes.email);
+    console.log(
+      "campaign allowed...: ",
+      thisCampaign.allowed_sales_manager_email
+    );
   };
   verifyAccess();
 
@@ -941,6 +949,7 @@ export default function Content({
       }
       {
         (revenueTypesObject,
+        userDetails,
         !permission && (
           <div className="flex-1 flex flex-col">
             <div className="w-full bg-transparent max-w-4xl mx-auto md:px-8 xl:px-0">

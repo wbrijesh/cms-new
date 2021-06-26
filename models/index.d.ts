@@ -101,6 +101,7 @@ export declare class Campaign {
   readonly BO_file?: string;
   readonly clientName?: string;
   readonly platforms?: string;
+  readonly allowed_sales_manager_email?: string;
   constructor(init: ModelInit<Campaign>);
   static copyOf(source: Campaign, mutator: (draft: MutableModel<Campaign>) => MutableModel<Campaign> | void): Campaign;
 }

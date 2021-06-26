@@ -46,8 +46,7 @@ function Home() {
     <>
       {
         (clientList,
-        thisCampaign,
-        clientName && (
+        thisCampaign && (
           <div className="h-screen bg-white overflow-hidden flex">
             <Navbar
               navigation={navigation}
@@ -58,7 +57,6 @@ function Home() {
               setNavigation={setNavigation}
               setSidebarOpen={setSidebarOpen}
               thisCampaign={thisCampaign}
-              clientName={clientName}
             />
           </div>
         ))
@@ -68,18 +66,3 @@ function Home() {
 }
 
 export default Home;
-
-// import React from "react";
-// import { useRouter } from "next/router";
-
-// function Details() {
-//   const router = useRouter();
-//   const { id } = router.query;
-//   return (
-//     <div>
-//       <h1>You're on: {id}</h1>
-//     </div>
-//   );
-// }
-
-// export default Details;

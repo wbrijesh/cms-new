@@ -668,6 +668,13 @@ export const schema = {
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
+                },
+                "allowed_sales_manager_email": {
+                    "name": "allowed_sales_manager_email",
+                    "isArray": false,
+                    "type": "AWSEmail",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -959,5 +966,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "36381071a95f2f3bca0d1629f51c784c"
+    "version": "a6fce1730cd7b7c10d4a667c29828250"
 };
