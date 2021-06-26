@@ -388,22 +388,37 @@ export default function Content({
                                       : ""}
                                   </td>
                                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    $
-                                    {
-                                      (
-                                        campaign.video_budget +
-                                        campaign.display_budget +
-                                        campaign.native_budget +
-                                        campaign.search_budget +
-                                        campaign.social_budget +
-                                        campaign.highImpact_budget +
-                                        campaign.richMedia_budget +
-                                        campaign.pop_budget +
-                                        campaign.push_budget
-                                      )
-                                        .toString()
-                                        .match(/^-?\d+(?:\.\d{0,2})?/)[0]
-                                    }
+                                    {campaign.video_budget +
+                                      campaign.display_budget +
+                                      campaign.native_budget +
+                                      campaign.search_budget +
+                                      campaign.social_budget +
+                                      campaign.highImpact_budget +
+                                      campaign.richMedia_budget +
+                                      campaign.pop_budget +
+                                      campaign.push_budget !==
+                                    0 ? (
+                                      <>
+                                        $
+                                        {
+                                          (
+                                            campaign.video_budget +
+                                            campaign.display_budget +
+                                            campaign.native_budget +
+                                            campaign.search_budget +
+                                            campaign.social_budget +
+                                            campaign.highImpact_budget +
+                                            campaign.richMedia_budget +
+                                            campaign.pop_budget +
+                                            campaign.push_budget
+                                          )
+                                            .toString()
+                                            .match(/^-?\d+(?:\.\d{0,2})?/)[0]
+                                        }
+                                      </>
+                                    ) : (
+                                      <></>
+                                    )}
                                   </td>
                                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {campaign.date_modified}
