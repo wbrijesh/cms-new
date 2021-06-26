@@ -98,7 +98,7 @@ export default function Content({
       );
     }
 
-    goBack();
+    window.location(reload);
   }
 
   const formik = useFormik({
@@ -211,7 +211,7 @@ export default function Content({
         })
       );
     }
-    router.push("/campaigns");
+    router.push(`/campaigns/${thisCampaign.id}`);
 
     console.log("Submission Object:", submissionObject);
   }

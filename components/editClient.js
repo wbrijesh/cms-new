@@ -64,7 +64,7 @@ export default function Content({ setNavigation, setSidebarOpen, thisClient }) {
       })
     );
 
-    goBack();
+    window.location(reload);
   }
 
   const formik = useFormik({
