@@ -47,7 +47,7 @@ function Home() {
       {
         (clientList,
         thisCampaign && (
-          <div className="h-screen bg-white overflow-hidden flex">
+          <div className="h-screen bg-white overflow-scroll flex">
             <Navbar
               navigation={navigation}
               sidebarOpen={sidebarOpen}
