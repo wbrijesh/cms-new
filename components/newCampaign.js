@@ -472,7 +472,10 @@ export default function Content({
                             <label className="block text-sm font-medium text-gray-700">
                               Name
                             </label>
-                            <Field name="name">
+                            <Field
+                              name="name"
+                              validate={composeValidators(required)}
+                            >
                               {({ input, meta }) => (
                                 <>
                                   <div className="mt-1">
@@ -481,6 +484,12 @@ export default function Content({
                                       {...input}
                                       className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
                                     />
+                                    {(meta.error || meta.submitError) &&
+                                      meta.touched && (
+                                        <span className="text-red-500">
+                                          {meta.error || meta.submitError}
+                                        </span>
+                                      )}
                                   </div>
                                 </>
                               )}
@@ -493,7 +502,7 @@ export default function Content({
                               Client
                             </label>
 
-                            <Field
+                            {/* <Field
                               name="clientName"
                               component="select"
                               className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
@@ -504,6 +513,35 @@ export default function Content({
                                   {client.name}
                                 </option>
                               ))}
+                            </Field> */}
+                            <Field
+                              name="clientName"
+                              validate={composeValidators(required)}
+                              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                            >
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <select
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    >
+                                      <option />
+                                      {clientList.map((client) => (
+                                        <option value={JSON.stringify(client)}>
+                                          {client.name}
+                                        </option>
+                                      ))}
+                                    </select>
+                                    {(meta.error || meta.submitError) &&
+                                      meta.touched && (
+                                        <span className="text-red-500">
+                                          {meta.error || meta.submitError}
+                                        </span>
+                                      )}
+                                  </div>
+                                </>
+                              )}
                             </Field>
                           </div>
 
@@ -512,7 +550,7 @@ export default function Content({
                             <label className="block text-sm font-medium text-gray-700">
                               Booking type
                             </label>
-                            <Field
+                            {/* <Field
                               name="booking_type"
                               component="select"
                               className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
@@ -520,6 +558,32 @@ export default function Content({
                               <option />
                               <option>BO</option>
                               <option>PMP</option>
+                            </Field> */}
+                            <Field
+                              name="booking_type"
+                              validate={composeValidators(required)}
+                              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                            >
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <select
+                                      {...input}
+                                      className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                    >
+                                      <option />
+                                      <option>BO</option>
+                                      <option>PMP</option>
+                                    </select>
+                                    {(meta.error || meta.submitError) &&
+                                      meta.touched && (
+                                        <span className="text-red-500">
+                                          {meta.error || meta.submitError}
+                                        </span>
+                                      )}
+                                  </div>
+                                </>
+                              )}
                             </Field>
                           </div>
 
@@ -542,21 +606,22 @@ export default function Content({
                               )}
                             </Field>
                           </div>
-
+                        </div>
+                        <div className="bg-gray-50 border border-gray-200 p-4 mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                           {/* VIDEO_CAMPAIGN */}
                           <div className="sm:col-span-3">
-                            <label className="block text-sm font-medium text-gray-700">
-                              Video campaign
-                            </label>
                             <Field name="video_campaign">
                               {({ input, meta }) => (
                                 <>
-                                  <div className="mt-1">
+                                  <div className="mt-1 flex">
                                     <input
                                       type="checkbox"
                                       {...input}
-                                      // className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-400 rounded"
                                     />
+                                    <label className="ml-3 block text-sm font-medium text-gray-700">
+                                      Video campaign
+                                    </label>
                                   </div>
                                 </>
                               )}
@@ -565,18 +630,18 @@ export default function Content({
 
                           {/* DISPLAY_CAMPAIGN */}
                           <div className="sm:col-span-3">
-                            <label className="block text-sm font-medium text-gray-700">
-                              Display campaign
-                            </label>
                             <Field name="display_campaign">
                               {({ input, meta }) => (
                                 <>
-                                  <div className="mt-1">
+                                  <div className="mt-1 flex">
                                     <input
                                       type="checkbox"
                                       {...input}
-                                      // className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-400 rounded"
                                     />
+                                    <label className="ml-3 block text-sm font-medium text-gray-700">
+                                      Display campaign
+                                    </label>
                                   </div>
                                 </>
                               )}
@@ -585,18 +650,18 @@ export default function Content({
 
                           {/* NATIVE_CAMPAIGN */}
                           <div className="sm:col-span-3">
-                            <label className="block text-sm font-medium text-gray-700">
-                              Native campaign
-                            </label>
                             <Field name="native_campaign">
                               {({ input, meta }) => (
                                 <>
-                                  <div className="mt-1">
+                                  <div className="mt-1 flex">
                                     <input
                                       type="checkbox"
                                       {...input}
-                                      // className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-400 rounded"
                                     />
+                                    <label className="ml-3 block text-sm font-medium text-gray-700">
+                                      Native campaign
+                                    </label>
                                   </div>
                                 </>
                               )}
@@ -605,18 +670,18 @@ export default function Content({
 
                           {/* SEARCH_CAMPAIGN */}
                           <div className="sm:col-span-3">
-                            <label className="block text-sm font-medium text-gray-700">
-                              Search campaign
-                            </label>
                             <Field name="search_campaign">
                               {({ input, meta }) => (
                                 <>
-                                  <div className="mt-1">
+                                  <div className="mt-1 flex">
                                     <input
                                       type="checkbox"
                                       {...input}
-                                      // className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-400 rounded"
                                     />
+                                    <label className="ml-3 block text-sm font-medium text-gray-700">
+                                      Search campaign
+                                    </label>
                                   </div>
                                 </>
                               )}
@@ -625,18 +690,18 @@ export default function Content({
 
                           {/* SOCIAL_CAMPAIGN */}
                           <div className="sm:col-span-3">
-                            <label className="block text-sm font-medium text-gray-700">
-                              Social campaign
-                            </label>
                             <Field name="social_campaign">
                               {({ input, meta }) => (
                                 <>
-                                  <div className="mt-1">
+                                  <div className="mt-1 flex">
                                     <input
                                       type="checkbox"
                                       {...input}
-                                      // className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-400 rounded"
                                     />
+                                    <label className="ml-3 block text-sm font-medium text-gray-700">
+                                      Social campaign
+                                    </label>
                                   </div>
                                 </>
                               )}
@@ -645,18 +710,18 @@ export default function Content({
 
                           {/* HIGHIMPACT_CAMPAIGN */}
                           <div className="sm:col-span-3">
-                            <label className="block text-sm font-medium text-gray-700">
-                              High impact campaign
-                            </label>
                             <Field name="highImpact_campaign">
                               {({ input, meta }) => (
                                 <>
-                                  <div className="mt-1">
+                                  <div className="mt-1 flex">
                                     <input
                                       type="checkbox"
                                       {...input}
-                                      // className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-400 rounded"
                                     />
+                                    <label className="ml-3 block text-sm font-medium text-gray-700">
+                                      High impact campaign
+                                    </label>
                                   </div>
                                 </>
                               )}
@@ -665,18 +730,18 @@ export default function Content({
 
                           {/* RICHMEDIA_CAMPAIGN */}
                           <div className="sm:col-span-3">
-                            <label className="block text-sm font-medium text-gray-700">
-                              Rich media campaign
-                            </label>
                             <Field name="richMedia_campaign">
                               {({ input, meta }) => (
                                 <>
-                                  <div className="mt-1">
+                                  <div className="mt-1 flex">
                                     <input
                                       type="checkbox"
                                       {...input}
-                                      // className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-400 rounded"
                                     />
+                                    <label className="ml-3 block text-sm font-medium text-gray-700">
+                                      Rich media campaign
+                                    </label>
                                   </div>
                                 </>
                               )}
@@ -685,18 +750,18 @@ export default function Content({
 
                           {/* POP_CAMPAIGN */}
                           <div className="sm:col-span-3">
-                            <label className="block text-sm font-medium text-gray-700">
-                              Pop campaign
-                            </label>
                             <Field name="pop_campaign">
                               {({ input, meta }) => (
                                 <>
-                                  <div className="mt-1">
+                                  <div className="mt-1 flex">
                                     <input
                                       type="checkbox"
                                       {...input}
-                                      // className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-400 rounded"
                                     />
+                                    <label className="ml-3 block text-sm font-medium text-gray-700">
+                                      Pop campaign
+                                    </label>
                                   </div>
                                 </>
                               )}
@@ -705,24 +770,25 @@ export default function Content({
 
                           {/* PUSH_CAMPAIGN */}
                           <div className="sm:col-span-3">
-                            <label className="block text-sm font-medium text-gray-700">
-                              Push campaign
-                            </label>
                             <Field name="push_campaign">
                               {({ input, meta }) => (
                                 <>
-                                  <div className="mt-1">
+                                  <div className="mt-1 flex">
                                     <input
                                       type="checkbox"
                                       {...input}
-                                      // className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-400 rounded"
                                     />
+                                    <label className="ml-3 block text-sm font-medium text-gray-700">
+                                      Push campaign
+                                    </label>
                                   </div>
                                 </>
                               )}
                             </Field>
                           </div>
-
+                        </div>
+                        <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                           {/* PLATFORMS */}
                           <div className="sm:col-span-3">
                             <label className="block text-sm font-medium text-gray-700">
@@ -730,11 +796,27 @@ export default function Content({
                             </label>
                             <Field
                               name="platforms"
-                              classNamePrefix="select"
-                              component={ReactSelectAdapter}
-                              isMulti
-                              options={platformOptionsObject}
-                            />
+                              validate={composeValidators(required)}
+                              className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                            >
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1">
+                                    <ReactSelectAdapter
+                                      {...input}
+                                      options={platformOptionsObject}
+                                      isMulti
+                                    />
+                                    {(meta.error || meta.submitError) &&
+                                      meta.touched && (
+                                        <span className="text-red-500">
+                                          {meta.error || meta.submitError}
+                                        </span>
+                                      )}
+                                  </div>
+                                </>
+                              )}
+                            </Field>
                           </div>
 
                           {/* ADD_COMM_TYPE */}
