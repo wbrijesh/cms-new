@@ -129,11 +129,6 @@ export default function Content({
       setPermission(false);
       setCreatePermission(false);
     }
-    console.log("user email: ", thisUser.attributes.email);
-    console.log(
-      "campaign allowed...: ",
-      thisCampaign.allowed_sales_manager_email
-    );
   };
   verifyAccess();
 
@@ -524,7 +519,7 @@ export default function Content({
                                       ) : (
                                         <>
                                           {campaign.allowed_sales_manager_email ===
-                                          "brijesh1w@gmail.com" ? (
+                                          userDetails ? (
                                             <>
                                               <tr key={campaign.id}>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">
