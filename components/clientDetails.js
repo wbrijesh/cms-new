@@ -74,7 +74,7 @@ export default function Content({ setNavigation, setSidebarOpen, thisClient }) {
       setPermission(true);
       setDeletePermission(true);
     } else if (thisUser.attributes.email === thisClient.sales_manager_email) {
-      console.log("email matches");
+      console.log("logged in as sales person, limited permissions granted");
       setPermission(true);
       setDeletePermission(false);
     } else {
@@ -461,23 +461,38 @@ export default function Content({ setNavigation, setSidebarOpen, thisClient }) {
                   <h3 className="text-lg leading-6 font-medium text-gray-900">
                     Delete this client
                   </h3>
-                  <div className="mt-2 sm:flex sm:items-start sm:justify-between">
-                    <div className="max-w-xl text-sm text-gray-500">
-                      <p>
-                        All of your data and associated campaigns will be
-                        permanently removed. This action cannot be undone.
-                      </p>
-                    </div>
-                    <div className="mt-5 sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:flex sm:items-center">
-                      <button
-                        type="button"
-                        onClick={() => setOpen(true)}
-                        className="inline-flex items-center border-2 border-red-200 items-center justify-center px-4 py-2 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 hover:border-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:text-sm"
-                      >
-                        Delete client
-                      </button>
-                    </div>
-                  </div>
+                  {deletePermission == true ? (
+                    <>
+                      <div className="mt-2 sm:flex sm:items-start sm:justify-between">
+                        <div className="max-w-xl text-sm text-gray-500">
+                          <p>
+                            All of your data and associated campaigns will be
+                            permanently removed. This action cannot be undone.
+                          </p>
+                        </div>
+                        <div className="mt-5 sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:flex sm:items-center">
+                          <button
+                            type="button"
+                            onClick={() => setOpen(true)}
+                            className="inline-flex items-center border-2 border-red-200 items-center justify-center px-4 py-2 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 hover:border-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:text-sm"
+                          >
+                            Delete client
+                          </button>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="mt-2 sm:flex sm:items-start sm:justify-between">
+                        <div className="max-w-xl text-sm text-gray-500">
+                          <p>
+                            This action is not permitted to sales team, contact
+                            admin or adops for help.
+                          </p>
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </main>
