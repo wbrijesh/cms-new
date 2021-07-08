@@ -3,11 +3,11 @@ import { Client } from "../models";
 import { useFormik } from "formik";
 import {
   BriefcaseIcon,
-  HomeIcon,
-  DocumentReportIcon,
+  ChartSquareBarIcon,
   MenuAlt2Icon,
-  ArrowCircleLeftIcon,
+  HomeIcon,
   UserAddIcon,
+  PresentationChartLineIcon,
 } from "@heroicons/react/outline";
 import { useRouter } from "next/router";
 
@@ -17,10 +17,16 @@ const navigation = [
   {
     name: "Campaigns",
     href: "/campaigns",
-    icon: DocumentReportIcon,
+    icon: ChartSquareBarIcon,
     current: false,
   },
   { name: "Sales", href: "/sales-team", icon: UserAddIcon, current: false },
+  {
+    name: "Reports",
+    href: "/reports",
+    icon: PresentationChartLineIcon,
+    current: false,
+  },
 ];
 
 function classNames(...classes) {

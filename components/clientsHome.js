@@ -4,10 +4,11 @@ import { Auth } from "aws-amplify";
 
 import {
   BriefcaseIcon,
-  DocumentReportIcon,
+  ChartSquareBarIcon,
   MenuAlt2Icon,
   HomeIcon,
   UserAddIcon,
+  PresentationChartLineIcon,
 } from "@heroicons/react/outline";
 
 const navigation = [
@@ -16,10 +17,16 @@ const navigation = [
   {
     name: "Campaigns",
     href: "/campaigns",
-    icon: DocumentReportIcon,
+    icon: ChartSquareBarIcon,
     current: false,
   },
   { name: "Sales", href: "/sales-team", icon: UserAddIcon, current: false },
+  {
+    name: "Reports",
+    href: "/reports",
+    icon: PresentationChartLineIcon,
+    current: false,
+  },
 ];
 
 function classNames(...classes) {

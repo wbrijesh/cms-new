@@ -6,10 +6,11 @@ import { Salesteam } from "../models";
 import { Form, Field } from "react-final-form";
 import {
   BriefcaseIcon,
-  DocumentReportIcon,
+  ChartSquareBarIcon,
   MenuAlt2Icon,
   HomeIcon,
   UserAddIcon,
+  PresentationChartLineIcon,
 } from "@heroicons/react/outline";
 import { useRouter } from "next/router";
 
@@ -19,10 +20,16 @@ const navigation = [
   {
     name: "Campaigns",
     href: "/campaigns",
-    icon: DocumentReportIcon,
+    icon: ChartSquareBarIcon,
     current: false,
   },
   { name: "Sales", href: "/sales-team", icon: UserAddIcon, current: true },
+  {
+    name: "Reports",
+    href: "/reports",
+    icon: PresentationChartLineIcon,
+    current: false,
+  },
 ];
 
 function classNames(...classes) {

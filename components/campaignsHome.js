@@ -8,10 +8,11 @@ import { CheckIcon, ChevronDownIcon } from "@heroicons/react/solid";
 
 import {
   BriefcaseIcon,
-  HomeIcon,
-  DocumentReportIcon,
+  ChartSquareBarIcon,
   MenuAlt2Icon,
+  HomeIcon,
   UserAddIcon,
+  PresentationChartLineIcon,
 } from "@heroicons/react/outline";
 
 const navigation = [
@@ -20,10 +21,16 @@ const navigation = [
   {
     name: "Campaigns",
     href: "/campaigns",
-    icon: DocumentReportIcon,
+    icon: ChartSquareBarIcon,
     current: true,
   },
   { name: "Sales", href: "/sales-team", icon: UserAddIcon, current: false },
+  {
+    name: "Reports",
+    href: "/reports",
+    icon: PresentationChartLineIcon,
+    current: false,
+  },
 ];
 
 function classNames(...classes) {

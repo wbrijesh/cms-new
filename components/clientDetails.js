@@ -7,11 +7,11 @@ import { Auth } from "aws-amplify";
 import Link from "next/link";
 import {
   BriefcaseIcon,
-  DocumentReportIcon,
+  ChartSquareBarIcon,
   MenuAlt2Icon,
   HomeIcon,
-  ExclamationIcon,
   UserAddIcon,
+  PresentationChartLineIcon,
 } from "@heroicons/react/outline";
 
 import { Dialog, Transition } from "@headlessui/react";
@@ -22,10 +22,16 @@ const navigation = [
   {
     name: "Campaigns",
     href: "/campaigns",
-    icon: DocumentReportIcon,
+    icon: ChartSquareBarIcon,
     current: false,
   },
   { name: "Sales", href: "/sales-team", icon: UserAddIcon, current: false },
+  {
+    name: "Reports",
+    href: "/reports",
+    icon: PresentationChartLineIcon,
+    current: false,
+  },
 ];
 
 function classNames(...classes) {

@@ -5,11 +5,11 @@ import { Form, Field } from "react-final-form";
 import { useRouter } from "next/router";
 import {
   BriefcaseIcon,
-  HomeIcon,
-  DocumentReportIcon,
+  ChartSquareBarIcon,
   MenuAlt2Icon,
-  ArrowCircleLeftIcon,
+  HomeIcon,
   UserAddIcon,
+  PresentationChartLineIcon,
 } from "@heroicons/react/outline";
 
 const navigation = [
@@ -18,10 +18,16 @@ const navigation = [
   {
     name: "Campaigns",
     href: "/campaigns",
-    icon: DocumentReportIcon,
+    icon: ChartSquareBarIcon,
     current: false,
   },
   { name: "Sales", href: "/sales-team", icon: UserAddIcon, current: false },
+  {
+    name: "Reports",
+    href: "/reports",
+    icon: PresentationChartLineIcon,
+    current: false,
+  },
 ];
 
 function classNames(...classes) {

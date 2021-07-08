@@ -8,12 +8,11 @@ import { Storage } from "aws-amplify";
 import { v4 as uuid } from "uuid";
 import {
   BriefcaseIcon,
-  HomeIcon,
-  DocumentReportIcon,
+  ChartSquareBarIcon,
   MenuAlt2Icon,
-  ArrowCircleLeftIcon,
+  HomeIcon,
   UserAddIcon,
-  UploadIcon,
+  PresentationChartLineIcon,
 } from "@heroicons/react/outline";
 import { useRouter } from "next/router";
 
@@ -23,10 +22,16 @@ const navigation = [
   {
     name: "Campaigns",
     href: "/campaigns",
-    icon: DocumentReportIcon,
+    icon: ChartSquareBarIcon,
     current: false,
   },
   { name: "Sales", href: "/sales-team", icon: UserAddIcon, current: false },
+  {
+    name: "Reports",
+    href: "/reports",
+    icon: PresentationChartLineIcon,
+    current: false,
+  },
 ];
 
 function classNames(...classes) {

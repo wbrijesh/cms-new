@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   BriefcaseIcon,
   ChartSquareBarIcon,
@@ -9,7 +8,7 @@ import {
 } from "@heroicons/react/outline";
 
 const navigation = [
-  { name: "Home", href: "/", icon: HomeIcon, current: true },
+  { name: "Home", href: "/", icon: HomeIcon, current: false },
   { name: "Clients", href: "/clients", icon: BriefcaseIcon, current: false },
   {
     name: "Campaigns",
@@ -22,7 +21,7 @@ const navigation = [
     name: "Reports",
     href: "/reports",
     icon: PresentationChartLineIcon,
-    current: false,
+    current: true,
   },
 ];
 
@@ -32,6 +31,7 @@ function classNames(...classes) {
 
 export default function Content({ setNavigation, setSidebarOpen }) {
   setNavigation(navigation);
+
   return (
     <>
       <div className="flex-1 flex flex-col">
@@ -46,18 +46,9 @@ export default function Content({ setNavigation, setSidebarOpen }) {
             </button>
           </div>
         </div>
-
-        <main className="flex-1 overflow-y-auto focus:outline-none">
-          <div className="relative max-w-4xl mx-auto md:px-8 xl:px-0">
-            <div className="md:pt-0 pt-10 pb-16">
-              <div className="px-4 sm:px-6 md:px-0">
-                <h1 className="text-3xl font-semibold text-gray-900">
-                  Homepage
-                </h1>
-              </div>
-            </div>
-          </div>
-        </main>
+        <div>
+          <p>reports page here</p>
+        </div>
       </div>
     </>
   );
