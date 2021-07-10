@@ -7,6 +7,7 @@ import {
   MenuAlt2Icon,
   HomeIcon,
   UserAddIcon,
+  ArrowCircleLeftIcon,
   PresentationChartLineIcon,
 } from "@heroicons/react/outline";
 import { useRouter } from "next/router";

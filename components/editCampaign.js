@@ -11,6 +11,8 @@ import {
   ChartSquareBarIcon,
   MenuAlt2Icon,
   HomeIcon,
+  ArrowCircleLeftIcon,
+  UploadIcon,
   UserAddIcon,
   PresentationChartLineIcon,
 } from "@heroicons/react/outline";
@@ -18,7 +20,7 @@ import { useRouter } from "next/router";
 
 const navigation = [
   { name: "Home", href: "/", icon: HomeIcon, current: false },
-  { name: "Campaigns", href: "/campaigns", icon: BriefcaseIcon, current: true },
+  { name: "Clients", href: "/clients", icon: BriefcaseIcon, current: true },
   {
     name: "Campaigns",
     href: "/campaigns",

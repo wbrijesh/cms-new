@@ -23,9 +23,6 @@ function Home() {
       setThisCampaign(models);
       const list = await DataStore.query(Client);
       setClientList(list);
-      let test = thisCampaign.platforms;
-      let testJSON = JSON.parse(test);
-      console.log(testJSON);
       // clientList.map((singleClient) => {
       //   if (singleClient.id == thisCampaign.clientID) {
       //     setClientName(singleClient);

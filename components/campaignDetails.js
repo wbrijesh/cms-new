@@ -12,6 +12,7 @@ import {
   ChartSquareBarIcon,
   MenuAlt2Icon,
   HomeIcon,
+  ExclamationIcon,
   UserAddIcon,
   PresentationChartLineIcon,
 } from "@heroicons/react/outline";

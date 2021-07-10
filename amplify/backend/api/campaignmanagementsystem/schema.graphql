@@ -1,3 +1,11 @@
+type Rmodel @model @auth(rules: [{allow: private}, {allow: groups, groups: ["admin"], operations: [read, create, update, delete]}, {allow: groups, groups: ["adops"], operations: [read, create, update, delete]}, {allow: groups, groups: ["sales"], operations: [read, create]}]) {
+  id: ID!
+  string_field: String
+  object_field: AWSJSON
+  objectArray_field: [AWSJSON]
+  upload_date: AWSDate
+}
+
 type Salesteam @model @auth(rules: [{allow: private}]) {
   id: ID!
   name: String

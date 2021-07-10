@@ -4,10 +4,24 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 
 
+export declare class Rmodel {
+  readonly id: string;
+  readonly string_field?: string;
+  readonly object_field?: string;
+  readonly objectArray_field?: (string | null)[];
+  readonly upload_date?: string;
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<Rmodel>);
+  static copyOf(source: Rmodel, mutator: (draft: MutableModel<Rmodel>) => MutableModel<Rmodel> | void): Rmodel;
+}
+
 export declare class Salesteam {
   readonly id: string;
   readonly name?: string;
   readonly email?: string;
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
   constructor(init: ModelInit<Salesteam>);
   static copyOf(source: Salesteam, mutator: (draft: MutableModel<Salesteam>) => MutableModel<Salesteam> | void): Salesteam;
 }
@@ -102,6 +116,8 @@ export declare class Campaign {
   readonly clientName?: string;
   readonly platforms?: string;
   readonly allowed_sales_manager_email?: string;
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
   constructor(init: ModelInit<Campaign>);
   static copyOf(source: Campaign, mutator: (draft: MutableModel<Campaign>) => MutableModel<Campaign> | void): Campaign;
 }
@@ -129,6 +145,8 @@ export declare class Client {
   readonly date_created?: string;
   readonly date_modified?: string;
   readonly Campaigns?: (Campaign | null)[];
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
   constructor(init: ModelInit<Client>);
   static copyOf(source: Client, mutator: (draft: MutableModel<Client>) => MutableModel<Client> | void): Client;
 }
