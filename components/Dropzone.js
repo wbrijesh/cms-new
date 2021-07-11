@@ -10,7 +10,7 @@ const MyDropzone = ({ input }) => {
   return (
     <div {...getRootProps()}>
       <input {...getInputProps()} />
-      {isDragActive ? <p>Drop the files here ...</p> : <p>Upload BO here</p>}
+      {isDragActive ? <p>Drop the files here ...</p> : <p>Upload File here</p>}
     </div>
   );
 };
