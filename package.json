@@ -29,7 +29,8 @@
     "react-final-form": "^6.5.3",
     "react-final-form-file-field": "0.0.6",
     "react-select": "^4.3.1",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "xlsx": "^0.17.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.2.6",
