@@ -1,10 +1,7 @@
-import { DataStore } from "@aws-amplify/datastore";
-import { Rmodel } from "../models";
 import { useState, useEffect } from "react";
 import { Form, Field } from "react-final-form";
 import Dropzone from "./Dropzone";
 import { v4 as uuid } from "uuid";
-import moment from "moment";
 import XLSX from "xlsx";
 import {
   BriefcaseIcon,
@@ -38,25 +35,13 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Content({ setNavigation, setSidebarOpen }) {
-  const [reports, setReports] = useState(null);
-  const [reportExists, setReportExists] = useState(false);
+export default function Content({
+  setNavigation,
+  setSidebarOpen,
+  reports,
+  reportExists,
+}) {
   setNavigation(navigation);
-
-  useEffect(() => {
-    const fetchReports = async () => {
-      const models = await DataStore.query(Rmodel);
-      setReports(models);
-      console.log("previous reports: ", models);
-    };
-    fetchReports();
-  }, []);
-
-  const TodaysReport = () => {
-    const today = moment().format();
-    console.log("TODAY: ", today);
-  };
-  TodaysReport();
 
   const submitFormFunc = async (values) => {
     let submissionObject = {
