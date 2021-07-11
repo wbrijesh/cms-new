@@ -3,10 +3,10 @@ import { Rmodel } from "../../models";
 import moment from "moment";
 import { useState, useEffect } from "react";
 import Navbar from "../../components/navbar";
-import UploadContent from "../../components/reportsUpload";
+import ProfitContent from "../../components/reportsProfit";
+// import UploadContent from "../../components/reportsUpload";
 // import PacingContent from "../../components/reportsPacing"
 // import PerformanceContent from "../../components/reportsPerformance"
-// import ProfitContent from "../../components/reportsProfit"
 
 export default function index() {
   const [reports, setReports] = useState(null);
@@ -38,7 +38,7 @@ export default function index() {
             sidebarOpen={sidebarOpen}
             setSidebarOpen={setSidebarOpen}
           />
-          <UploadContent
+          <ProfitContent
             setNavigation={setNavigation}
             setSidebarOpen={setSidebarOpen}
             reports={reports}

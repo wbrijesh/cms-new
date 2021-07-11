@@ -3,8 +3,8 @@ import { Rmodel } from "../../models";
 import moment from "moment";
 import { useState, useEffect } from "react";
 import Navbar from "../../components/navbar";
-import UploadContent from "../../components/reportsUpload";
-// import PacingContent from "../../components/reportsPacing"
+import PacingContent from "../../components/reportsPacing";
+// import UploadContent from "../../components/reportsUpload";
 // import PerformanceContent from "../../components/reportsPerformance"
 // import ProfitContent from "../../components/reportsProfit"
 
@@ -12,7 +12,7 @@ export default function index() {
   const [reports, setReports] = useState(null);
   const [navigation, setNavigation] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [reportExists, setReportExists] = useState(false);
+  const [todaysReport, setTodaysReport] = useState(null);
 
   useEffect(() => {
     const fetchReports = async () => {
@@ -22,7 +22,7 @@ export default function index() {
       models.map((report) =>
         report.createdAt.toString().replace(/\T.*/, "") ===
         today.toString().replace(/\T.*/, "")
-          ? setReportExists(true)
+          ? setTodaysReport(report)
           : console.log("todays report not uploaded yet")
       );
     };
@@ -38,11 +38,11 @@ export default function index() {
             sidebarOpen={sidebarOpen}
             setSidebarOpen={setSidebarOpen}
           />
-          <UploadContent
+          <PacingContent
             setNavigation={setNavigation}
             setSidebarOpen={setSidebarOpen}
             reports={reports}
-            reportExists={reportExists}
+            todaysReport={todaysReport}
           />
         </div>
       )}

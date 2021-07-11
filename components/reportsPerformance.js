@@ -38,10 +38,25 @@ const navigation = [
 ];
 
 const tabs = [
-  { name: "Upload", href: "#", icon: outlineUploadIcon, current: true },
-  { name: "Pacing", href: "#", icon: InboxInIcon, current: false },
-  { name: "Performance", href: "#", icon: TrendingUpIcon, current: false },
-  { name: "Profit", href: "#", icon: CurrencyRupeeIcon, current: false },
+  {
+    name: "Upload",
+    href: "/reports/upload",
+    icon: outlineUploadIcon,
+    current: false,
+  },
+  {
+    name: "Pacing",
+    href: "/reports/pacing",
+    icon: InboxInIcon,
+    current: false,
+  },
+  { name: "Performance", href: "#", icon: TrendingUpIcon, current: true },
+  {
+    name: "Profit",
+    href: "/reports/profit",
+    icon: CurrencyRupeeIcon,
+    current: false,
+  },
 ];
 
 function classNames(...classes) {
