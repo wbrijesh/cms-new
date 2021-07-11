@@ -8,9 +8,15 @@ import {
   ChartSquareBarIcon,
   MenuAlt2Icon,
   HomeIcon,
+  UploadIcon as outlineUploadIcon,
   UserGroupIcon,
   PresentationChartLineIcon,
 } from "@heroicons/react/outline";
+import {
+  InboxInIcon,
+  TrendingUpIcon,
+  CurrencyRupeeIcon,
+} from "@heroicons/react/solid";
 import { UploadIcon } from "@heroicons/react/solid";
 
 const navigation = [
@@ -29,6 +35,13 @@ const navigation = [
     icon: PresentationChartLineIcon,
     current: true,
   },
+];
+
+const tabs = [
+  { name: "Upload", href: "#", icon: outlineUploadIcon, current: true },
+  { name: "Pacing", href: "#", icon: InboxInIcon, current: false },
+  { name: "Performance", href: "#", icon: TrendingUpIcon, current: false },
+  { name: "Profit", href: "#", icon: CurrencyRupeeIcon, current: false },
 ];
 
 function classNames(...classes) {
@@ -98,20 +111,70 @@ export default function Content({
                 <h1 className="text-3xl font-semibold text-gray-900">Report</h1>
               </div>
               <div className="mt-4">
+                <div>
+                  <div className="sm:hidden">
+                    <label htmlFor="tabs" className="sr-only">
+                      Select a tab
+                    </label>
+                    <select
+                      id="tabs"
+                      name="tabs"
+                      className="block w-full focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                      defaultValue={tabs.find((tab) => tab.current).name}
+                    >
+                      {tabs.map((tab) => (
+                        <option key={tab.name}>{tab.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="hidden sm:block">
+                    <div className="border-b border-gray-200">
+                      <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+                        {tabs.map((tab) => (
+                          <a
+                            key={tab.name}
+                            href={tab.href}
+                            className={classNames(
+                              tab.current
+                                ? "border-indigo-500 text-indigo-600"
+                                : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300",
+                              "group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm"
+                            )}
+                            aria-current={tab.current ? "page" : undefined}
+                          >
+                            <tab.icon
+                              className={classNames(
+                                tab.current
+                                  ? "text-indigo-500"
+                                  : "text-gray-400 group-hover:text-gray-500",
+                                "-ml-0.5 mr-2 h-5 w-5"
+                              )}
+                              aria-hidden="true"
+                            />
+                            <span>{tab.name}</span>
+                          </a>
+                        ))}
+                      </nav>
+                    </div>
+                  </div>
+                </div>
                 {reportExists == true ? (
-                  <p>
-                    Already uploaded for the day? <br />
-                    <text className="my-2">
-                      Please contact{" "}
+                  <div className="mt-8 p-4 bg-yellow-100 rounded border border-yellow-500">
+                    <p className="text-lg font-semibold text-gray-700">
+                      Already uploaded for the day
+                    </p>
+                    <br />
+                    <div className="-mt-4">
+                      Please contact
                       <a
-                        className="mx-2 bg-gray-200 p-1 border-2 border-transparent hover:border-gray-400 rounded-xl text-text-gray-700"
+                        className="mx-2 bg-yellow-50 p-1 border-2 border-yellow-200 hover:border-gray-400 rounded-xl text-text-gray-700"
                         href="mailto:tech@performena.com"
                       >
                         tech@performena.com
                       </a>
                       for help{" "}
-                    </text>
-                  </p>
+                    </div>
+                  </div>
                 ) : (
                   <Form
                     onSubmit={(values) => submitFormFunc(values)}
