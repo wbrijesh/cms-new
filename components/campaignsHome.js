@@ -147,7 +147,7 @@ export default function Content({
         userDetails && (
           <div className="flex-1 flex flex-col">
             <div className="w-full max-w-4xl bg-red-400 mx-auto md:px-8 xl:px-0 sm:invisible">
-              <div className="relative z-10 flex-shrink-0 h-16 sm:h-0 bg-white border-b border-gray-200 md:border-white flex">
+              <div className="relative z-10 flex-shrink-0 h-16 sm:h-0 bg-white border-b border-gray-100 md:border-white flex">
                 <button
                   className="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 md:hidden"
                   onClick={() => setSidebarOpen(true)}
