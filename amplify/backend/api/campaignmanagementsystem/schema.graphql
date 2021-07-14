@@ -1,4 +1,21 @@
-type Report @model @auth(rules: [{allow: private}, {allow: groups, groups: ["admin"], operations: [read, create, update, delete]}, {allow: groups, groups: ["adops"], operations: [read, create, update, delete]}, {allow: groups, groups: ["sales"], operations: [read, create]}]) {
+type Report
+  @model
+  @auth(
+    rules: [
+      { allow: private }
+      {
+        allow: groups
+        groups: ["admin"]
+        operations: [read, create, update, delete]
+      }
+      {
+        allow: groups
+        groups: ["adops"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["sales"], operations: [read, create] }
+    ]
+  ) {
   id: ID!
   upload_date: AWSDate
   xlsxToJSONStr: String
@@ -6,13 +23,30 @@ type Report @model @auth(rules: [{allow: private}, {allow: groups, groups: ["adm
   xlsxToJSONArrObj: [AWSJSON]
 }
 
-type Salesteam @model @auth(rules: [{allow: private}]) {
+type Salesteam @model @auth(rules: [{ allow: private }]) {
   id: ID!
   name: String
   email: AWSEmail
 }
 
-type Campaign @model @key(name: "byClient", fields: ["clientID"]) @auth(rules: [{allow: groups, groups: ["admin"], operations: [read, delete, update, create]}, {allow: groups, groups: ["adops"], operations: [read, create, update, delete]}, {allow: groups, groups: ["sales"], operations: [read, update]}]) {
+type Campaign
+  @model
+  @key(name: "byClient", fields: ["clientID"])
+  @auth(
+    rules: [
+      {
+        allow: groups
+        groups: ["admin"]
+        operations: [read, delete, update, create]
+      }
+      {
+        allow: groups
+        groups: ["adops"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["sales"], operations: [read, update] }
+    ]
+  ) {
   id: ID!
   clientID: ID
   name: String
@@ -104,7 +138,23 @@ type Campaign @model @key(name: "byClient", fields: ["clientID"]) @auth(rules: [
   allowed_sales_manager_email: AWSEmail
 }
 
-type Client @model @auth(rules: [{allow: groups, groups: ["admin"], operations: [read, create, update, delete]}, {allow: groups, groups: ["adops"], operations: [read, create, update, delete]}, {allow: groups, groups: ["sales"], operations: [read, update]}]) {
+type Client
+  @model
+  @auth(
+    rules: [
+      {
+        allow: groups
+        groups: ["admin"]
+        operations: [read, create, update, delete]
+      }
+      {
+        allow: groups
+        groups: ["adops"]
+        operations: [read, create, update, delete]
+      }
+      { allow: groups, groups: ["sales"], operations: [read, update] }
+    ]
+  ) {
   id: ID!
   name: String
   client_type: String
@@ -128,4 +178,3 @@ type Client @model @auth(rules: [{allow: groups, groups: ["admin"], operations: 
   date_modified: AWSDate
   Campaigns: [Campaign] @connection(keyName: "byClient", fields: ["id"])
 }
- 
