@@ -1,7 +1,7 @@
 import { Auth } from "aws-amplify";
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { CogIcon, XIcon } from "@heroicons/react/outline";
+import { LogoutIcon, XIcon } from "@heroicons/react/outline";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -135,7 +135,7 @@ export default function Navbar({ navigation, sidebarOpen, setSidebarOpen }) {
                       onClick={() => signOut()}
                       className="group border-l-4 border-transparent py-2 px-3 flex items-center text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                     >
-                      <CogIcon
+                      <LogoutIcon
                         className="text-gray-400 group-hover:text-gray-500 mr-3 h-6 w-6"
                         aria-hidden="true"
                       />
@@ -224,7 +224,7 @@ export default function Navbar({ navigation, sidebarOpen, setSidebarOpen }) {
                 onClick={() => signOut()}
                 className="group border-l-4 border-transparent py-2 px-3 flex items-center text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50"
               >
-                <CogIcon
+                <LogoutIcon
                   className="text-gray-400 group-hover:text-gray-500 mr-3 h-6 w-6"
                   aria-hidden="true"
                 />
