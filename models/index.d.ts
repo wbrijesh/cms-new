@@ -4,16 +4,16 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 
 
-export declare class Rmodel {
+export declare class Report {
   readonly id: string;
-  readonly string_field?: string;
-  readonly object_field?: string;
-  readonly objectArray_field?: (string | null)[];
   readonly upload_date?: string;
+  readonly xlsxToJSONStr?: string;
+  readonly xlsxToJSONObj?: string;
+  readonly xlsxToJSONArrObj?: (string | null)[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
-  constructor(init: ModelInit<Rmodel>);
-  static copyOf(source: Rmodel, mutator: (draft: MutableModel<Rmodel>) => MutableModel<Rmodel> | void): Rmodel;
+  constructor(init: ModelInit<Report>);
+  static copyOf(source: Report, mutator: (draft: MutableModel<Report>) => MutableModel<Report> | void): Report;
 }
 
 export declare class Salesteam {

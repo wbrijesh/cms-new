@@ -4,10 +4,10 @@ import { schema } from './schema';
 
 
 
-const { Rmodel, Salesteam, Campaign, Client } = initSchema(schema);
+const { Report, Salesteam, Campaign, Client } = initSchema(schema);
 
 export {
-  Rmodel,
+  Report,
   Salesteam,
   Campaign,
   Client

@@ -1,7 +1,7 @@
 export const schema = {
     "models": {
-        "Rmodel": {
-            "name": "Rmodel",
+        "Report": {
+            "name": "Report",
             "fields": {
                 "id": {
                     "name": "id",
@@ -10,34 +10,34 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "string_field": {
-                    "name": "string_field",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "object_field": {
-                    "name": "object_field",
-                    "isArray": false,
-                    "type": "AWSJSON",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "objectArray_field": {
-                    "name": "objectArray_field",
-                    "isArray": true,
-                    "type": "AWSJSON",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
-                },
                 "upload_date": {
                     "name": "upload_date",
                     "isArray": false,
                     "type": "AWSDate",
                     "isRequired": false,
                     "attributes": []
+                },
+                "xlsxToJSONStr": {
+                    "name": "xlsxToJSONStr",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "xlsxToJSONObj": {
+                    "name": "xlsxToJSONObj",
+                    "isArray": false,
+                    "type": "AWSJSON",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "xlsxToJSONArrObj": {
+                    "name": "xlsxToJSONArrObj",
+                    "isArray": true,
+                    "type": "AWSJSON",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -57,7 +57,7 @@ export const schema = {
                 }
             },
             "syncable": true,
-            "pluralName": "Rmodels",
+            "pluralName": "Reports",
             "attributes": [
                 {
                     "type": "model",
@@ -1135,5 +1135,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "707e338cab8846b0a4a91943af755b6b"
+    "version": "7c3fd87a104600f60baf07a1a4c1a6b9"
 };
