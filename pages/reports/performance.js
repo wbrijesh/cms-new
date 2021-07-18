@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { DataStore } from "@aws-amplify/datastore";
 import { Report } from "../../models";
 import Navbar from "../../components/navbar";
-import Content from "../../components/ReportsPerformance";
+import Content from "../../components/reportsPerformance";
 
 function index() {
   const [navigation, setNavigation] = useState([]);
