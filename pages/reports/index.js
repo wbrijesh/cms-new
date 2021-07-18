@@ -20,10 +20,8 @@ function index() {
     const fetchReports = async () => {
       const models = await DataStore.query(Report);
       setReports(models);
-      const today = moment().format();
       models.map((report) =>
-        report.createdAt.toString().replace(/\T.*/, "") ===
-        moment().format().toString().replace(/\T.*/, "")
+        report.upload_date === new Date().toISOString().slice(0, 10)
           ? setTodaysReport(true)
           : console.log("todays report not uploaded yet")
       );

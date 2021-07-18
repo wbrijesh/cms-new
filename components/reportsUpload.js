@@ -88,7 +88,7 @@ const submitFormFunc = async (values) => {
         console.log("conversion test: ", testObject);
         submissionObject.xlsxToJSONStr = JSON.stringify(testObject);
         submissionObject.xlsxToJSONObj = JSON.stringify(testObject);
-        submissionObject.upload_date = moment();
+        submissionObject.upload_date = new Date().toISOString().slice(0, 10);
         console.log("Submission Oject: ", submissionObject);
         uploadFormData(submissionObject);
       });
@@ -203,7 +203,7 @@ export default function Content({
                           for help
                         </div>
                       </div>
-                      <h3 className="text-lg my-8 text-red-700">
+                      {/* <h3 className="text-lg my-8 text-red-700">
                         remove this before pushing
                       </h3>
                       <Form
@@ -259,7 +259,7 @@ export default function Content({
                             </div>
                           </form>
                         )}
-                      />
+                      /> */}
                     </>
                   ) : (
                     <Form

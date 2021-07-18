@@ -72,14 +72,20 @@ export default function Content({ setNavigation, setSidebarOpen, reports }) {
   setNavigation(navigation);
   console.log("PAGE RELOAD");
   console.log(reports);
-  let individualCampaignReport = [];
 
-  reports &&
-    function ComposeContainer() {
-      reports.map((report) => individualCampaignReport.push(report));
-    };
-
-  console.log(individualCampaignReport);
+  function ComposeContainer() {
+    reports &&
+      reports.map((report) =>
+        console.log(
+          JSON.stringify(
+            JSON.parse(report.xlsxToJSONStr).map((platf) =>
+              console.log(platf.platform)
+            )
+          )
+        )
+      );
+  }
+  ComposeContainer();
 
   return (
     <>
@@ -165,13 +171,13 @@ export default function Content({ setNavigation, setSidebarOpen, reports }) {
                                   scope="col"
                                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                 >
-                                  Name
+                                  Campaign
                                 </th>
                                 <th
                                   scope="col"
                                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                 >
-                                  Title
+                                  Platform
                                 </th>
                                 <th
                                   scope="col"
@@ -191,39 +197,48 @@ export default function Content({ setNavigation, setSidebarOpen, reports }) {
                               </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
-                              {people.map((person) => (
-                                <tr key={person.email}>
-                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    {person.name}
-                                  </td>
-                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {person.title}
-                                  </td>
-                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {person.email}
-                                  </td>
-                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {person.role}
-                                  </td>
-                                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <a
-                                      href="#"
-                                      className="text-indigo-600 hover:text-indigo-900"
-                                    >
-                                      Edit
-                                    </a>
-                                  </td>
-                                </tr>
-                              ))}
+                              {reports.map((report) =>
+                                JSON.parse(report.xlsxToJSONStr).map((row) => (
+                                  <>
+                                    <tr>
+                                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                        {row.campaign}
+                                      </td>
+                                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {row.platform}
+                                      </td>
+                                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        abc
+                                      </td>
+                                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        abc
+                                      </td>
+                                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        <a
+                                          href="#"
+                                          className="text-indigo-600 hover:text-indigo-900"
+                                        >
+                                          Edit
+                                        </a>
+                                      </td>
+                                    </tr>
+                                  </>
+                                ))
+                              )}
                             </tbody>
                           </table>
                         </div>
                       </div>
                     </div>
                   </div>
-                  {reports.map((report) => (
-                    <>{report.xlsxToJSONStr}</>
-                  ))}
+                  {/* {reports.map((report) =>
+                    JSON.parse(report.xlsxToJSONStr).map((row) => (
+                      <>
+                        {row.platform}
+                        <br />
+                      </>
+                    ))
+                  )} */}
                 </div>
               </div>
             </div>
