@@ -68,10 +68,15 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Content({ setNavigation, setSidebarOpen, reports }) {
+export default function Content({
+  setNavigation,
+  setSidebarOpen,
+  reports,
+  campaigns,
+}) {
   setNavigation(navigation);
   console.log("PAGE RELOAD");
-  console.log(reports);
+  console.log("CAMPAIGNS HERE: ", campaigns);
 
   function ComposeContainer() {
     reports &&
@@ -225,6 +230,438 @@ export default function Content({ setNavigation, setSidebarOpen, reports }) {
                                   </>
                                 ))
                               )}
+                            </tbody>
+                          </table>
+                        </div>
+                        <div className="mt-12 shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                          <table className="min-w-full divide-y divide-gray-200">
+                            <thead className="bg-gray-50">
+                              <tr>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                >
+                                  Campaign
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                >
+                                  Client
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                >
+                                  Camp Type
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                >
+                                  Rev Type
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                >
+                                  Goal
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                >
+                                  End date
+                                </th>
+                                <th scope="col" className="relative px-6 py-3">
+                                  <span className="sr-only">Edit</span>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody className="bg-white divide-y divide-gray-200">
+                              {campaigns.map((campaign) => (
+                                <>
+                                  {campaign.display_campaign === false &&
+                                  campaign.highImpact_campaign === false &&
+                                  campaign.native_campaign === false &&
+                                  campaign.pop_campaign === false &&
+                                  campaign.push_campaign === false &&
+                                  campaign.richMedia_campaign === false &&
+                                  campaign.search_campaign === false &&
+                                  campaign.social_campaign === false &&
+                                  campaign.video_campaign === false ? (
+                                    <></>
+                                  ) : (
+                                    <>
+                                      {/* DISPLAY_CAMPAIGN */}
+                                      {campaign.display_campaign === true ? (
+                                        <>
+                                          <tr>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.name}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              {campaign.clientName}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              Display campaign
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              {campaign.displaylay_goal}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.display_goal}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.display_endDate}
+                                            </td>
+                                          </tr>
+                                        </>
+                                      ) : (
+                                        <></>
+                                      )}
+                                      {/* HIGHIMPACT_CAMPAIGN */}
+                                      {campaign.highImpact_campaign === true ? (
+                                        <>
+                                          <tr>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.name}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              {campaign.clientName}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              High impact campaign
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              {campaign.highImpacttrevType}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.highImpact_goal}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.highImpact_endDate}
+                                            </td>
+                                          </tr>
+                                        </>
+                                      ) : (
+                                        <></>
+                                      )}
+                                      {/* NATIVE_CAMPAIGN */}
+                                      {campaign.native_campaign === true ? (
+                                        <>
+                                          <tr>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.name}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              {campaign.clientName}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              Native campaign
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              {campaign.native_revType}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.native_goal}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.native_endDate}
+                                            </td>
+                                          </tr>
+                                        </>
+                                      ) : (
+                                        <></>
+                                      )}
+                                      {/* POP_CAMPAIGN */}
+                                      {campaign.pop_campaign === true ? (
+                                        <>
+                                          <tr>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.name}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              {campaign.clientName}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              Pop campaign
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              {pop_revType}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.pop_goal}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.pop_endDate}
+                                            </td>
+                                          </tr>
+                                        </>
+                                      ) : (
+                                        <></>
+                                      )}
+                                      {/* PUSH_CAMPAIGN */}
+                                      {campaign.push_campaign === true ? (
+                                        <>
+                                          <tr>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.name}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              {campaign.clientName}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              Push campaign
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              {campaign.push_revType}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.push_goal}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.push_endDate}
+                                            </td>
+                                          </tr>
+                                        </>
+                                      ) : (
+                                        <></>
+                                      )}
+                                      {/* RICHMEDIA_CAMPAIGN */}
+                                      {campaign.richMedia_campaign === true ? (
+                                        <>
+                                          <tr>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.name}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              {campaign.clientName}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              Rich media campaign
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              {campaign.richMedia_revType}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.richMedia_goal}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.richMedia_endDate}
+                                            </td>
+                                          </tr>
+                                        </>
+                                      ) : (
+                                        <></>
+                                      )}
+                                      {/* SEARCH_CAMPAIGN */}
+                                      {campaign.search_campaign === true ? (
+                                        <>
+                                          <tr>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.name}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              {campaign.clientName}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              Search campaign
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              {campaign.search_revType}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.search_goal}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.search_endDate}
+                                            </td>
+                                          </tr>
+                                        </>
+                                      ) : (
+                                        <></>
+                                      )}
+                                      {/* SOCIAL_CAMPAIGN */}
+                                      {campaign.social_campaign === true ? (
+                                        <>
+                                          <tr>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.name}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              {campaign.clientName}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              Social campaign
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              {campaign.social_revType}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.social_goal}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.social_endDate}
+                                            </td>
+                                          </tr>
+                                        </>
+                                      ) : (
+                                        <></>
+                                      )}
+                                      {/* VIDEO_CAMPAIGN */}
+                                      {campaign.video_campaign === true ? (
+                                        <>
+                                          <tr>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.name}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              {campaign.clientName}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              Video campaign
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              {campaign.video_revType}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.video_goal}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.video_endDate}
+                                            </td>
+                                          </tr>
+                                        </>
+                                      ) : (
+                                        <></>
+                                      )}
+                                      {/* ALL CAMPAIGNS */}
+                                      {/* <tr>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                          {campaign.name}
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                          {campaign.clientName}
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                          {campaign.display_campaign ? (
+                                            <>Display, </>
+                                          ) : (
+                                            <></>
+                                          )}
+                                          {campaign.highImpact_campaign ? (
+                                            <>High impact, </>
+                                          ) : (
+                                            <></>
+                                          )}
+                                          {campaign.native_campaign ? (
+                                            <>Native, </>
+                                          ) : (
+                                            <></>
+                                          )}
+                                          {campaign.pop_campaign ? (
+                                            <>Pop, </>
+                                          ) : (
+                                            <></>
+                                          )}
+                                          {campaign.push_campaign ? (
+                                            <>Push, </>
+                                          ) : (
+                                            <></>
+                                          )}
+                                          {campaign.richMedia_campaign ? (
+                                            <>Rich media, </>
+                                          ) : (
+                                            <></>
+                                          )}
+                                          {campaign.search_campaign ? (
+                                            <>Search, </>
+                                          ) : (
+                                            <></>
+                                          )}
+                                          {campaign.social_campaign ? (
+                                            <>Social, </>
+                                          ) : (
+                                            <></>
+                                          )}
+                                          {campaign.video_campaign ? (
+                                            <>Video, </>
+                                          ) : (
+                                            <></>
+                                          )}
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                          {campaign.display_campaign ? (
+                                            <>{campaign.display_revType}</>
+                                          ) : (
+                                            <></>
+                                          )}
+                                          {campaign.highImpact_campaign ? (
+                                            <>{campaign.highImp_revType}</>
+                                          ) : (
+                                            <></>
+                                          )}
+                                          {campaign.native_campaign ? (
+                                            <>{campaign.native_revType}</>
+                                          ) : (
+                                            <></>
+                                          )}
+                                          {campaign.pop_campaign ? (
+                                            <>{campaign.display_revType}</>
+                                          ) : (
+                                            <></>
+                                          )}
+                                          {campaign.push_campaign ? (
+                                            <>{campaign.push_revType}</>
+                                          ) : (
+                                            <></>
+                                          )}
+                                          {campaign.richMedia_campaign ? (
+                                            <>{campaign.richMed_revType}</>
+                                          ) : (
+                                            <></>
+                                          )}
+                                          {campaign.search_campaign ? (
+                                            <>{campaign.search_revType}</>
+                                          ) : (
+                                            <></>
+                                          )}
+                                          {campaign.social_campaign ? (
+                                            <>{campaign.social_revType}</>
+                                          ) : (
+                                            <></>
+                                          )}
+                                          {campaign.video_campaign ? (
+                                            <>{campaign.video_revType}</>
+                                          ) : (
+                                            <></>
+                                          )}
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                          {campaign.display_goal +
+                                            campaign.highImpact_goal +
+                                            campaign.native_goal +
+                                            campaign.pop_goal +
+                                            campaign.push_goal +
+                                            campaign.richMedia_goal +
+                                            campaign.search_goal +
+                                            campaign.social_goal +
+                                            campaign.video_goal}
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                          <a
+                                            href="#"
+                                            className="text-indigo-600 hover:text-indigo-900"
+                                          >
+                                            Edit
+                                          </a>
+                                        </td>
+                                      </tr> */}
+                                    </>
+                                  )}
+                                </>
+                              ))}
                             </tbody>
                           </table>
                         </div>
