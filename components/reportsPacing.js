@@ -309,13 +309,47 @@ export default function Content({
                                               Display campaign
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                              {campaign.displaylay_goal}
+                                              {campaign.display_revType}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.display_goal}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              {campaign.display_goal}
+                                              {new Date(
+                                                campaign.display_endDate
+                                              ) -
+                                                new Date() <
+                                              0 ? (
+                                                <>
+                                                  {campaign.display_goal}
+                                                  <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
+                                                    Not In Flight
+                                                  </span>
+                                                </>
+                                              ) : (
+                                                <>
+                                                  {(Math.ceil(
+                                                    Math.abs(
+                                                      new Date(
+                                                        campaign.display_endDate
+                                                      ) - new Date()
+                                                    ) /
+                                                      (1000 * 60 * 60 * 24)
+                                                  ) *
+                                                    campaign.display_goal) /
+                                                    Math.ceil(
+                                                      Math.abs(
+                                                        new Date(
+                                                          campaign.display_endDate
+                                                        ) -
+                                                          new Date(
+                                                            campaign.display_startDate
+                                                          )
+                                                      ) /
+                                                        (1000 * 60 * 60 * 24)
+                                                    )}
+                                                </>
+                                              )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               delivered
@@ -342,13 +376,47 @@ export default function Content({
                                               High impact campaign
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                              {campaign.highImpacttrevType}
+                                              {campaign.highImpact_revType}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.highImpact_goal}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              {campaign.highImpact_goal}
+                                              {new Date(
+                                                campaign.highImpact_endDate
+                                              ) -
+                                                new Date() <
+                                              0 ? (
+                                                <>
+                                                  {campaign.highImpact_goal}
+                                                  <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
+                                                    Not In Flight
+                                                  </span>
+                                                </>
+                                              ) : (
+                                                <>
+                                                  {(Math.ceil(
+                                                    Math.abs(
+                                                      new Date(
+                                                        campaign.highImpact_endDate
+                                                      ) - new Date()
+                                                    ) /
+                                                      (1000 * 60 * 60 * 24)
+                                                  ) *
+                                                    campaign.highImpact_goal) /
+                                                    Math.ceil(
+                                                      Math.abs(
+                                                        new Date(
+                                                          campaign.highImpact_endDate
+                                                        ) -
+                                                          new Date(
+                                                            campaign.highImpact_startDate
+                                                          )
+                                                      ) /
+                                                        (1000 * 60 * 60 * 24)
+                                                    )}
+                                                </>
+                                              )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               delivered
@@ -381,7 +449,41 @@ export default function Content({
                                               {campaign.native_goal}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              {campaign.native_goal}
+                                              {new Date(
+                                                campaign.native_endDate
+                                              ) -
+                                                new Date() <
+                                              0 ? (
+                                                <>
+                                                  {campaign.native_goal}
+                                                  <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
+                                                    Not In Flight
+                                                  </span>
+                                                </>
+                                              ) : (
+                                                <>
+                                                  {(Math.ceil(
+                                                    Math.abs(
+                                                      new Date(
+                                                        campaign.native_endDate
+                                                      ) - new Date()
+                                                    ) /
+                                                      (1000 * 60 * 60 * 24)
+                                                  ) *
+                                                    campaign.native_goal) /
+                                                    Math.ceil(
+                                                      Math.abs(
+                                                        new Date(
+                                                          campaign.native_endDate
+                                                        ) -
+                                                          new Date(
+                                                            campaign.native_startDate
+                                                          )
+                                                      ) /
+                                                        (1000 * 60 * 60 * 24)
+                                                    )}
+                                                </>
+                                              )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               delivered
@@ -408,13 +510,45 @@ export default function Content({
                                               Pop campaign
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                              {pop_revType}
+                                              {campaign.pop_revType}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.pop_goal}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              {campaign.pop_goal}
+                                              {new Date(campaign.pop_endDate) -
+                                                new Date() <
+                                              0 ? (
+                                                <>
+                                                  {campaign.pop_goal}
+                                                  <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
+                                                    Not In Flight
+                                                  </span>
+                                                </>
+                                              ) : (
+                                                <>
+                                                  {(Math.ceil(
+                                                    Math.abs(
+                                                      new Date(
+                                                        campaign.pop_endDate
+                                                      ) - new Date()
+                                                    ) /
+                                                      (1000 * 60 * 60 * 24)
+                                                  ) *
+                                                    campaign.pop_goal) /
+                                                    Math.ceil(
+                                                      Math.abs(
+                                                        new Date(
+                                                          campaign.pop_endDate
+                                                        ) -
+                                                          new Date(
+                                                            campaign.pop_startDate
+                                                          )
+                                                      ) /
+                                                        (1000 * 60 * 60 * 24)
+                                                    )}
+                                                </>
+                                              )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               delivered
@@ -447,7 +581,39 @@ export default function Content({
                                               {campaign.push_goal}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              {campaign.push_goal}
+                                              {new Date(campaign.push_endDate) -
+                                                new Date() <
+                                              0 ? (
+                                                <>
+                                                  {campaign.push_goal}
+                                                  <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
+                                                    Not In Flight
+                                                  </span>
+                                                </>
+                                              ) : (
+                                                <>
+                                                  {(Math.ceil(
+                                                    Math.abs(
+                                                      new Date(
+                                                        campaign.push_endDate
+                                                      ) - new Date()
+                                                    ) /
+                                                      (1000 * 60 * 60 * 24)
+                                                  ) *
+                                                    campaign.push_goal) /
+                                                    Math.ceil(
+                                                      Math.abs(
+                                                        new Date(
+                                                          campaign.push_endDate
+                                                        ) -
+                                                          new Date(
+                                                            campaign.push_startDate
+                                                          )
+                                                      ) /
+                                                        (1000 * 60 * 60 * 24)
+                                                    )}
+                                                </>
+                                              )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               delivered
@@ -480,7 +646,41 @@ export default function Content({
                                               {campaign.richMedia_goal}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              {campaign.richMedia_goal}
+                                              {new Date(
+                                                campaign.richMedia_endDate
+                                              ) -
+                                                new Date() <
+                                              0 ? (
+                                                <>
+                                                  {campaign.richMedia_goal}
+                                                  <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
+                                                    Not In Flight
+                                                  </span>
+                                                </>
+                                              ) : (
+                                                <>
+                                                  {(Math.ceil(
+                                                    Math.abs(
+                                                      new Date(
+                                                        campaign.richMedia_endDate
+                                                      ) - new Date()
+                                                    ) /
+                                                      (1000 * 60 * 60 * 24)
+                                                  ) *
+                                                    campaign.richMedia_goal) /
+                                                    Math.ceil(
+                                                      Math.abs(
+                                                        new Date(
+                                                          campaign.richMedia_endDate
+                                                        ) -
+                                                          new Date(
+                                                            campaign.richMedia_startDate
+                                                          )
+                                                      ) /
+                                                        (1000 * 60 * 60 * 24)
+                                                    )}
+                                                </>
+                                              )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               delivered
@@ -513,16 +713,6 @@ export default function Content({
                                               {campaign.search_goal}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              {/* {moment() >
-                                              campaign.search_endDate ? (
-                                                <>a</>
-                                              ) : (
-                                                <>b</>
-                                              )} */}
-                                              {/* {
-                                                (campaign.search_endDate,
-                                                moment())
-                                              } */}
                                               {new Date(
                                                 campaign.search_endDate
                                               ) -
@@ -590,7 +780,41 @@ export default function Content({
                                               {campaign.social_goal}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              {campaign.social_goal}
+                                              {new Date(
+                                                campaign.social_endDate
+                                              ) -
+                                                new Date() <
+                                              0 ? (
+                                                <>
+                                                  {campaign.social_goal}
+                                                  <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
+                                                    Not In Flight
+                                                  </span>
+                                                </>
+                                              ) : (
+                                                <>
+                                                  {(Math.ceil(
+                                                    Math.abs(
+                                                      new Date(
+                                                        campaign.social_endDate
+                                                      ) - new Date()
+                                                    ) /
+                                                      (1000 * 60 * 60 * 24)
+                                                  ) *
+                                                    campaign.social_goal) /
+                                                    Math.ceil(
+                                                      Math.abs(
+                                                        new Date(
+                                                          campaign.social_endDate
+                                                        ) -
+                                                          new Date(
+                                                            campaign.social_startDate
+                                                          )
+                                                      ) /
+                                                        (1000 * 60 * 60 * 24)
+                                                    )}
+                                                </>
+                                              )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               delivered
@@ -623,7 +847,41 @@ export default function Content({
                                               {campaign.video_goal}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              {campaign.video_goal}
+                                              {new Date(
+                                                campaign.video_endDate
+                                              ) -
+                                                new Date() <
+                                              0 ? (
+                                                <>
+                                                  {campaign.video_goal}
+                                                  <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
+                                                    Not In Flight
+                                                  </span>
+                                                </>
+                                              ) : (
+                                                <>
+                                                  {(Math.ceil(
+                                                    Math.abs(
+                                                      new Date(
+                                                        campaign.video_endDate
+                                                      ) - new Date()
+                                                    ) /
+                                                      (1000 * 60 * 60 * 24)
+                                                  ) *
+                                                    campaign.video_goal) /
+                                                    Math.ceil(
+                                                      Math.abs(
+                                                        new Date(
+                                                          campaign.video_endDate
+                                                        ) -
+                                                          new Date(
+                                                            campaign.video_startDate
+                                                          )
+                                                      ) /
+                                                        (1000 * 60 * 60 * 24)
+                                                    )}
+                                                </>
+                                              )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               delivered
