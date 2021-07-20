@@ -13,6 +13,7 @@ import {
   CurrencyRupeeIcon,
   UploadIcon,
 } from "@heroicons/react/solid";
+import moment from "moment";
 
 const navigation = [
   { name: "Home", href: "/", icon: HomeIcon, current: false },
@@ -196,9 +197,6 @@ export default function Content({
                                 >
                                   Role
                                 </th>
-                                <th scope="col" className="relative px-6 py-3">
-                                  <span className="sr-only">Edit</span>
-                                </th>
                               </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
@@ -217,14 +215,6 @@ export default function Content({
                                       </td>
                                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         abc
-                                      </td>
-                                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <a
-                                          href="#"
-                                          className="text-indigo-600 hover:text-indigo-900"
-                                        >
-                                          Edit
-                                        </a>
                                       </td>
                                     </tr>
                                   </>
@@ -266,6 +256,18 @@ export default function Content({
                                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                 >
                                   Goal
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                >
+                                  Expected
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                >
+                                  Delivered
                                 </th>
                                 <th
                                   scope="col"
@@ -313,6 +315,12 @@ export default function Content({
                                               {campaign.display_goal}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.display_goal}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              delivered
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.display_endDate}
                                             </td>
                                           </tr>
@@ -338,6 +346,12 @@ export default function Content({
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.highImpact_goal}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.highImpact_goal}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              delivered
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.highImpact_endDate}
@@ -367,6 +381,12 @@ export default function Content({
                                               {campaign.native_goal}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.native_goal}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              delivered
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.native_endDate}
                                             </td>
                                           </tr>
@@ -392,6 +412,12 @@ export default function Content({
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.pop_goal}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.pop_goal}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              delivered
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.pop_endDate}
@@ -421,6 +447,12 @@ export default function Content({
                                               {campaign.push_goal}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.push_goal}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              delivered
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.push_endDate}
                                             </td>
                                           </tr>
@@ -446,6 +478,12 @@ export default function Content({
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.richMedia_goal}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.richMedia_goal}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              delivered
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.richMedia_endDate}
@@ -475,6 +513,56 @@ export default function Content({
                                               {campaign.search_goal}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {/* {moment() >
+                                              campaign.search_endDate ? (
+                                                <>a</>
+                                              ) : (
+                                                <>b</>
+                                              )} */}
+                                              {/* {
+                                                (campaign.search_endDate,
+                                                moment())
+                                              } */}
+                                              {new Date(
+                                                campaign.search_endDate
+                                              ) -
+                                                new Date() <
+                                              0 ? (
+                                                <>
+                                                  {campaign.search_goal}
+                                                  <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
+                                                    Not In Flight
+                                                  </span>
+                                                </>
+                                              ) : (
+                                                <>
+                                                  {(Math.ceil(
+                                                    Math.abs(
+                                                      new Date(
+                                                        campaign.search_endDate
+                                                      ) - new Date()
+                                                    ) /
+                                                      (1000 * 60 * 60 * 24)
+                                                  ) *
+                                                    campaign.search_goal) /
+                                                    Math.ceil(
+                                                      Math.abs(
+                                                        new Date(
+                                                          campaign.search_endDate
+                                                        ) -
+                                                          new Date(
+                                                            campaign.search_startDate
+                                                          )
+                                                      ) /
+                                                        (1000 * 60 * 60 * 24)
+                                                    )}
+                                                </>
+                                              )}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              delivered
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.search_endDate}
                                             </td>
                                           </tr>
@@ -502,6 +590,12 @@ export default function Content({
                                               {campaign.social_goal}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.social_goal}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              delivered
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.social_endDate}
                                             </td>
                                           </tr>
@@ -527,6 +621,12 @@ export default function Content({
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.video_goal}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {campaign.video_goal}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              delivered
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.video_endDate}
