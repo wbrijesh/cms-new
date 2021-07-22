@@ -813,6 +813,69 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "reference_id_video_campaign": {
+                    "name": "reference_id_video_campaign",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "reference_id_display_campaign": {
+                    "name": "reference_id_display_campaign",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "reference_id_social_campaign": {
+                    "name": "reference_id_social_campaign",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "reference_id_richMedia_campaign": {
+                    "name": "reference_id_richMedia_campaign",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "reference_id_pop_campaign": {
+                    "name": "reference_id_pop_campaign",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "reference_id_push_campaign": {
+                    "name": "reference_id_push_campaign",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "reference_id_highImpact_campaign": {
+                    "name": "reference_id_highImpact_campaign",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "reference_id_search_campaign": {
+                    "name": "reference_id_search_campaign",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "reference_id_native_campaign": {
+                    "name": "reference_id_native_campaign",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -1135,5 +1198,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "7c3fd87a104600f60baf07a1a4c1a6b9"
+    "version": "15706b5312182d3200e2201076649e2e"
 };

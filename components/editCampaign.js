@@ -73,7 +73,7 @@ export default function Content({
     console.log(`${field}: `, formik.values[field]);
     console.log(new Date().toISOString().slice(0, 10));
     const original = await DataStore.query(Campaign, thisCampaign.id);
-    console.log(original[0]);
+    console.log("original: ", original[0]);
 
     if (
       field == "video_campaign" ||

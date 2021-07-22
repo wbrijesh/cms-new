@@ -55,15 +55,7 @@ const tabs = [
   },
 ];
 
-const people = [
-  {
-    name: "Jane Cooper",
-    title: "Regional Paradigm Technician",
-    role: "Admin",
-    email: "jane.cooper@example.com",
-  },
-  // More people...
-];
+let localReportsArray = [];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -84,14 +76,23 @@ export default function Content({
       reports.map((report) =>
         console.log(
           JSON.stringify(
-            JSON.parse(report.xlsxToJSONStr).map((platf) =>
-              console.log(platf.platform)
+            JSON.parse(report.xlsxToJSONStr).map(
+              (row) => console.log(row.platform)
+              // localReportsArray.push(row)
             )
           )
         )
       );
   }
   ComposeContainer();
+
+  const calcDelivered = async (campaign, report) => {
+    for (let i = 0; i < reports.length; i++) {
+      if (campaign.name === report.name) {
+        return "test";
+      }
+    }
+  };
 
   return (
     <>
@@ -352,7 +353,16 @@ export default function Content({
                                               )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              delivered
+                                              <>
+                                                {" "}
+                                                {reports.map((report) =>
+                                                  JSON.parse(
+                                                    report.xlsxToJSONStr
+                                                  ).map((row) => (
+                                                    <>{row.campaign}</>
+                                                  ))
+                                                )}{" "}
+                                              </>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.display_endDate}
@@ -750,7 +760,23 @@ export default function Content({
                                               )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              delivered
+                                              <>
+                                                {reports.map((report) =>
+                                                  JSON.parse(
+                                                    report.xlsxToJSONStr
+                                                  ).map((row) =>
+                                                    row.campaign ===
+                                                    campaign.name ? (
+                                                      calcDelivered(
+                                                        campaign,
+                                                        row
+                                                      )
+                                                    ) : (
+                                                      <></>
+                                                    )
+                                                  )
+                                                )}
+                                              </>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.search_endDate}

@@ -377,6 +377,106 @@ export default function Content({
       await Storage.put(fileName, values.BO_file[0]);
     }
 
+    let campaign_names_array = [
+      "display_campaign",
+      "highImpact_campaign",
+      "native_campaign",
+      "pop_campaign",
+      "push_campaign",
+      "richMedia_campaign",
+      "search_campaign",
+      "social_campaign",
+      "video_campaign",
+    ];
+
+    let give_Reference_ID_Array = [];
+
+    for (let i = 0; i < campaign_names_array.length; i++) {
+      if (values[campaign_names_array[i]] === undefined) {
+        console.log(`${campaign_names_array[i]} is false`);
+      } else {
+        console.log(`${campaign_names_array[i]} is true`);
+        give_Reference_ID_Array.push(campaign_names_array[i]);
+      }
+    }
+
+    if (give_Reference_ID_Array.length > 0) {
+      for (let i = 0; i < 8; i++) {
+        if (give_Reference_ID_Array[i] === "video_campaign") {
+          submissionObject.reference_id_video_campaign = `CMP-${year}-${(
+            campaignList.length + 1
+          )
+            .toString()
+            .padStart(4, "0")}-${i + 1}`;
+        }
+
+        if (give_Reference_ID_Array[i] === "display_campaign") {
+          submissionObject.reference_id_display_campaign = `CMP-${year}-${(
+            campaignList.length + 1
+          )
+            .toString()
+            .padStart(4, "0")}-${i + 1}`;
+        }
+
+        if (give_Reference_ID_Array[i] === "social_campaign") {
+          submissionObject.reference_id_social_campaign = `CMP-${year}-${(
+            campaignList.length + 1
+          )
+            .toString()
+            .padStart(4, "0")}-${i + 1}`;
+        }
+
+        if (give_Reference_ID_Array[i] === "richMedia_campaign") {
+          submissionObject.reference_id_richMedia_campaign = `CMP-${year}-${(
+            campaignList.length + 1
+          )
+            .toString()
+            .padStart(4, "0")}-${i + 1}`;
+        }
+
+        if (give_Reference_ID_Array[i] === "pop_campaign") {
+          submissionObject.reference_id_pop_campaign = `CMP-${year}-${(
+            campaignList.length + 1
+          )
+            .toString()
+            .padStart(4, "0")}-${i + 1}`;
+        }
+
+        if (give_Reference_ID_Array[i] === "push_campaign") {
+          submissionObject.reference_id_push_campaign = `CMP-${year}-${(
+            campaignList.length + 1
+          )
+            .toString()
+            .padStart(4, "0")}-${i + 1}`;
+        }
+
+        if (give_Reference_ID_Array[i] === "highImpact_campaign") {
+          submissionObject.reference_id_highImpact_campaign = `CMP-${year}-${(
+            campaignList.length + 1
+          )
+            .toString()
+            .padStart(4, "0")}-${i + 1}`;
+        }
+
+        if (give_Reference_ID_Array[i] === "search_campaign") {
+          submissionObject.reference_id_search_campaign = `CMP-${year}-${(
+            campaignList.length + 1
+          )
+            .toString()
+            .padStart(4, "0")}-${i + 1}`;
+        }
+
+        if (give_Reference_ID_Array[i] === "native_campaign") {
+          submissionObject.reference_id_native_campaign = `CMP-${year}-${(
+            campaignList.length + 1
+          )
+            .toString()
+            .padStart(4, "0")}-${i + 1}`;
+        }
+      }
+    }
+
+    console.log("reference array: ", give_Reference_ID_Array);
     console.log("submissionObject: ", submissionObject);
     console.log("campaignTypesAuto: ", campaignTypesAuto.substring(1));
 
@@ -615,26 +715,6 @@ export default function Content({
                           </div>
                         </div>
                         <div className="bg-gray-50 border border-gray-200 p-4 mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                          {/* VIDEO_CAMPAIGN */}
-                          <div className="sm:col-span-3">
-                            <Field name="video_campaign">
-                              {({ input, meta }) => (
-                                <>
-                                  <div className="mt-1 flex">
-                                    <input
-                                      type="checkbox"
-                                      {...input}
-                                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-400 rounded"
-                                    />
-                                    <label className="ml-3 block text-sm font-medium text-gray-700">
-                                      Video campaign
-                                    </label>
-                                  </div>
-                                </>
-                              )}
-                            </Field>
-                          </div>
-
                           {/* DISPLAY_CAMPAIGN */}
                           <div className="sm:col-span-3">
                             <Field name="display_campaign">
@@ -655,6 +735,26 @@ export default function Content({
                             </Field>
                           </div>
 
+                          {/* HIGHIMPACT_CAMPAIGN */}
+                          <div className="sm:col-span-3">
+                            <Field name="highImpact_campaign">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1 flex">
+                                    <input
+                                      type="checkbox"
+                                      {...input}
+                                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-400 rounded"
+                                    />
+                                    <label className="ml-3 block text-sm font-medium text-gray-700">
+                                      High impact campaign
+                                    </label>
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
+
                           {/* NATIVE_CAMPAIGN */}
                           <div className="sm:col-span-3">
                             <Field name="native_campaign">
@@ -668,6 +768,46 @@ export default function Content({
                                     />
                                     <label className="ml-3 block text-sm font-medium text-gray-700">
                                       Native campaign
+                                    </label>
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
+
+                          {/* POP_CAMPAIGN */}
+                          <div className="sm:col-span-3">
+                            <Field name="pop_campaign">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1 flex">
+                                    <input
+                                      type="checkbox"
+                                      {...input}
+                                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-400 rounded"
+                                    />
+                                    <label className="ml-3 block text-sm font-medium text-gray-700">
+                                      Pop campaign
+                                    </label>
+                                  </div>
+                                </>
+                              )}
+                            </Field>
+                          </div>
+
+                          {/* PUSH_CAMPAIGN */}
+                          <div className="sm:col-span-3">
+                            <Field name="push_campaign">
+                              {({ input, meta }) => (
+                                <>
+                                  <div className="mt-1 flex">
+                                    <input
+                                      type="checkbox"
+                                      {...input}
+                                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-400 rounded"
+                                    />
+                                    <label className="ml-3 block text-sm font-medium text-gray-700">
+                                      Push campaign
                                     </label>
                                   </div>
                                 </>
@@ -715,26 +855,6 @@ export default function Content({
                             </Field>
                           </div>
 
-                          {/* HIGHIMPACT_CAMPAIGN */}
-                          <div className="sm:col-span-3">
-                            <Field name="highImpact_campaign">
-                              {({ input, meta }) => (
-                                <>
-                                  <div className="mt-1 flex">
-                                    <input
-                                      type="checkbox"
-                                      {...input}
-                                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-400 rounded"
-                                    />
-                                    <label className="ml-3 block text-sm font-medium text-gray-700">
-                                      High impact campaign
-                                    </label>
-                                  </div>
-                                </>
-                              )}
-                            </Field>
-                          </div>
-
                           {/* RICHMEDIA_CAMPAIGN */}
                           <div className="sm:col-span-3">
                             <Field name="richMedia_campaign">
@@ -755,9 +875,9 @@ export default function Content({
                             </Field>
                           </div>
 
-                          {/* POP_CAMPAIGN */}
+                          {/* VIDEO_CAMPAIGN */}
                           <div className="sm:col-span-3">
-                            <Field name="pop_campaign">
+                            <Field name="video_campaign">
                               {({ input, meta }) => (
                                 <>
                                   <div className="mt-1 flex">
@@ -767,27 +887,7 @@ export default function Content({
                                       className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-400 rounded"
                                     />
                                     <label className="ml-3 block text-sm font-medium text-gray-700">
-                                      Pop campaign
-                                    </label>
-                                  </div>
-                                </>
-                              )}
-                            </Field>
-                          </div>
-
-                          {/* PUSH_CAMPAIGN */}
-                          <div className="sm:col-span-3">
-                            <Field name="push_campaign">
-                              {({ input, meta }) => (
-                                <>
-                                  <div className="mt-1 flex">
-                                    <input
-                                      type="checkbox"
-                                      {...input}
-                                      className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-400 rounded"
-                                    />
-                                    <label className="ml-3 block text-sm font-medium text-gray-700">
-                                      Push campaign
+                                      Video campaign
                                     </label>
                                   </div>
                                 </>

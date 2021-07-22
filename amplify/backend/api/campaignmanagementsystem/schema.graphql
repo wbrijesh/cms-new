@@ -102,6 +102,15 @@ type Campaign @model @key(name: "byClient", fields: ["clientID"]) @auth(rules: [
   clientName: String
   platforms: String
   allowed_sales_manager_email: AWSEmail
+  reference_id_video_campaign: String
+  reference_id_display_campaign: String
+  reference_id_social_campaign: String
+  reference_id_richMedia_campaign: String
+  reference_id_pop_campaign: String
+  reference_id_push_campaign: String
+  reference_id_highImpact_campaign: String
+  reference_id_search_campaign: String
+  reference_id_native_campaign: String
 }
 
 type Client @model @auth(rules: [{allow: groups, groups: ["admin"], operations: [read, create, update, delete]}, {allow: groups, groups: ["adops"], operations: [read, create, update, delete]}, {allow: groups, groups: ["sales"], operations: [read, update]}]) {

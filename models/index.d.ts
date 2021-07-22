@@ -116,6 +116,15 @@ export declare class Campaign {
   readonly clientName?: string;
   readonly platforms?: string;
   readonly allowed_sales_manager_email?: string;
+  readonly reference_id_video_campaign?: string;
+  readonly reference_id_display_campaign?: string;
+  readonly reference_id_social_campaign?: string;
+  readonly reference_id_richMedia_campaign?: string;
+  readonly reference_id_pop_campaign?: string;
+  readonly reference_id_push_campaign?: string;
+  readonly reference_id_highImpact_campaign?: string;
+  readonly reference_id_search_campaign?: string;
+  readonly reference_id_native_campaign?: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Campaign>);
