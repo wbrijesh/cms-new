@@ -71,28 +71,20 @@ export default function Content({
   console.log("PAGE RELOAD");
   console.log("CAMPAIGNS HERE: ", campaigns);
 
-  function ComposeContainer() {
-    reports &&
-      reports.map((report) =>
-        console.log(
-          JSON.stringify(
-            JSON.parse(report.xlsxToJSONStr).map(
-              (row) => console.log(row.platform)
-              // localReportsArray.push(row)
-            )
-          )
-        )
-      );
-  }
-  ComposeContainer();
-
-  const calcDelivered = async (campaign, report) => {
-    for (let i = 0; i < reports.length; i++) {
-      if (campaign.name === report.name) {
-        return "test";
-      }
-    }
-  };
+  // function ComposeContainer() {
+  //   reports &&
+  //     reports.map((report) =>
+  //       console.log(
+  //         JSON.stringify(
+  //           JSON.parse(report.xlsxToJSONStr).map(
+  //             (row) => console.log(row.platform)
+  //             // localReportsArray.push(row)
+  //           )
+  //         )
+  //       )
+  //     );
+  // }
+  // ComposeContainer();
 
   return (
     <>
@@ -170,60 +162,6 @@ export default function Content({
                   <div className="mt-2 flex flex-col">
                     <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                       <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                        <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                          <table className="min-w-full divide-y divide-gray-200">
-                            <thead className="bg-gray-50">
-                              <tr>
-                                <th
-                                  scope="col"
-                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                >
-                                  Campaign
-                                </th>
-                                <th
-                                  scope="col"
-                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                >
-                                  Platform
-                                </th>
-                                <th
-                                  scope="col"
-                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                >
-                                  Email
-                                </th>
-                                <th
-                                  scope="col"
-                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                >
-                                  Role
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody className="bg-white divide-y divide-gray-200">
-                              {reports.map((report) =>
-                                JSON.parse(report.xlsxToJSONStr).map((row) => (
-                                  <>
-                                    <tr>
-                                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                        {row.campaign}
-                                      </td>
-                                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        {row.platform}
-                                      </td>
-                                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        abc
-                                      </td>
-                                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        abc
-                                      </td>
-                                    </tr>
-                                  </>
-                                ))
-                              )}
-                            </tbody>
-                          </table>
-                        </div>
                         <div className="mt-12 shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                           <table className="min-w-full divide-y divide-gray-200">
                             <thead className="bg-gray-50">
@@ -275,6 +213,12 @@ export default function Content({
                                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                 >
                                   End date
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                >
+                                  Pacing
                                 </th>
                                 <th scope="col" className="relative px-6 py-3">
                                   <span className="sr-only">Edit</span>
@@ -353,19 +297,55 @@ export default function Content({
                                               )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              <>
-                                                {" "}
-                                                {reports.map((report) =>
-                                                  JSON.parse(
-                                                    report.xlsxToJSONStr
-                                                  ).map((row) => (
-                                                    <>{row.campaign}</>
-                                                  ))
-                                                )}{" "}
-                                              </>
+                                              {reports.map((report) =>
+                                                JSON.parse(
+                                                  report.xlsxToJSONStr
+                                                ).map((row) =>
+                                                  row.reference ===
+                                                  campaign.reference_id_display_campaign ? (
+                                                    <>{row.impressions}</>
+                                                  ) : (
+                                                    <></>
+                                                  )
+                                                )
+                                              )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.display_endDate}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {reports.map((report) =>
+                                                JSON.parse(
+                                                  report.xlsxToJSONStr
+                                                ).map((row) =>
+                                                  row.reference ===
+                                                  campaign.reference_id_display_campaign ? (
+                                                    <>{row.impressions}</>
+                                                  ) : (
+                                                    <></>
+                                                  )
+                                                )
+                                              ) /
+                                                ((Math.ceil(
+                                                  Math.abs(
+                                                    new Date(
+                                                      campaign.display_endDate
+                                                    ) - new Date()
+                                                  ) /
+                                                    (1000 * 60 * 60 * 24)
+                                                ) *
+                                                  campaign.display_goal) /
+                                                  Math.ceil(
+                                                    Math.abs(
+                                                      new Date(
+                                                        campaign.display_endDate
+                                                      ) -
+                                                        new Date(
+                                                          campaign.display_startDate
+                                                        )
+                                                    ) /
+                                                      (1000 * 60 * 60 * 24)
+                                                  ))}
                                             </td>
                                           </tr>
                                         </>
@@ -429,7 +409,18 @@ export default function Content({
                                               )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              delivered
+                                              {reports.map((report) =>
+                                                JSON.parse(
+                                                  report.xlsxToJSONStr
+                                                ).map((row) =>
+                                                  row.reference ===
+                                                  campaign.reference_id_highImpact_campaign ? (
+                                                    <>{row.impressions}</>
+                                                  ) : (
+                                                    <></>
+                                                  )
+                                                )
+                                              )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.highImpact_endDate}
@@ -496,7 +487,18 @@ export default function Content({
                                               )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              delivered
+                                              {reports.map((report) =>
+                                                JSON.parse(
+                                                  report.xlsxToJSONStr
+                                                ).map((row) =>
+                                                  row.reference ===
+                                                  campaign.reference_id_native_campaign ? (
+                                                    <>{row.impressions}</>
+                                                  ) : (
+                                                    <></>
+                                                  )
+                                                )
+                                              )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.native_endDate}
@@ -561,7 +563,18 @@ export default function Content({
                                               )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              delivered
+                                              {reports.map((report) =>
+                                                JSON.parse(
+                                                  report.xlsxToJSONStr
+                                                ).map((row) =>
+                                                  row.reference ===
+                                                  campaign.reference_id_pop_campaign ? (
+                                                    <>{row.impressions}</>
+                                                  ) : (
+                                                    <></>
+                                                  )
+                                                )
+                                              )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.pop_endDate}
@@ -626,7 +639,18 @@ export default function Content({
                                               )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              delivered
+                                              {reports.map((report) =>
+                                                JSON.parse(
+                                                  report.xlsxToJSONStr
+                                                ).map((row) =>
+                                                  row.reference ===
+                                                  campaign.reference_id_push_campaign ? (
+                                                    <>{row.impressions}</>
+                                                  ) : (
+                                                    <></>
+                                                  )
+                                                )
+                                              )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.push_endDate}
@@ -693,7 +717,18 @@ export default function Content({
                                               )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              delivered
+                                              {reports.map((report) =>
+                                                JSON.parse(
+                                                  report.xlsxToJSONStr
+                                                ).map((row) =>
+                                                  row.reference ===
+                                                  campaign.reference_id_richMedia_campaign ? (
+                                                    <>{row.impressions}</>
+                                                  ) : (
+                                                    <></>
+                                                  )
+                                                )
+                                              )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.richMedia_endDate}
@@ -736,50 +771,90 @@ export default function Content({
                                                 </>
                                               ) : (
                                                 <>
-                                                  {(Math.ceil(
-                                                    Math.abs(
-                                                      new Date(
-                                                        campaign.search_endDate
-                                                      ) - new Date()
-                                                    ) /
-                                                      (1000 * 60 * 60 * 24)
-                                                  ) *
-                                                    campaign.search_goal) /
-                                                    Math.ceil(
+                                                  {Math.trunc(
+                                                    (Math.ceil(
                                                       Math.abs(
                                                         new Date(
                                                           campaign.search_endDate
-                                                        ) -
-                                                          new Date(
-                                                            campaign.search_startDate
-                                                          )
+                                                        ) - new Date()
                                                       ) /
                                                         (1000 * 60 * 60 * 24)
-                                                    )}
+                                                    ) *
+                                                      campaign.search_goal) /
+                                                      Math.ceil(
+                                                        Math.abs(
+                                                          new Date(
+                                                            campaign.search_endDate
+                                                          ) -
+                                                            new Date(
+                                                              campaign.search_startDate
+                                                            )
+                                                        ) /
+                                                          (1000 * 60 * 60 * 24)
+                                                      )
+                                                  )}
                                                 </>
                                               )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              <>
-                                                {reports.map((report) =>
-                                                  JSON.parse(
-                                                    report.xlsxToJSONStr
-                                                  ).map((row) =>
-                                                    row.campaign ===
-                                                    campaign.name ? (
-                                                      calcDelivered(
-                                                        campaign,
-                                                        row
-                                                      )
-                                                    ) : (
-                                                      <></>
-                                                    )
+                                              {reports.map((report) =>
+                                                JSON.parse(
+                                                  report.xlsxToJSONStr
+                                                ).map((row) =>
+                                                  row.reference ===
+                                                  campaign.reference_id_search_campaign ? (
+                                                    <>{row.impressions}</>
+                                                  ) : (
+                                                    <></>
                                                   )
-                                                )}
-                                              </>
+                                                )
+                                              )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.search_endDate}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {parseFloat(
+                                                (parseInt(
+                                                  reports.map((report) =>
+                                                    JSON.parse(
+                                                      report.xlsxToJSONStr
+                                                    ).map((row) =>
+                                                      row.reference ===
+                                                      campaign.reference_id_search_campaign ? (
+                                                        row.impressions
+                                                      ) : (
+                                                        <></>
+                                                      )
+                                                    )
+                                                  )
+                                                ) /
+                                                  Math.trunc(
+                                                    (Math.ceil(
+                                                      Math.abs(
+                                                        new Date(
+                                                          campaign.search_endDate
+                                                        ) - new Date()
+                                                      ) /
+                                                        (1000 * 60 * 60 * 24)
+                                                    ) *
+                                                      campaign.search_goal) /
+                                                      Math.ceil(
+                                                        Math.abs(
+                                                          new Date(
+                                                            campaign.search_endDate
+                                                          ) -
+                                                            new Date(
+                                                              campaign.search_startDate
+                                                            )
+                                                        ) /
+                                                          (1000 * 60 * 60 * 24)
+                                                      )
+                                                  ) -
+                                                  1) *
+                                                  100
+                                              ).toFixed(2)}
+                                              %
                                             </td>
                                           </tr>
                                         </>
@@ -819,40 +894,57 @@ export default function Content({
                                                 </>
                                               ) : (
                                                 <>
-                                                  {(Math.ceil(
-                                                    Math.abs(
-                                                      new Date(
-                                                        campaign.social_endDate
-                                                      ) - new Date()
-                                                    ) /
-                                                      (1000 * 60 * 60 * 24)
-                                                  ) *
-                                                    campaign.social_goal) /
-                                                    Math.ceil(
+                                                  {Math.trunc(
+                                                    (Math.ceil(
                                                       Math.abs(
                                                         new Date(
                                                           campaign.social_endDate
-                                                        ) -
-                                                          new Date(
-                                                            campaign.social_startDate
-                                                          )
+                                                        ) - new Date()
                                                       ) /
                                                         (1000 * 60 * 60 * 24)
-                                                    )}
+                                                    ) *
+                                                      campaign.social_goal) /
+                                                      Math.ceil(
+                                                        Math.abs(
+                                                          new Date(
+                                                            campaign.social_endDate
+                                                          ) -
+                                                            new Date(
+                                                              campaign.social_startDate
+                                                            )
+                                                        ) /
+                                                          (1000 * 60 * 60 * 24)
+                                                      )
+                                                  )}
                                                 </>
                                               )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              delivered
+                                              {reports.map((report) =>
+                                                JSON.parse(
+                                                  report.xlsxToJSONStr
+                                                ).map((row) =>
+                                                  row.reference ===
+                                                  campaign.reference_id_social_campaign ? (
+                                                    <>{row.impressions}</>
+                                                  ) : (
+                                                    <></>
+                                                  )
+                                                )
+                                              )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.social_endDate}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              calculate social pacing
                                             </td>
                                           </tr>
                                         </>
                                       ) : (
                                         <></>
                                       )}
+
                                       {/* VIDEO_CAMPAIGN */}
                                       {campaign.video_campaign === true ? (
                                         <>
@@ -910,7 +1002,18 @@ export default function Content({
                                               )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              delivered
+                                              {reports.map((report) =>
+                                                JSON.parse(
+                                                  report.xlsxToJSONStr
+                                                ).map((row) =>
+                                                  row.reference ===
+                                                  campaign.reference_id_video_campaign ? (
+                                                    <>{row.impressions}</>
+                                                  ) : (
+                                                    <></>
+                                                  )
+                                                )
+                                              )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.video_endDate}
@@ -920,128 +1023,6 @@ export default function Content({
                                       ) : (
                                         <></>
                                       )}
-                                      {/* ALL CAMPAIGNS */}
-                                      {/* <tr>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                          {campaign.name}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {campaign.clientName}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {campaign.display_campaign ? (
-                                            <>Display, </>
-                                          ) : (
-                                            <></>
-                                          )}
-                                          {campaign.highImpact_campaign ? (
-                                            <>High impact, </>
-                                          ) : (
-                                            <></>
-                                          )}
-                                          {campaign.native_campaign ? (
-                                            <>Native, </>
-                                          ) : (
-                                            <></>
-                                          )}
-                                          {campaign.pop_campaign ? (
-                                            <>Pop, </>
-                                          ) : (
-                                            <></>
-                                          )}
-                                          {campaign.push_campaign ? (
-                                            <>Push, </>
-                                          ) : (
-                                            <></>
-                                          )}
-                                          {campaign.richMedia_campaign ? (
-                                            <>Rich media, </>
-                                          ) : (
-                                            <></>
-                                          )}
-                                          {campaign.search_campaign ? (
-                                            <>Search, </>
-                                          ) : (
-                                            <></>
-                                          )}
-                                          {campaign.social_campaign ? (
-                                            <>Social, </>
-                                          ) : (
-                                            <></>
-                                          )}
-                                          {campaign.video_campaign ? (
-                                            <>Video, </>
-                                          ) : (
-                                            <></>
-                                          )}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                          {campaign.display_campaign ? (
-                                            <>{campaign.display_revType}</>
-                                          ) : (
-                                            <></>
-                                          )}
-                                          {campaign.highImpact_campaign ? (
-                                            <>{campaign.highImp_revType}</>
-                                          ) : (
-                                            <></>
-                                          )}
-                                          {campaign.native_campaign ? (
-                                            <>{campaign.native_revType}</>
-                                          ) : (
-                                            <></>
-                                          )}
-                                          {campaign.pop_campaign ? (
-                                            <>{campaign.display_revType}</>
-                                          ) : (
-                                            <></>
-                                          )}
-                                          {campaign.push_campaign ? (
-                                            <>{campaign.push_revType}</>
-                                          ) : (
-                                            <></>
-                                          )}
-                                          {campaign.richMedia_campaign ? (
-                                            <>{campaign.richMed_revType}</>
-                                          ) : (
-                                            <></>
-                                          )}
-                                          {campaign.search_campaign ? (
-                                            <>{campaign.search_revType}</>
-                                          ) : (
-                                            <></>
-                                          )}
-                                          {campaign.social_campaign ? (
-                                            <>{campaign.social_revType}</>
-                                          ) : (
-                                            <></>
-                                          )}
-                                          {campaign.video_campaign ? (
-                                            <>{campaign.video_revType}</>
-                                          ) : (
-                                            <></>
-                                          )}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                          {campaign.display_goal +
-                                            campaign.highImpact_goal +
-                                            campaign.native_goal +
-                                            campaign.pop_goal +
-                                            campaign.push_goal +
-                                            campaign.richMedia_goal +
-                                            campaign.search_goal +
-                                            campaign.social_goal +
-                                            campaign.video_goal}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                          <a
-                                            href="#"
-                                            className="text-indigo-600 hover:text-indigo-900"
-                                          >
-                                            Edit
-                                          </a>
-                                        </td>
-                                      </tr> */}
                                     </>
                                   )}
                                 </>
@@ -1052,14 +1033,6 @@ export default function Content({
                       </div>
                     </div>
                   </div>
-                  {/* {reports.map((report) =>
-                    JSON.parse(report.xlsxToJSONStr).map((row) => (
-                      <>
-                        {row.platform}
-                        <br />
-                      </>
-                    ))
-                  )} */}
                 </div>
               </div>
             </div>

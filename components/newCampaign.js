@@ -392,7 +392,7 @@ export default function Content({
     let give_Reference_ID_Array = [];
 
     for (let i = 0; i < campaign_names_array.length; i++) {
-      if (values[campaign_names_array[i]] === undefined) {
+      if (values[campaign_names_array[i]] !== true) {
         console.log(`${campaign_names_array[i]} is false`);
       } else {
         console.log(`${campaign_names_array[i]} is true`);
