@@ -320,32 +320,47 @@ export default function Content({
                                                 ).map((row) =>
                                                   row.reference ===
                                                   campaign.reference_id_display_campaign ? (
-                                                    <>{row.impressions}</>
+                                                    <>
+                                                      {parseFloat(
+                                                        (row.impressions /
+                                                          Math.trunc(
+                                                            (Math.ceil(
+                                                              Math.abs(
+                                                                new Date(
+                                                                  campaign.display_endDate
+                                                                ) - new Date()
+                                                              ) /
+                                                                (1000 *
+                                                                  60 *
+                                                                  60 *
+                                                                  24)
+                                                            ) *
+                                                              campaign.display_goal) /
+                                                              Math.ceil(
+                                                                Math.abs(
+                                                                  new Date(
+                                                                    campaign.display_endDate
+                                                                  ) -
+                                                                    new Date(
+                                                                      campaign.display_startDate
+                                                                    )
+                                                                ) /
+                                                                  (1000 *
+                                                                    60 *
+                                                                    60 *
+                                                                    24)
+                                                              )
+                                                          ) -
+                                                          1) *
+                                                          100
+                                                      ).toFixed(2)}
+                                                    </>
                                                   ) : (
                                                     <></>
                                                   )
                                                 )
-                                              ) /
-                                                ((Math.ceil(
-                                                  Math.abs(
-                                                    new Date(
-                                                      campaign.display_endDate
-                                                    ) - new Date()
-                                                  ) /
-                                                    (1000 * 60 * 60 * 24)
-                                                ) *
-                                                  campaign.display_goal) /
-                                                  Math.ceil(
-                                                    Math.abs(
-                                                      new Date(
-                                                        campaign.display_endDate
-                                                      ) -
-                                                        new Date(
-                                                          campaign.display_startDate
-                                                        )
-                                                    ) /
-                                                      (1000 * 60 * 60 * 24)
-                                                  ))}
+                                              )}
+                                              %
                                             </td>
                                           </tr>
                                         </>
@@ -425,6 +440,55 @@ export default function Content({
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.highImpact_endDate}
                                             </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {reports.map((report) =>
+                                                JSON.parse(
+                                                  report.xlsxToJSONStr
+                                                ).map((row) =>
+                                                  row.reference ===
+                                                  campaign.reference_id_highImpact_campaign ? (
+                                                    <>
+                                                      {parseFloat(
+                                                        (row.impressions /
+                                                          Math.trunc(
+                                                            (Math.ceil(
+                                                              Math.abs(
+                                                                new Date(
+                                                                  campaign.highImpact_endDate
+                                                                ) - new Date()
+                                                              ) /
+                                                                (1000 *
+                                                                  60 *
+                                                                  60 *
+                                                                  24)
+                                                            ) *
+                                                              campaign.highImpact_goal) /
+                                                              Math.ceil(
+                                                                Math.abs(
+                                                                  new Date(
+                                                                    campaign.highImpact_endDate
+                                                                  ) -
+                                                                    new Date(
+                                                                      campaign.highImpact_startDate
+                                                                    )
+                                                                ) /
+                                                                  (1000 *
+                                                                    60 *
+                                                                    60 *
+                                                                    24)
+                                                              )
+                                                          ) -
+                                                          1) *
+                                                          100
+                                                      ).toFixed(2)}
+                                                    </>
+                                                  ) : (
+                                                    <></>
+                                                  )
+                                                )
+                                              )}
+                                              %
+                                            </td>
                                           </tr>
                                         </>
                                       ) : (
@@ -503,6 +567,55 @@ export default function Content({
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.native_endDate}
                                             </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {reports.map((report) =>
+                                                JSON.parse(
+                                                  report.xlsxToJSONStr
+                                                ).map((row) =>
+                                                  row.reference ===
+                                                  campaign.reference_id_native_campaign ? (
+                                                    <>
+                                                      {parseFloat(
+                                                        (row.impressions /
+                                                          Math.trunc(
+                                                            (Math.ceil(
+                                                              Math.abs(
+                                                                new Date(
+                                                                  campaign.native_endDate
+                                                                ) - new Date()
+                                                              ) /
+                                                                (1000 *
+                                                                  60 *
+                                                                  60 *
+                                                                  24)
+                                                            ) *
+                                                              campaign.native_goal) /
+                                                              Math.ceil(
+                                                                Math.abs(
+                                                                  new Date(
+                                                                    campaign.native_endDate
+                                                                  ) -
+                                                                    new Date(
+                                                                      campaign.native_startDate
+                                                                    )
+                                                                ) /
+                                                                  (1000 *
+                                                                    60 *
+                                                                    60 *
+                                                                    24)
+                                                              )
+                                                          ) -
+                                                          1) *
+                                                          100
+                                                      ).toFixed(2)}
+                                                    </>
+                                                  ) : (
+                                                    <></>
+                                                  )
+                                                )
+                                              )}
+                                              %
+                                            </td>
                                           </tr>
                                         </>
                                       ) : (
@@ -579,6 +692,55 @@ export default function Content({
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.pop_endDate}
                                             </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {reports.map((report) =>
+                                                JSON.parse(
+                                                  report.xlsxToJSONStr
+                                                ).map((row) =>
+                                                  row.reference ===
+                                                  campaign.reference_id_pop_campaign ? (
+                                                    <>
+                                                      {parseFloat(
+                                                        (row.impressions /
+                                                          Math.trunc(
+                                                            (Math.ceil(
+                                                              Math.abs(
+                                                                new Date(
+                                                                  campaign.pop_endDate
+                                                                ) - new Date()
+                                                              ) /
+                                                                (1000 *
+                                                                  60 *
+                                                                  60 *
+                                                                  24)
+                                                            ) *
+                                                              campaign.pop_goal) /
+                                                              Math.ceil(
+                                                                Math.abs(
+                                                                  new Date(
+                                                                    campaign.pop_endDate
+                                                                  ) -
+                                                                    new Date(
+                                                                      campaign.pop_startDate
+                                                                    )
+                                                                ) /
+                                                                  (1000 *
+                                                                    60 *
+                                                                    60 *
+                                                                    24)
+                                                              )
+                                                          ) -
+                                                          1) *
+                                                          100
+                                                      ).toFixed(2)}
+                                                    </>
+                                                  ) : (
+                                                    <></>
+                                                  )
+                                                )
+                                              )}
+                                              %
+                                            </td>
                                           </tr>
                                         </>
                                       ) : (
@@ -654,6 +816,55 @@ export default function Content({
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.push_endDate}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {reports.map((report) =>
+                                                JSON.parse(
+                                                  report.xlsxToJSONStr
+                                                ).map((row) =>
+                                                  row.reference ===
+                                                  campaign.reference_id_push_campaign ? (
+                                                    <>
+                                                      {parseFloat(
+                                                        (row.impressions /
+                                                          Math.trunc(
+                                                            (Math.ceil(
+                                                              Math.abs(
+                                                                new Date(
+                                                                  campaign.push_endDate
+                                                                ) - new Date()
+                                                              ) /
+                                                                (1000 *
+                                                                  60 *
+                                                                  60 *
+                                                                  24)
+                                                            ) *
+                                                              campaign.push_goal) /
+                                                              Math.ceil(
+                                                                Math.abs(
+                                                                  new Date(
+                                                                    campaign.push_endDate
+                                                                  ) -
+                                                                    new Date(
+                                                                      campaign.push_startDate
+                                                                    )
+                                                                ) /
+                                                                  (1000 *
+                                                                    60 *
+                                                                    60 *
+                                                                    24)
+                                                              )
+                                                          ) -
+                                                          1) *
+                                                          100
+                                                      ).toFixed(2)}
+                                                    </>
+                                                  ) : (
+                                                    <></>
+                                                  )
+                                                )
+                                              )}
+                                              %
                                             </td>
                                           </tr>
                                         </>
@@ -732,6 +943,55 @@ export default function Content({
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.richMedia_endDate}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {reports.map((report) =>
+                                                JSON.parse(
+                                                  report.xlsxToJSONStr
+                                                ).map((row) =>
+                                                  row.reference ===
+                                                  campaign.reference_id_richMedia_campaign ? (
+                                                    <>
+                                                      {parseFloat(
+                                                        (row.impressions /
+                                                          Math.trunc(
+                                                            (Math.ceil(
+                                                              Math.abs(
+                                                                new Date(
+                                                                  campaign.richMedia_endDate
+                                                                ) - new Date()
+                                                              ) /
+                                                                (1000 *
+                                                                  60 *
+                                                                  60 *
+                                                                  24)
+                                                            ) *
+                                                              campaign.richMedia_goal) /
+                                                              Math.ceil(
+                                                                Math.abs(
+                                                                  new Date(
+                                                                    campaign.richMedia_endDate
+                                                                  ) -
+                                                                    new Date(
+                                                                      campaign.richMedia_startDate
+                                                                    )
+                                                                ) /
+                                                                  (1000 *
+                                                                    60 *
+                                                                    60 *
+                                                                    24)
+                                                              )
+                                                          ) -
+                                                          1) *
+                                                          100
+                                                      ).toFixed(2)}
+                                                    </>
+                                                  ) : (
+                                                    <></>
+                                                  )
+                                                )
+                                              )}
+                                              %
                                             </td>
                                           </tr>
                                         </>
@@ -814,46 +1074,52 @@ export default function Content({
                                               {campaign.search_endDate}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              {parseFloat(
-                                                (parseInt(
-                                                  reports.map((report) =>
-                                                    JSON.parse(
-                                                      report.xlsxToJSONStr
-                                                    ).map((row) =>
-                                                      row.reference ===
-                                                      campaign.reference_id_search_campaign ? (
-                                                        row.impressions
-                                                      ) : (
-                                                        <></>
-                                                      )
-                                                    )
-                                                  )
-                                                ) /
-                                                  Math.trunc(
-                                                    (Math.ceil(
-                                                      Math.abs(
-                                                        new Date(
-                                                          campaign.search_endDate
-                                                        ) - new Date()
-                                                      ) /
-                                                        (1000 * 60 * 60 * 24)
-                                                    ) *
-                                                      campaign.search_goal) /
-                                                      Math.ceil(
-                                                        Math.abs(
-                                                          new Date(
-                                                            campaign.search_endDate
+                                              {reports.map((report) =>
+                                                JSON.parse(
+                                                  report.xlsxToJSONStr
+                                                ).map((row) =>
+                                                  row.reference ===
+                                                  campaign.reference_id_search_campaign ? (
+                                                    <>
+                                                      {parseFloat(
+                                                        (row.impressions /
+                                                          Math.trunc(
+                                                            (Math.ceil(
+                                                              Math.abs(
+                                                                new Date(
+                                                                  campaign.search_endDate
+                                                                ) - new Date()
+                                                              ) /
+                                                                (1000 *
+                                                                  60 *
+                                                                  60 *
+                                                                  24)
+                                                            ) *
+                                                              campaign.search_goal) /
+                                                              Math.ceil(
+                                                                Math.abs(
+                                                                  new Date(
+                                                                    campaign.search_endDate
+                                                                  ) -
+                                                                    new Date(
+                                                                      campaign.search_startDate
+                                                                    )
+                                                                ) /
+                                                                  (1000 *
+                                                                    60 *
+                                                                    60 *
+                                                                    24)
+                                                              )
                                                           ) -
-                                                            new Date(
-                                                              campaign.search_startDate
-                                                            )
-                                                        ) /
-                                                          (1000 * 60 * 60 * 24)
-                                                      )
-                                                  ) -
-                                                  1) *
-                                                  100
-                                              ).toFixed(2)}
+                                                          1) *
+                                                          100
+                                                      ).toFixed(2)}
+                                                    </>
+                                                  ) : (
+                                                    <></>
+                                                  )
+                                                )
+                                              )}
                                               %
                                             </td>
                                           </tr>
@@ -937,7 +1203,53 @@ export default function Content({
                                               {campaign.social_endDate}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              calculate social pacing
+                                              {reports.map((report) =>
+                                                JSON.parse(
+                                                  report.xlsxToJSONStr
+                                                ).map((row) =>
+                                                  row.reference ===
+                                                  campaign.reference_id_social_campaign ? (
+                                                    <>
+                                                      {parseFloat(
+                                                        (row.impressions /
+                                                          Math.trunc(
+                                                            (Math.ceil(
+                                                              Math.abs(
+                                                                new Date(
+                                                                  campaign.social_endDate
+                                                                ) - new Date()
+                                                              ) /
+                                                                (1000 *
+                                                                  60 *
+                                                                  60 *
+                                                                  24)
+                                                            ) *
+                                                              campaign.social_goal) /
+                                                              Math.ceil(
+                                                                Math.abs(
+                                                                  new Date(
+                                                                    campaign.social_endDate
+                                                                  ) -
+                                                                    new Date(
+                                                                      campaign.social_startDate
+                                                                    )
+                                                                ) /
+                                                                  (1000 *
+                                                                    60 *
+                                                                    60 *
+                                                                    24)
+                                                              )
+                                                          ) -
+                                                          1) *
+                                                          100
+                                                      ).toFixed(2)}
+                                                    </>
+                                                  ) : (
+                                                    <></>
+                                                  )
+                                                )
+                                              )}
+                                              %
                                             </td>
                                           </tr>
                                         </>
@@ -1017,6 +1329,55 @@ export default function Content({
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.video_endDate}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                              {reports.map((report) =>
+                                                JSON.parse(
+                                                  report.xlsxToJSONStr
+                                                ).map((row) =>
+                                                  row.reference ===
+                                                  campaign.reference_id_video_campaign ? (
+                                                    <>
+                                                      {parseFloat(
+                                                        (row.impressions /
+                                                          Math.trunc(
+                                                            (Math.ceil(
+                                                              Math.abs(
+                                                                new Date(
+                                                                  campaign.video_endDate
+                                                                ) - new Date()
+                                                              ) /
+                                                                (1000 *
+                                                                  60 *
+                                                                  60 *
+                                                                  24)
+                                                            ) *
+                                                              campaign.video_goal) /
+                                                              Math.ceil(
+                                                                Math.abs(
+                                                                  new Date(
+                                                                    campaign.video_endDate
+                                                                  ) -
+                                                                    new Date(
+                                                                      campaign.video_startDate
+                                                                    )
+                                                                ) /
+                                                                  (1000 *
+                                                                    60 *
+                                                                    60 *
+                                                                    24)
+                                                              )
+                                                          ) -
+                                                          1) *
+                                                          100
+                                                      ).toFixed(2)}
+                                                    </>
+                                                  ) : (
+                                                    <></>
+                                                  )
+                                                )
+                                              )}
+                                              %
                                             </td>
                                           </tr>
                                         </>
