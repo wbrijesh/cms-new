@@ -40,6 +40,12 @@ function classNames(...classes) {
 
 const publishingOptions = [
   {
+    title: "Today (temporary)",
+    date: moment().subtract(1, "days").format("YYYY-MM-DD"),
+    slug: "created this month: ",
+    current: false,
+  },
+  {
     title: "This Month",
     date: moment().subtract(1, "months").format("YYYY-MM-DD"),
     slug: "created this month: ",
@@ -65,16 +71,6 @@ const publishingOptions = [
   },
 ];
 
-const people = [
-  {
-    name: "Jane Cooper",
-    title: "Regional Paradigm Technician",
-    role: "Admin",
-    email: "jane.cooper@example.com",
-  },
-  // More people...
-];
-
 export default function Content({
   setNavigation,
   setSidebarOpen,
@@ -88,9 +84,6 @@ export default function Content({
     slug: "created this month: ",
     current: false,
   });
-  const [filteredCampaigns, setFilteredCampaigns] = useState(null);
-
-  var oneYearAgo = moment().subtract(12, "months").format("YYYY-MM-DD");
 
   async function checkIsAfter() {
     let toFilter = [];
@@ -356,413 +349,430 @@ export default function Content({
                                   </tr>
                                 </thead>
                                 <tbody className="bg-white divide-y divide-gray-200">
-                                  {campaignList.map((campaign) => (
-                                    <>
-                                      {permission === true ? (
-                                        <tr key={campaign.id}>
-                                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">
-                                            {campaign.reference == null ? (
-                                              ""
-                                            ) : (
-                                              <>{campaign.reference}</>
-                                            )}
-                                          </td>
-                                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            {campaign.name}
-                                          </td>
-                                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            {campaign.clientName}
-                                          </td>
-                                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            {campaign.video_campaign == true ? (
-                                              <>Video, </>
-                                            ) : (
-                                              <></>
-                                            )}
-                                            {campaign.display_campaign ==
-                                            true ? (
-                                              <>Display, </>
-                                            ) : (
-                                              <></>
-                                            )}
-                                            {campaign.native_campaign ==
-                                            true ? (
-                                              <>Native, </>
-                                            ) : (
-                                              <></>
-                                            )}
-                                            {campaign.search_campaign ==
-                                            true ? (
-                                              <>Search, </>
-                                            ) : (
-                                              <></>
-                                            )}
-                                            {campaign.social_campaign ==
-                                            true ? (
-                                              <>Social, </>
-                                            ) : (
-                                              <></>
-                                            )}
-                                            {campaign.highImpact_campaign ==
-                                            true ? (
-                                              <>High impact, </>
-                                            ) : (
-                                              <></>
-                                            )}
-                                            {campaign.richMedia_campaign ==
-                                            true ? (
-                                              <>Rich media, </>
-                                            ) : (
-                                              <></>
-                                            )}
-                                            {campaign.pop_campaign == true ? (
-                                              <>Pop, </>
-                                            ) : (
-                                              <></>
-                                            )}
-                                            {campaign.push_campaign == true ? (
-                                              <>Push, </>
-                                            ) : (
-                                              <></>
-                                            )}
-                                          </td>
-                                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            {campaign.video_campaign == true &&
-                                            campaign.video_revType !== null &&
-                                            campaign.video_revType !== undefined
-                                              ? campaign.video_revType + ", "
-                                              : ""}
-                                            {campaign.display_campaign ==
-                                              true &&
-                                            campaign.display_revType !== null &&
-                                            campaign.display_revType !==
-                                              undefined
-                                              ? campaign.display_revType + ", "
-                                              : ""}
-                                            {campaign.native_campaign == true &&
-                                            campaign.native_revType !== null &&
-                                            campaign.native_revType !==
-                                              undefined
-                                              ? campaign.native_revType + ", "
-                                              : ""}
-                                            {campaign.search_campaign == true &&
-                                            campaign.search_revType !== null &&
-                                            campaign.search_revType !==
-                                              undefined
-                                              ? campaign.search_revType + ", "
-                                              : ""}
-                                            {campaign.social_campaign == true &&
-                                            campaign.social_revType !== null &&
-                                            campaign.social_revType !==
-                                              undefined
-                                              ? campaign.social_revType + ", "
-                                              : ""}
-                                            {campaign.highimpact_campaign ==
-                                              true &&
-                                            campaign.highimpact_revType !==
-                                              null &&
-                                            campaign.highimpact_revType !==
-                                              undefined
-                                              ? campaign.highimpact_revType +
-                                                ", "
-                                              : ""}
-                                            {campaign.richmedia_campaign ==
-                                              true &&
-                                            campaign.richmedia_revType !==
-                                              null &&
-                                            campaign.richmedia_revType !==
-                                              undefined
-                                              ? campaign.richmedia_revType +
-                                                ", "
-                                              : ""}
-                                            {campaign.pop_campaign == true &&
-                                            campaign.pop_revType !== null &&
-                                            campaign.pop_revType !== undefined
-                                              ? campaign.pop_revType + ", "
-                                              : ""}
-                                            {campaign.push_campaign == true &&
-                                            campaign.push_revType !== null &&
-                                            campaign.push_revType !== undefined
-                                              ? campaign.push_revType + ", "
-                                              : ""}
-                                          </td>
-                                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            {campaign.video_budget +
-                                              campaign.display_budget +
-                                              campaign.native_budget +
-                                              campaign.search_budget +
-                                              campaign.social_budget +
-                                              campaign.highImpact_budget +
-                                              campaign.richMedia_budget +
-                                              campaign.pop_budget +
-                                              campaign.push_budget !==
-                                              0 &&
-                                            campaign.video_budget +
-                                              campaign.display_budget +
-                                              campaign.native_budget +
-                                              campaign.search_budget +
-                                              campaign.social_budget +
-                                              campaign.highImpact_budget +
-                                              campaign.richMedia_budget +
-                                              campaign.pop_budget +
-                                              campaign.push_budget !==
-                                              NaN ? (
+                                  {campaignList.map((campaign) =>
+                                    campaign.date_created > selected.date ? (
+                                      <>
+                                        {permission === true ? (
+                                          <tr key={campaign.id}>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">
+                                              {campaign.reference == null ? (
+                                                ""
+                                              ) : (
+                                                <>{campaign.reference}</>
+                                              )}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              {campaign.name}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              {campaign.clientName}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              {campaign.video_campaign ==
+                                              true ? (
+                                                <>Video, </>
+                                              ) : (
+                                                <></>
+                                              )}
+                                              {campaign.display_campaign ==
+                                              true ? (
+                                                <>Display, </>
+                                              ) : (
+                                                <></>
+                                              )}
+                                              {campaign.native_campaign ==
+                                              true ? (
+                                                <>Native, </>
+                                              ) : (
+                                                <></>
+                                              )}
+                                              {campaign.search_campaign ==
+                                              true ? (
+                                                <>Search, </>
+                                              ) : (
+                                                <></>
+                                              )}
+                                              {campaign.social_campaign ==
+                                              true ? (
+                                                <>Social, </>
+                                              ) : (
+                                                <></>
+                                              )}
+                                              {campaign.highImpact_campaign ==
+                                              true ? (
+                                                <>High impact, </>
+                                              ) : (
+                                                <></>
+                                              )}
+                                              {campaign.richMedia_campaign ==
+                                              true ? (
+                                                <>Rich media, </>
+                                              ) : (
+                                                <></>
+                                              )}
+                                              {campaign.pop_campaign == true ? (
+                                                <>Pop, </>
+                                              ) : (
+                                                <></>
+                                              )}
+                                              {campaign.push_campaign ==
+                                              true ? (
+                                                <>Push, </>
+                                              ) : (
+                                                <></>
+                                              )}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              {campaign.video_campaign ==
+                                                true &&
+                                              campaign.video_revType !== null &&
+                                              campaign.video_revType !==
+                                                undefined
+                                                ? campaign.video_revType + ", "
+                                                : ""}
+                                              {campaign.display_campaign ==
+                                                true &&
+                                              campaign.display_revType !==
+                                                null &&
+                                              campaign.display_revType !==
+                                                undefined
+                                                ? campaign.display_revType +
+                                                  ", "
+                                                : ""}
+                                              {campaign.native_campaign ==
+                                                true &&
+                                              campaign.native_revType !==
+                                                null &&
+                                              campaign.native_revType !==
+                                                undefined
+                                                ? campaign.native_revType + ", "
+                                                : ""}
+                                              {campaign.search_campaign ==
+                                                true &&
+                                              campaign.search_revType !==
+                                                null &&
+                                              campaign.search_revType !==
+                                                undefined
+                                                ? campaign.search_revType + ", "
+                                                : ""}
+                                              {campaign.social_campaign ==
+                                                true &&
+                                              campaign.social_revType !==
+                                                null &&
+                                              campaign.social_revType !==
+                                                undefined
+                                                ? campaign.social_revType + ", "
+                                                : ""}
+                                              {campaign.highimpact_campaign ==
+                                                true &&
+                                              campaign.highimpact_revType !==
+                                                null &&
+                                              campaign.highimpact_revType !==
+                                                undefined
+                                                ? campaign.highimpact_revType +
+                                                  ", "
+                                                : ""}
+                                              {campaign.richmedia_campaign ==
+                                                true &&
+                                              campaign.richmedia_revType !==
+                                                null &&
+                                              campaign.richmedia_revType !==
+                                                undefined
+                                                ? campaign.richmedia_revType +
+                                                  ", "
+                                                : ""}
+                                              {campaign.pop_campaign == true &&
+                                              campaign.pop_revType !== null &&
+                                              campaign.pop_revType !== undefined
+                                                ? campaign.pop_revType + ", "
+                                                : ""}
+                                              {campaign.push_campaign == true &&
+                                              campaign.push_revType !== null &&
+                                              campaign.push_revType !==
+                                                undefined
+                                                ? campaign.push_revType + ", "
+                                                : ""}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              {campaign.video_budget +
+                                                campaign.display_budget +
+                                                campaign.native_budget +
+                                                campaign.search_budget +
+                                                campaign.social_budget +
+                                                campaign.highImpact_budget +
+                                                campaign.richMedia_budget +
+                                                campaign.pop_budget +
+                                                campaign.push_budget !==
+                                                0 &&
+                                              campaign.video_budget +
+                                                campaign.display_budget +
+                                                campaign.native_budget +
+                                                campaign.search_budget +
+                                                campaign.social_budget +
+                                                campaign.highImpact_budget +
+                                                campaign.richMedia_budget +
+                                                campaign.pop_budget +
+                                                campaign.push_budget !==
+                                                NaN ? (
+                                                <>
+                                                  $
+                                                  {(
+                                                    campaign.video_budget +
+                                                    campaign.display_budget +
+                                                    campaign.native_budget +
+                                                    campaign.search_budget +
+                                                    campaign.social_budget +
+                                                    campaign.highImpact_budget +
+                                                    campaign.richMedia_budget +
+                                                    campaign.pop_budget +
+                                                    campaign.push_budget
+                                                  ).toFixed(2)}
+                                                </>
+                                              ) : (
+                                                <></>
+                                              )}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                              {campaign.date_modified}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                              <Link
+                                                href={`/campaigns/${campaign.id}`}
+                                              >
+                                                <a
+                                                  type="button"
+                                                  className="bg-white font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                                >
+                                                  Manage
+                                                </a>
+                                              </Link>
+                                            </td>
+                                          </tr>
+                                        ) : (
+                                          <>
+                                            {campaign.allowed_sales_manager_email ===
+                                            userDetails ? (
                                               <>
-                                                $
-                                                {(
-                                                  campaign.video_budget +
-                                                  campaign.display_budget +
-                                                  campaign.native_budget +
-                                                  campaign.search_budget +
-                                                  campaign.social_budget +
-                                                  campaign.highImpact_budget +
-                                                  campaign.richMedia_budget +
-                                                  campaign.pop_budget +
-                                                  campaign.push_budget
-                                                ).toFixed(2)}
+                                                <tr key={campaign.id}>
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">
+                                                    {campaign.reference ==
+                                                    null ? (
+                                                      ""
+                                                    ) : (
+                                                      <>{campaign.reference}</>
+                                                    )}
+                                                  </td>
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {campaign.name}
+                                                  </td>
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {campaign.clientName}
+                                                  </td>
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {campaign.video_campaign ==
+                                                    true ? (
+                                                      <>Video, </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.display_campaign ==
+                                                    true ? (
+                                                      <>Display, </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.native_campaign ==
+                                                    true ? (
+                                                      <>Native, </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.search_campaign ==
+                                                    true ? (
+                                                      <>Search, </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.social_campaign ==
+                                                    true ? (
+                                                      <>Social, </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.highImpact_campaign ==
+                                                    true ? (
+                                                      <>High impact, </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.richMedia_campaign ==
+                                                    true ? (
+                                                      <>Rich media, </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.pop_campaign ==
+                                                    true ? (
+                                                      <>Pop, </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.push_campaign ==
+                                                    true ? (
+                                                      <>Push, </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                  </td>
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {campaign.video_campaign ==
+                                                      true &&
+                                                    campaign.video_revType !==
+                                                      null &&
+                                                    campaign.video_revType !==
+                                                      undefined
+                                                      ? campaign.video_revType +
+                                                        ", "
+                                                      : ""}
+                                                    {campaign.display_campaign ==
+                                                      true &&
+                                                    campaign.display_revType !==
+                                                      null &&
+                                                    campaign.display_revType !==
+                                                      undefined
+                                                      ? campaign.display_revType +
+                                                        ", "
+                                                      : ""}
+                                                    {campaign.native_campaign ==
+                                                      true &&
+                                                    campaign.native_revType !==
+                                                      null &&
+                                                    campaign.native_revType !==
+                                                      undefined
+                                                      ? campaign.native_revType +
+                                                        ", "
+                                                      : ""}
+                                                    {campaign.search_campaign ==
+                                                      true &&
+                                                    campaign.search_revType !==
+                                                      null &&
+                                                    campaign.search_revType !==
+                                                      undefined
+                                                      ? campaign.search_revType +
+                                                        ", "
+                                                      : ""}
+                                                    {campaign.social_campaign ==
+                                                      true &&
+                                                    campaign.social_revType !==
+                                                      null &&
+                                                    campaign.social_revType !==
+                                                      undefined
+                                                      ? campaign.social_revType +
+                                                        ", "
+                                                      : ""}
+                                                    {campaign.highimpact_campaign ==
+                                                      true &&
+                                                    campaign.highimpact_revType !==
+                                                      null &&
+                                                    campaign.highimpact_revType !==
+                                                      undefined
+                                                      ? campaign.highimpact_revType +
+                                                        ", "
+                                                      : ""}
+                                                    {campaign.richmedia_campaign ==
+                                                      true &&
+                                                    campaign.richmedia_revType !==
+                                                      null &&
+                                                    campaign.richmedia_revType !==
+                                                      undefined
+                                                      ? campaign.richmedia_revType +
+                                                        ", "
+                                                      : ""}
+                                                    {campaign.pop_campaign ==
+                                                      true &&
+                                                    campaign.pop_revType !==
+                                                      null &&
+                                                    campaign.pop_revType !==
+                                                      undefined
+                                                      ? campaign.pop_revType +
+                                                        ", "
+                                                      : ""}
+                                                    {campaign.push_campaign ==
+                                                      true &&
+                                                    campaign.push_revType !==
+                                                      null &&
+                                                    campaign.push_revType !==
+                                                      undefined
+                                                      ? campaign.push_revType +
+                                                        ", "
+                                                      : ""}
+                                                  </td>
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {campaign.video_budget +
+                                                      campaign.display_budget +
+                                                      campaign.native_budget +
+                                                      campaign.search_budget +
+                                                      campaign.social_budget +
+                                                      campaign.highImpact_budget +
+                                                      campaign.richMedia_budget +
+                                                      campaign.pop_budget +
+                                                      campaign.push_budget !==
+                                                      0 &&
+                                                    campaign.video_budget +
+                                                      campaign.display_budget +
+                                                      campaign.native_budget +
+                                                      campaign.search_budget +
+                                                      campaign.social_budget +
+                                                      campaign.highImpact_budget +
+                                                      campaign.richMedia_budget +
+                                                      campaign.pop_budget +
+                                                      campaign.push_budget !==
+                                                      NaN ? (
+                                                      <>
+                                                        $
+                                                        {(
+                                                          campaign.video_budget +
+                                                          campaign.display_budget +
+                                                          campaign.native_budget +
+                                                          campaign.search_budget +
+                                                          campaign.social_budget +
+                                                          campaign.highImpact_budget +
+                                                          campaign.richMedia_budget +
+                                                          campaign.pop_budget +
+                                                          campaign.push_budget
+                                                        ).toFixed(2)}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                  </td>
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {campaign.date_modified}
+                                                  </td>
+                                                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                    <Link
+                                                      href={`/campaigns/${campaign.id}`}
+                                                    >
+                                                      <a
+                                                        type="button"
+                                                        className="bg-white font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                                      >
+                                                        Manage
+                                                      </a>
+                                                    </Link>
+                                                  </td>
+                                                </tr>
                                               </>
                                             ) : (
                                               <></>
                                             )}
-                                          </td>
-                                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            {campaign.date_modified}
-                                          </td>
-                                          <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <Link
-                                              href={`/campaigns/${campaign.id}`}
-                                            >
-                                              <a
-                                                type="button"
-                                                className="bg-white font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                                              >
-                                                Manage
-                                              </a>
-                                            </Link>
-                                          </td>
-                                        </tr>
-                                      ) : (
-                                        <>
-                                          {campaign.allowed_sales_manager_email ===
-                                          userDetails ? (
-                                            <>
-                                              <tr key={campaign.id}>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">
-                                                  {campaign.reference ==
-                                                  null ? (
-                                                    ""
-                                                  ) : (
-                                                    <>{campaign.reference}</>
-                                                  )}
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                  {campaign.name}
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                  {campaign.clientName}
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                  {campaign.video_campaign ==
-                                                  true ? (
-                                                    <>Video, </>
-                                                  ) : (
-                                                    <></>
-                                                  )}
-                                                  {campaign.display_campaign ==
-                                                  true ? (
-                                                    <>Display, </>
-                                                  ) : (
-                                                    <></>
-                                                  )}
-                                                  {campaign.native_campaign ==
-                                                  true ? (
-                                                    <>Native, </>
-                                                  ) : (
-                                                    <></>
-                                                  )}
-                                                  {campaign.search_campaign ==
-                                                  true ? (
-                                                    <>Search, </>
-                                                  ) : (
-                                                    <></>
-                                                  )}
-                                                  {campaign.social_campaign ==
-                                                  true ? (
-                                                    <>Social, </>
-                                                  ) : (
-                                                    <></>
-                                                  )}
-                                                  {campaign.highImpact_campaign ==
-                                                  true ? (
-                                                    <>High impact, </>
-                                                  ) : (
-                                                    <></>
-                                                  )}
-                                                  {campaign.richMedia_campaign ==
-                                                  true ? (
-                                                    <>Rich media, </>
-                                                  ) : (
-                                                    <></>
-                                                  )}
-                                                  {campaign.pop_campaign ==
-                                                  true ? (
-                                                    <>Pop, </>
-                                                  ) : (
-                                                    <></>
-                                                  )}
-                                                  {campaign.push_campaign ==
-                                                  true ? (
-                                                    <>Push, </>
-                                                  ) : (
-                                                    <></>
-                                                  )}
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                  {campaign.video_campaign ==
-                                                    true &&
-                                                  campaign.video_revType !==
-                                                    null &&
-                                                  campaign.video_revType !==
-                                                    undefined
-                                                    ? campaign.video_revType +
-                                                      ", "
-                                                    : ""}
-                                                  {campaign.display_campaign ==
-                                                    true &&
-                                                  campaign.display_revType !==
-                                                    null &&
-                                                  campaign.display_revType !==
-                                                    undefined
-                                                    ? campaign.display_revType +
-                                                      ", "
-                                                    : ""}
-                                                  {campaign.native_campaign ==
-                                                    true &&
-                                                  campaign.native_revType !==
-                                                    null &&
-                                                  campaign.native_revType !==
-                                                    undefined
-                                                    ? campaign.native_revType +
-                                                      ", "
-                                                    : ""}
-                                                  {campaign.search_campaign ==
-                                                    true &&
-                                                  campaign.search_revType !==
-                                                    null &&
-                                                  campaign.search_revType !==
-                                                    undefined
-                                                    ? campaign.search_revType +
-                                                      ", "
-                                                    : ""}
-                                                  {campaign.social_campaign ==
-                                                    true &&
-                                                  campaign.social_revType !==
-                                                    null &&
-                                                  campaign.social_revType !==
-                                                    undefined
-                                                    ? campaign.social_revType +
-                                                      ", "
-                                                    : ""}
-                                                  {campaign.highimpact_campaign ==
-                                                    true &&
-                                                  campaign.highimpact_revType !==
-                                                    null &&
-                                                  campaign.highimpact_revType !==
-                                                    undefined
-                                                    ? campaign.highimpact_revType +
-                                                      ", "
-                                                    : ""}
-                                                  {campaign.richmedia_campaign ==
-                                                    true &&
-                                                  campaign.richmedia_revType !==
-                                                    null &&
-                                                  campaign.richmedia_revType !==
-                                                    undefined
-                                                    ? campaign.richmedia_revType +
-                                                      ", "
-                                                    : ""}
-                                                  {campaign.pop_campaign ==
-                                                    true &&
-                                                  campaign.pop_revType !==
-                                                    null &&
-                                                  campaign.pop_revType !==
-                                                    undefined
-                                                    ? campaign.pop_revType +
-                                                      ", "
-                                                    : ""}
-                                                  {campaign.push_campaign ==
-                                                    true &&
-                                                  campaign.push_revType !==
-                                                    null &&
-                                                  campaign.push_revType !==
-                                                    undefined
-                                                    ? campaign.push_revType +
-                                                      ", "
-                                                    : ""}
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                  {campaign.video_budget +
-                                                    campaign.display_budget +
-                                                    campaign.native_budget +
-                                                    campaign.search_budget +
-                                                    campaign.social_budget +
-                                                    campaign.highImpact_budget +
-                                                    campaign.richMedia_budget +
-                                                    campaign.pop_budget +
-                                                    campaign.push_budget !==
-                                                    0 &&
-                                                  campaign.video_budget +
-                                                    campaign.display_budget +
-                                                    campaign.native_budget +
-                                                    campaign.search_budget +
-                                                    campaign.social_budget +
-                                                    campaign.highImpact_budget +
-                                                    campaign.richMedia_budget +
-                                                    campaign.pop_budget +
-                                                    campaign.push_budget !==
-                                                    NaN ? (
-                                                    <>
-                                                      $
-                                                      {(
-                                                        campaign.video_budget +
-                                                        campaign.display_budget +
-                                                        campaign.native_budget +
-                                                        campaign.search_budget +
-                                                        campaign.social_budget +
-                                                        campaign.highImpact_budget +
-                                                        campaign.richMedia_budget +
-                                                        campaign.pop_budget +
-                                                        campaign.push_budget
-                                                      ).toFixed(2)}
-                                                    </>
-                                                  ) : (
-                                                    <></>
-                                                  )}
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                  {campaign.date_modified}
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                  <Link
-                                                    href={`/campaigns/${campaign.id}`}
-                                                  >
-                                                    <a
-                                                      type="button"
-                                                      className="bg-white font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                                                    >
-                                                      Manage
-                                                    </a>
-                                                  </Link>
-                                                </td>
-                                              </tr>
-                                            </>
-                                          ) : (
-                                            <></>
-                                          )}
-                                        </>
-                                      )}
-                                    </>
-                                  ))}
+                                          </>
+                                        )}
+                                      </>
+                                    ) : (
+                                      <></>
+                                    )
+                                  )}
                                 </tbody>
                               </table>
                             </div>

@@ -22,17 +22,24 @@ function index() {
 
   return (
     <div className="h-screen bg-white overflow-hidden flex">
-      <Navbar
-        navigation={navigation}
-        sidebarOpen={sidebarOpen}
-        setSidebarOpen={setSidebarOpen}
-      />
-      <Content
-        setNavigation={setNavigation}
-        setSidebarOpen={setSidebarOpen}
-        reports={reports}
-        campaigns={campaigns}
-      />
+      {
+        (reports,
+        campaigns && (
+          <>
+            <Navbar
+              navigation={navigation}
+              sidebarOpen={sidebarOpen}
+              setSidebarOpen={setSidebarOpen}
+            />
+            <Content
+              setNavigation={setNavigation}
+              setSidebarOpen={setSidebarOpen}
+              reports={reports}
+              campaigns={campaigns}
+            />
+          </>
+        ))
+      }
     </div>
   );
 }
