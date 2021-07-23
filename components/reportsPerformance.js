@@ -13,6 +13,7 @@ import {
   CurrencyRupeeIcon,
   UploadIcon,
 } from "@heroicons/react/solid";
+import { getJsDateFromExcel } from "excel-date-to-js";
 
 const navigation = [
   { name: "Home", href: "/", icon: HomeIcon, current: false },
@@ -54,11 +55,26 @@ const tabs = [
   },
 ];
 
+const people = [
+  {
+    name: "Jane Cooper",
+    title: "Regional Paradigm Technician",
+    role: "Admin",
+    email: "jane.cooper@example.com",
+  },
+  // More people...
+];
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Content({ setNavigation, setSidebarOpen, reports }) {
+export default function Content({
+  setNavigation,
+  setSidebarOpen,
+  reports,
+  campaigns,
+}) {
   setNavigation(navigation);
   console.log("PAGE RELOAD");
   console.log(reports);
@@ -136,6 +152,192 @@ export default function Content({ setNavigation, setSidebarOpen, reports }) {
                     </div>
                   </div>
                   {/* comment */}
+                  <div className="flex flex-col">
+                    <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                      <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                        <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                          <table className="min-w-full divide-y divide-gray-200">
+                            <thead className="bg-gray-50">
+                              <tr>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                >
+                                  Campaign
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                >
+                                  Date
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                >
+                                  Camp Type
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                >
+                                  Impressions
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                >
+                                  Clicks
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                >
+                                  Visits
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                >
+                                  Views
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                >
+                                  Comp View
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                >
+                                  Conversions
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                >
+                                  Viewability
+                                </th>
+                                <th scope="col" className="relative px-6 py-3">
+                                  <span className="sr-only">Edit</span>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody className="bg-white divide-y divide-gray-200">
+                              {reports.map((report) =>
+                                JSON.parse(report.xlsxToJSONStr).map((row) => (
+                                  <tr>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                      {row.campaign}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                      {
+                                        new Date(
+                                          Math.round(
+                                            (row.date - (25567 + 1)) *
+                                              86400 *
+                                              1000
+                                          )
+                                        )
+                                          .toISOString()
+                                          .split("T")[0]
+                                      }
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                      {campaigns.map((campaign) =>
+                                        campaign.name === row.campaign ? (
+                                          <>
+                                            {campaign.reference_id_video_campaign ===
+                                            row.reference ? (
+                                              <>video</>
+                                            ) : (
+                                              <></>
+                                            )}
+                                            {campaign.reference_id_search_campaign ===
+                                            row.reference ? (
+                                              <>search</>
+                                            ) : (
+                                              <></>
+                                            )}
+                                            {campaign.reference_id_social_campaign ===
+                                            row.reference ? (
+                                              <>social</>
+                                            ) : (
+                                              <></>
+                                            )}
+                                            {campaign.reference_id_display_campaign ===
+                                            row.reference ? (
+                                              <>display</>
+                                            ) : (
+                                              <></>
+                                            )}
+                                            {campaign.reference_id_richMedia_campaign ===
+                                            row.reference ? (
+                                              <>Rich media</>
+                                            ) : (
+                                              <></>
+                                            )}
+                                            {campaign.reference_id_pop_campaign ===
+                                            row.reference ? (
+                                              <>pop</>
+                                            ) : (
+                                              <></>
+                                            )}
+                                            {campaign.reference_id_push_campaign ===
+                                            row.reference ? (
+                                              <>push</>
+                                            ) : (
+                                              <></>
+                                            )}
+                                            {campaign.reference_id_highImpact_campaign ===
+                                            row.reference ? (
+                                              <>High impact</>
+                                            ) : (
+                                              <></>
+                                            )}
+                                            {campaign.reference_id_native_campaign ===
+                                            row.reference ? (
+                                              <>native</>
+                                            ) : (
+                                              <></>
+                                            )}
+                                          </>
+                                        ) : (
+                                          <></>
+                                        )
+                                      )}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                      {row.impressions}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                      {row.clicks}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                      {row.visits}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                      {row.views}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                      {row.completed_views}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                      {row.conversions}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                      {row.viewability}
+                                    </td>
+                                  </tr>
+                                ))
+                              )}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

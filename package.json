@@ -19,6 +19,7 @@
     "@sentry/tracing": "^6.9.0",
     "@tailwindcss/forms": "^0.3.3",
     "aws-amplify": "^4.0.3",
+    "excel-date-to-js": "^1.0.6",
     "final-form": "^4.20.2",
     "formik": "^2.2.9",
     "jquery": "^3.6.0",
