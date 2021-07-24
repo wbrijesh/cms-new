@@ -1,3 +1,4 @@
+import { useState, Fragment } from "react";
 import {
   BriefcaseIcon,
   ChartSquareBarIcon,
@@ -14,6 +15,9 @@ import {
   UploadIcon,
 } from "@heroicons/react/solid";
 import { getJsDateFromExcel } from "excel-date-to-js";
+import moment from "moment";
+import { Listbox, Transition } from "@headlessui/react";
+import { CheckIcon, ChevronDownIcon } from "@heroicons/react/solid";
 
 const navigation = [
   { name: "Home", href: "/", icon: HomeIcon, current: false },
@@ -69,6 +73,39 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
+const publishingOptions = [
+  {
+    title: "Today (temporary)",
+    date: moment().subtract(1, "days").format("YYYY-MM-DD"),
+    slug: "created this month: ",
+    current: false,
+  },
+  {
+    title: "This Month",
+    date: moment().subtract(1, "months").format("YYYY-MM-DD"),
+    slug: "created this month: ",
+    current: false,
+  },
+  {
+    title: "This Quarter",
+    date: moment().subtract(3, "months").format("YYYY-MM-DD"),
+    slug: "created this quarter: ",
+    current: false,
+  },
+  {
+    title: "This Year",
+    date: moment().subtract(12, "months").format("YYYY-MM-DD"),
+    slug: "created this year: ",
+    current: true,
+  },
+  {
+    title: "Show All",
+    date: moment().subtract(9999999, "months").format("YYYY-MM-DD"),
+    slug: "created this anytime: ",
+    current: true,
+  },
+];
+
 export default function Content({
   setNavigation,
   setSidebarOpen,
@@ -76,13 +113,21 @@ export default function Content({
   campaigns,
 }) {
   setNavigation(navigation);
+
+  const [selected, setSelected] = useState({
+    title: "This Month",
+    date: moment().subtract(1, "months").format("YYYY-MM-DD"),
+    slug: "created this month: ",
+    current: false,
+  });
+
   console.log("PAGE RELOAD");
   console.log(reports);
   return (
     <>
       {reports && (
         <div className="flex-1 flex flex-col">
-          <div className="w-full max-w-4xl mx-auto md:px-8 xl:px-0">
+          <div className="w-full max-w-6xl mx-auto md:px-8 xl:px-0">
             <div className="relative z-10 flex-shrink-0 h-16 bg-white border-b border-gray-200 md:border-white flex">
               <button
                 className="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 md:hidden"
@@ -95,7 +140,7 @@ export default function Content({
           </div>
 
           <main className="flex-1 overflow-y-auto focus:outline-none">
-            <div className="relative max-w-4xl mx-auto md:px-8 xl:px-0">
+            <div className="relative max-w-6xl mx-auto md:px-8 xl:px-0">
               <div className="md:pt-0 pt-10 pb-16">
                 <div className="px-4 sm:px-6 md:px-0">
                   <h1 className="text-3xl font-semibold text-gray-900">
@@ -152,6 +197,116 @@ export default function Content({
                     </div>
                   </div>
                   {/* comment */}
+                  <div className="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between">
+                    <h3 className="text-lg leading-6 font-medium text-gray-900"></h3>
+                    <div className="mt-3 flex sm:mt-0 sm:ml-4">
+                      <Listbox
+                        className="mr-0"
+                        value={selected}
+                        onChange={setSelected}
+                      >
+                        {({ open }) => (
+                          <>
+                            <Listbox.Label className="sr-only">
+                              Change published status
+                            </Listbox.Label>
+                            <div className="relative">
+                              <div className="inline-flex shadow-sm rounded divide-x-2 divide-blue-500">
+                                <div className="relative border-2 border-blue-500 rounded z-0 inline-flex shadow-sm rounded divide-x-2 divide-blue-500">
+                                  <div className="relative inline-flex items-center bg-gray-50 py-2 pl-3 pr-4 rounded-l-sm shadow-sm text-blue-600">
+                                    <CheckIcon
+                                      className="h-5 w-5"
+                                      aria-hidden="true"
+                                    />
+                                    <p className="ml-2.5 text-sm font-medium">
+                                      {selected.title}
+                                    </p>
+                                  </div>
+                                  <Listbox.Button className="relative inline-flex items-center bg-gray-50 p-2 rounded-l-none rounded-r-sm text-sm font-medium text-blue-600 hover:bg-blue-gray-200 focus:outline-none">
+                                    <span className="sr-only">
+                                      Change published status
+                                    </span>
+                                    <ChevronDownIcon
+                                      className="h-5 w-5 text-blue-600"
+                                      aria-hidden="true"
+                                    />
+                                  </Listbox.Button>
+                                </div>
+                              </div>
+
+                              <Transition
+                                show={open}
+                                as={Fragment}
+                                leave="transition ease-in duration-100"
+                                leaveFrom="opacity-100"
+                                leaveTo="opacity-0"
+                              >
+                                <Listbox.Options
+                                  static
+                                  className="origin-top-right absolute z-10 right-0 mt-2 w-72 rounded shadow-lg overflow-hidden bg-white divide-y divide-gray-200 ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                >
+                                  {publishingOptions.map((option) => (
+                                    <Listbox.Option
+                                      key={option.title}
+                                      className={({ active }) =>
+                                        classNames(
+                                          active
+                                            ? "cursor-copy text-white bg-blue-500"
+                                            : "text-gray-900",
+                                          "cursor-copy select-none relative p-2.5 pb-1 text-sm"
+                                        )
+                                      }
+                                      value={option}
+                                    >
+                                      {({ selected, active }) => (
+                                        <div className="flex flex-col">
+                                          <div className="flex justify-between">
+                                            <p
+                                              className={
+                                                selected
+                                                  ? "font-semibold"
+                                                  : "font-normal"
+                                              }
+                                            >
+                                              {option.title}
+                                            </p>
+                                            {selected ? (
+                                              <span
+                                                className={
+                                                  active
+                                                    ? "text-white"
+                                                    : "text-blue-500"
+                                                }
+                                              >
+                                                <CheckIcon
+                                                  className="h-5 w-5"
+                                                  aria-hidden="true"
+                                                />
+                                              </span>
+                                            ) : null}
+                                          </div>
+                                          <p
+                                            className={classNames(
+                                              active
+                                                ? "text-blue-200"
+                                                : "text-gray-500",
+                                              "mt-2"
+                                            )}
+                                          >
+                                            {option.description}
+                                          </p>
+                                        </div>
+                                      )}
+                                    </Listbox.Option>
+                                  ))}
+                                </Listbox.Options>
+                              </Transition>
+                            </div>
+                          </>
+                        )}
+                      </Listbox>
+                    </div>
+                  </div>
                   <div className="flex flex-col">
                     <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                       <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -226,111 +381,117 @@ export default function Content({
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
                               {reports.map((report) =>
-                                JSON.parse(report.xlsxToJSONStr).map((row) => (
-                                  <tr>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                      {row.campaign}
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                      {
-                                        new Date(
-                                          Math.round(
-                                            (row.date - (25567 + 1)) *
-                                              86400 *
-                                              1000
-                                          )
-                                        )
-                                          .toISOString()
-                                          .split("T")[0]
-                                      }
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                      {campaigns.map((campaign) =>
-                                        campaign.name === row.campaign ? (
-                                          <>
-                                            {campaign.reference_id_video_campaign ===
-                                            row.reference ? (
-                                              <>video</>
+                                report.upload_date > selected.date ? (
+                                  JSON.parse(report.xlsxToJSONStr).map(
+                                    (row) => (
+                                      <tr>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                          {row.campaign}
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                          {
+                                            new Date(
+                                              Math.round(
+                                                (row.date - (25567 + 1)) *
+                                                  86400 *
+                                                  1000
+                                              )
+                                            )
+                                              .toISOString()
+                                              .split("T")[0]
+                                          }
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                          {campaigns.map((campaign) =>
+                                            campaign.name === row.campaign ? (
+                                              <>
+                                                {campaign.reference_id_video_campaign ===
+                                                row.reference ? (
+                                                  <>video</>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.reference_id_search_campaign ===
+                                                row.reference ? (
+                                                  <>search</>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.reference_id_social_campaign ===
+                                                row.reference ? (
+                                                  <>social</>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.reference_id_display_campaign ===
+                                                row.reference ? (
+                                                  <>display</>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.reference_id_richMedia_campaign ===
+                                                row.reference ? (
+                                                  <>Rich media</>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.reference_id_pop_campaign ===
+                                                row.reference ? (
+                                                  <>pop</>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.reference_id_push_campaign ===
+                                                row.reference ? (
+                                                  <>push</>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.reference_id_highImpact_campaign ===
+                                                row.reference ? (
+                                                  <>High impact</>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.reference_id_native_campaign ===
+                                                row.reference ? (
+                                                  <>native</>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                              </>
                                             ) : (
                                               <></>
-                                            )}
-                                            {campaign.reference_id_search_campaign ===
-                                            row.reference ? (
-                                              <>search</>
-                                            ) : (
-                                              <></>
-                                            )}
-                                            {campaign.reference_id_social_campaign ===
-                                            row.reference ? (
-                                              <>social</>
-                                            ) : (
-                                              <></>
-                                            )}
-                                            {campaign.reference_id_display_campaign ===
-                                            row.reference ? (
-                                              <>display</>
-                                            ) : (
-                                              <></>
-                                            )}
-                                            {campaign.reference_id_richMedia_campaign ===
-                                            row.reference ? (
-                                              <>Rich media</>
-                                            ) : (
-                                              <></>
-                                            )}
-                                            {campaign.reference_id_pop_campaign ===
-                                            row.reference ? (
-                                              <>pop</>
-                                            ) : (
-                                              <></>
-                                            )}
-                                            {campaign.reference_id_push_campaign ===
-                                            row.reference ? (
-                                              <>push</>
-                                            ) : (
-                                              <></>
-                                            )}
-                                            {campaign.reference_id_highImpact_campaign ===
-                                            row.reference ? (
-                                              <>High impact</>
-                                            ) : (
-                                              <></>
-                                            )}
-                                            {campaign.reference_id_native_campaign ===
-                                            row.reference ? (
-                                              <>native</>
-                                            ) : (
-                                              <></>
-                                            )}
-                                          </>
-                                        ) : (
-                                          <></>
-                                        )
-                                      )}
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                      {row.impressions}
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                      {row.clicks}
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                      {row.visits}
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                      {row.views}
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                      {row.completed_views}
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                      {row.conversions}
-                                    </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                      {row.viewability}
-                                    </td>
-                                  </tr>
-                                ))
+                                            )
+                                          )}
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                          {row.impressions}
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                          {row.clicks}
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                          {row.visits}
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                          {row.views}
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                          {row.completed_views}
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                          {row.conversions}
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                          {row.viewability}
+                                        </td>
+                                      </tr>
+                                    )
+                                  )
+                                ) : (
+                                  <></>
+                                )
                               )}
                             </tbody>
                           </table>
