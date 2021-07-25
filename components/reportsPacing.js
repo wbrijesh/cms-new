@@ -303,7 +303,50 @@ export default function Content({
                                                 ).map((row) =>
                                                   row.reference ===
                                                   campaign.reference_id_display_campaign ? (
-                                                    <>{row.impressions}</>
+                                                    <>
+                                                      {campaign.display_revType ===
+                                                      "CPM" ? (
+                                                        row.impressions
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.display_revType ===
+                                                      "CPC" ? (
+                                                        row.clicks
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.display_revType ===
+                                                      "CPCV" ? (
+                                                        row.completed_views
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.display_revType ===
+                                                      "CPL" ? (
+                                                        row.conversions
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.display_revType ===
+                                                      "CPA" ? (
+                                                        row.conversions
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.display_revType ===
+                                                      "CPViews" ? (
+                                                        row.views
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.display_revType ===
+                                                      "CPVisit" ? (
+                                                        row.visits
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                    </>
                                                   ) : (
                                                     <></>
                                                   )
@@ -321,39 +364,293 @@ export default function Content({
                                                   row.reference ===
                                                   campaign.reference_id_display_campaign ? (
                                                     <>
-                                                      {parseFloat(
-                                                        (row.impressions /
-                                                          Math.trunc(
-                                                            (Math.ceil(
-                                                              Math.abs(
-                                                                new Date(
-                                                                  campaign.display_endDate
-                                                                ) - new Date()
-                                                              ) /
-                                                                (1000 *
-                                                                  60 *
-                                                                  60 *
-                                                                  24)
-                                                            ) *
-                                                              campaign.display_goal) /
-                                                              Math.ceil(
-                                                                Math.abs(
-                                                                  new Date(
-                                                                    campaign.display_endDate
-                                                                  ) -
+                                                      {campaign.display_revType ===
+                                                      "CPM" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.impressions /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
                                                                     new Date(
-                                                                      campaign.display_startDate
-                                                                    )
-                                                                ) /
-                                                                  (1000 *
-                                                                    60 *
-                                                                    60 *
-                                                                    24)
-                                                              )
-                                                          ) -
-                                                          1) *
-                                                          100
-                                                      ).toFixed(2)}
+                                                                      campaign.display_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.display_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.display_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.display_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.display_revType ===
+                                                      "CPC" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.clicks /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.display_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.display_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.display_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.display_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.display_revType ===
+                                                      "CPCV" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.completed_views /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.display_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.display_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.display_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.display_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.display_revType ===
+                                                      "CPL" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.conversions /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.display_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.display_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.display_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.display_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.display_revType ===
+                                                      "CPA" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.conversions /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.display_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.display_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.display_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.display_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.display_revType ===
+                                                      "CPViews" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.views /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.display_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.display_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.display_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.display_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.display_revType ===
+                                                      "CPVisit" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.visits /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.display_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.display_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.display_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.display_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
                                                     </>
                                                   ) : (
                                                     <></>
@@ -424,18 +721,148 @@ export default function Content({
                                               )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              {reports.map((report) =>
-                                                JSON.parse(
-                                                  report.xlsxToJSONStr
-                                                ).map((row) =>
-                                                  row.reference ===
-                                                  campaign.reference_id_highImpact_campaign ? (
-                                                    <>{row.impressions}</>
-                                                  ) : (
-                                                    <></>
-                                                  )
-                                                )
-                                              )}
+                                              <>
+                                                {campaign.highImpact_revType ===
+                                                "CPM" ? (
+                                                  <>
+                                                    {" "}
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_highImpact_campaign ? (
+                                                          <>{row.impressions}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.highImpact_revType ===
+                                                "CPC" ? (
+                                                  <>
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_highImpact_campaign ? (
+                                                          <>{row.clicks}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.highImpact_revType ===
+                                                "CPCV" ? (
+                                                  <>
+                                                    {" "}
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_highImpact_campaign ? (
+                                                          <>
+                                                            {
+                                                              row.completed_views
+                                                            }
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.highImpact_revType ===
+                                                "CPL" ? (
+                                                  <>
+                                                    {" "}
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_highImpact_campaign ? (
+                                                          <>{row.conversions}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.highImpact_revType ===
+                                                "CPA" ? (
+                                                  <>
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_highImpact_campaign ? (
+                                                          <>{row.conversions}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.highImpact_revType ===
+                                                "CPViews" ? (
+                                                  <>
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_highImpact_campaign ? (
+                                                          <>{row.views}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.highImpact_revType ===
+                                                "CPVisit" ? (
+                                                  <>
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_highImpact_campaign ? (
+                                                          <>{row.visits}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                              </>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.highImpact_endDate}
@@ -448,39 +875,293 @@ export default function Content({
                                                   row.reference ===
                                                   campaign.reference_id_highImpact_campaign ? (
                                                     <>
-                                                      {parseFloat(
-                                                        (row.impressions /
-                                                          Math.trunc(
-                                                            (Math.ceil(
-                                                              Math.abs(
-                                                                new Date(
-                                                                  campaign.highImpact_endDate
-                                                                ) - new Date()
-                                                              ) /
-                                                                (1000 *
-                                                                  60 *
-                                                                  60 *
-                                                                  24)
-                                                            ) *
-                                                              campaign.highImpact_goal) /
-                                                              Math.ceil(
-                                                                Math.abs(
-                                                                  new Date(
-                                                                    campaign.highImpact_endDate
-                                                                  ) -
+                                                      {campaign.highImpact_revType ===
+                                                      "CPM" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.impressions /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
                                                                     new Date(
-                                                                      campaign.highImpact_startDate
-                                                                    )
-                                                                ) /
-                                                                  (1000 *
-                                                                    60 *
-                                                                    60 *
-                                                                    24)
-                                                              )
-                                                          ) -
-                                                          1) *
-                                                          100
-                                                      ).toFixed(2)}
+                                                                      campaign.highImpact_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.highImpact_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.highImpact_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.highImpact_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.highImpact_revType ===
+                                                      "CPC" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.clicks /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.highImpact_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.highImpact_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.highImpact_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.highImpact_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.highImpact_revType ===
+                                                      "CPCV" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.completed_views /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.highImpact_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.highImpact_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.highImpact_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.highImpact_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.highImpact_revType ===
+                                                      "CPL" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.conversions /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.highImpact_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.highImpact_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.highImpact_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.highImpact_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.highImpact_revType ===
+                                                      "CPA" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.conversions /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.highImpact_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.highImpact_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.highImpact_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.highImpact_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.highImpact_revType ===
+                                                      "CPViews" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.views /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.highImpact_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.highImpact_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.highImpact_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.highImpact_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.highImpact_revType ===
+                                                      "CPVisit" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.visits /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.highImpact_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.highImpact_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.highImpact_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.highImpact_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
                                                     </>
                                                   ) : (
                                                     <></>
@@ -551,18 +1232,148 @@ export default function Content({
                                               )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              {reports.map((report) =>
-                                                JSON.parse(
-                                                  report.xlsxToJSONStr
-                                                ).map((row) =>
-                                                  row.reference ===
-                                                  campaign.reference_id_native_campaign ? (
-                                                    <>{row.impressions}</>
-                                                  ) : (
-                                                    <></>
-                                                  )
-                                                )
-                                              )}
+                                              <>
+                                                {campaign.native_revType ===
+                                                "CPM" ? (
+                                                  <>
+                                                    {" "}
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_video_campaign ? (
+                                                          <>{row.impressions}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.native_revType ===
+                                                "CPC" ? (
+                                                  <>
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_native_campaign ? (
+                                                          <>{row.clicks}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.native_revType ===
+                                                "CPCV" ? (
+                                                  <>
+                                                    {" "}
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_native_campaign ? (
+                                                          <>
+                                                            {
+                                                              row.completed_views
+                                                            }
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.native_revType ===
+                                                "CPL" ? (
+                                                  <>
+                                                    {" "}
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_native_campaign ? (
+                                                          <>{row.conversions}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.native_revType ===
+                                                "CPA" ? (
+                                                  <>
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_native_campaign ? (
+                                                          <>{row.conversions}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.native_revType ===
+                                                "CPViews" ? (
+                                                  <>
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_native_campaign ? (
+                                                          <>{row.views}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.native_revType ===
+                                                "CPVisit" ? (
+                                                  <>
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_native_campaign ? (
+                                                          <>{row.visits}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                              </>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.native_endDate}
@@ -575,39 +1386,293 @@ export default function Content({
                                                   row.reference ===
                                                   campaign.reference_id_native_campaign ? (
                                                     <>
-                                                      {parseFloat(
-                                                        (row.impressions /
-                                                          Math.trunc(
-                                                            (Math.ceil(
-                                                              Math.abs(
-                                                                new Date(
-                                                                  campaign.native_endDate
-                                                                ) - new Date()
-                                                              ) /
-                                                                (1000 *
-                                                                  60 *
-                                                                  60 *
-                                                                  24)
-                                                            ) *
-                                                              campaign.native_goal) /
-                                                              Math.ceil(
-                                                                Math.abs(
-                                                                  new Date(
-                                                                    campaign.native_endDate
-                                                                  ) -
+                                                      {campaign.native_revType ===
+                                                      "CPM" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.impressions /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
                                                                     new Date(
-                                                                      campaign.native_startDate
-                                                                    )
-                                                                ) /
-                                                                  (1000 *
-                                                                    60 *
-                                                                    60 *
-                                                                    24)
-                                                              )
-                                                          ) -
-                                                          1) *
-                                                          100
-                                                      ).toFixed(2)}
+                                                                      campaign.native_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.native_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.native_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.native_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.native_revType ===
+                                                      "CPC" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.clicks /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.native_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.native_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.native_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.native_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.native_revType ===
+                                                      "CPCV" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.completed_views /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.native_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.native_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.native_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.native_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.native_revType ===
+                                                      "CPL" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.conversions /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.native_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.native_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.native_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.native_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.native_revType ===
+                                                      "CPA" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.conversions /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.native_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.native_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.native_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.native_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.native_revType ===
+                                                      "CPViews" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.views /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.native_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.native_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.native_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.native_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.native_revType ===
+                                                      "CPVisit" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.visits /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.native_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.native_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.native_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.native_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
                                                     </>
                                                   ) : (
                                                     <></>
@@ -676,18 +1741,148 @@ export default function Content({
                                               )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              {reports.map((report) =>
-                                                JSON.parse(
-                                                  report.xlsxToJSONStr
-                                                ).map((row) =>
-                                                  row.reference ===
-                                                  campaign.reference_id_pop_campaign ? (
-                                                    <>{row.impressions}</>
-                                                  ) : (
-                                                    <></>
-                                                  )
-                                                )
-                                              )}
+                                              <>
+                                                {campaign.pop_revType ===
+                                                "CPM" ? (
+                                                  <>
+                                                    {" "}
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_pop_campaign ? (
+                                                          <>{row.impressions}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.pop_revType ===
+                                                "CPC" ? (
+                                                  <>
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_pop_campaign ? (
+                                                          <>{row.clicks}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.pop_revType ===
+                                                "CPCV" ? (
+                                                  <>
+                                                    {" "}
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_pop_campaign ? (
+                                                          <>
+                                                            {
+                                                              row.completed_views
+                                                            }
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.pop_revType ===
+                                                "CPL" ? (
+                                                  <>
+                                                    {" "}
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_pop_campaign ? (
+                                                          <>{row.conversions}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.pop_revType ===
+                                                "CPA" ? (
+                                                  <>
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_pop_campaign ? (
+                                                          <>{row.conversions}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.pop_revType ===
+                                                "CPViews" ? (
+                                                  <>
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_pop_campaign ? (
+                                                          <>{row.views}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.pop_revType ===
+                                                "CPVisit" ? (
+                                                  <>
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_pop_campaign ? (
+                                                          <>{row.visits}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                              </>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.pop_endDate}
@@ -700,39 +1895,293 @@ export default function Content({
                                                   row.reference ===
                                                   campaign.reference_id_pop_campaign ? (
                                                     <>
-                                                      {parseFloat(
-                                                        (row.impressions /
-                                                          Math.trunc(
-                                                            (Math.ceil(
-                                                              Math.abs(
-                                                                new Date(
-                                                                  campaign.pop_endDate
-                                                                ) - new Date()
-                                                              ) /
-                                                                (1000 *
-                                                                  60 *
-                                                                  60 *
-                                                                  24)
-                                                            ) *
-                                                              campaign.pop_goal) /
-                                                              Math.ceil(
-                                                                Math.abs(
-                                                                  new Date(
-                                                                    campaign.pop_endDate
-                                                                  ) -
+                                                      {campaign.pop_revType ===
+                                                      "CPM" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.impressions /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
                                                                     new Date(
-                                                                      campaign.pop_startDate
-                                                                    )
-                                                                ) /
-                                                                  (1000 *
-                                                                    60 *
-                                                                    60 *
-                                                                    24)
-                                                              )
-                                                          ) -
-                                                          1) *
-                                                          100
-                                                      ).toFixed(2)}
+                                                                      campaign.pop_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.pop_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.pop_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.pop_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.pop_revType ===
+                                                      "CPC" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.clicks /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.pop_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.pop_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.pop_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.pop_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.pop_revType ===
+                                                      "CPCV" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.completed_views /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.pop_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.pop_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.pop_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.pop_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.pop_revType ===
+                                                      "CPL" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.conversions /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.pop_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.pop_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.pop_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.pop_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.pop_revType ===
+                                                      "CPA" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.conversions /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.pop_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.pop_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.pop_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.pop_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.pop_revType ===
+                                                      "CPViews" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.views /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.pop_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.pop_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.pop_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.pop_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.pop_revType ===
+                                                      "CPVisit" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.visits /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.pop_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.pop_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.pop_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.pop_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
                                                     </>
                                                   ) : (
                                                     <></>
@@ -801,18 +2250,148 @@ export default function Content({
                                               )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              {reports.map((report) =>
-                                                JSON.parse(
-                                                  report.xlsxToJSONStr
-                                                ).map((row) =>
-                                                  row.reference ===
-                                                  campaign.reference_id_push_campaign ? (
-                                                    <>{row.impressions}</>
-                                                  ) : (
-                                                    <></>
-                                                  )
-                                                )
-                                              )}
+                                              <>
+                                                {campaign.push_revType ===
+                                                "CPM" ? (
+                                                  <>
+                                                    {" "}
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_push_campaign ? (
+                                                          <>{row.impressions}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.push_revType ===
+                                                "CPC" ? (
+                                                  <>
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_push_campaign ? (
+                                                          <>{row.clicks}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.push_revType ===
+                                                "CPCV" ? (
+                                                  <>
+                                                    {" "}
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_push_campaign ? (
+                                                          <>
+                                                            {
+                                                              row.completed_views
+                                                            }
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.push_revType ===
+                                                "CPL" ? (
+                                                  <>
+                                                    {" "}
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_push_campaign ? (
+                                                          <>{row.conversions}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.push_revType ===
+                                                "CPA" ? (
+                                                  <>
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_push_campaign ? (
+                                                          <>{row.conversions}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.push_revType ===
+                                                "CPViews" ? (
+                                                  <>
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_push_campaign ? (
+                                                          <>{row.views}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.push_revType ===
+                                                "CPVisit" ? (
+                                                  <>
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_push_campaign ? (
+                                                          <>{row.visits}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                              </>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.push_endDate}
@@ -825,39 +2404,293 @@ export default function Content({
                                                   row.reference ===
                                                   campaign.reference_id_push_campaign ? (
                                                     <>
-                                                      {parseFloat(
-                                                        (row.impressions /
-                                                          Math.trunc(
-                                                            (Math.ceil(
-                                                              Math.abs(
-                                                                new Date(
-                                                                  campaign.push_endDate
-                                                                ) - new Date()
-                                                              ) /
-                                                                (1000 *
-                                                                  60 *
-                                                                  60 *
-                                                                  24)
-                                                            ) *
-                                                              campaign.push_goal) /
-                                                              Math.ceil(
-                                                                Math.abs(
-                                                                  new Date(
-                                                                    campaign.push_endDate
-                                                                  ) -
+                                                      {campaign.push_revType ===
+                                                      "CPM" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.impressions /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
                                                                     new Date(
-                                                                      campaign.push_startDate
-                                                                    )
-                                                                ) /
-                                                                  (1000 *
-                                                                    60 *
-                                                                    60 *
-                                                                    24)
-                                                              )
-                                                          ) -
-                                                          1) *
-                                                          100
-                                                      ).toFixed(2)}
+                                                                      campaign.push_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.push_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.push_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.push_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.push_revType ===
+                                                      "CPC" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.clicks /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.push_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.push_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.push_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.push_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.push_revType ===
+                                                      "CPCV" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.completed_views /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.push_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.push_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.push_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.push_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.push_revType ===
+                                                      "CPL" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.conversions /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.push_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.push_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.push_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.push_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.push_revType ===
+                                                      "CPA" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.conversions /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.push_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.push_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.push_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.push_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.push_revType ===
+                                                      "CPViews" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.views /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.push_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.push_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.push_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.push_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.push_revType ===
+                                                      "CPVisit" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.visits /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.push_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.push_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.push_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.push_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
                                                     </>
                                                   ) : (
                                                     <></>
@@ -928,18 +2761,148 @@ export default function Content({
                                               )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              {reports.map((report) =>
-                                                JSON.parse(
-                                                  report.xlsxToJSONStr
-                                                ).map((row) =>
-                                                  row.reference ===
-                                                  campaign.reference_id_richMedia_campaign ? (
-                                                    <>{row.impressions}</>
-                                                  ) : (
-                                                    <></>
-                                                  )
-                                                )
-                                              )}
+                                              <>
+                                                {campaign.richMedia_revType ===
+                                                "CPM" ? (
+                                                  <>
+                                                    {" "}
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_richMedia_campaign ? (
+                                                          <>{row.impressions}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.richMedia_revType ===
+                                                "CPC" ? (
+                                                  <>
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_richMedia_campaign ? (
+                                                          <>{row.clicks}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.richMedia_revType ===
+                                                "CPCV" ? (
+                                                  <>
+                                                    {" "}
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_richMedia_campaign ? (
+                                                          <>
+                                                            {
+                                                              row.completed_views
+                                                            }
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.richMedia_revType ===
+                                                "CPL" ? (
+                                                  <>
+                                                    {" "}
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_richMedia_campaign ? (
+                                                          <>{row.conversions}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.richMedia_revType ===
+                                                "CPA" ? (
+                                                  <>
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_richMedia_campaign ? (
+                                                          <>{row.conversions}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.richMedia_revType ===
+                                                "CPViews" ? (
+                                                  <>
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_richMedia_campaign ? (
+                                                          <>{row.views}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.richMedia_revType ===
+                                                "CPVisit" ? (
+                                                  <>
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_richMedia_campaign ? (
+                                                          <>{row.visits}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                              </>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.richMedia_endDate}
@@ -952,39 +2915,293 @@ export default function Content({
                                                   row.reference ===
                                                   campaign.reference_id_richMedia_campaign ? (
                                                     <>
-                                                      {parseFloat(
-                                                        (row.impressions /
-                                                          Math.trunc(
-                                                            (Math.ceil(
-                                                              Math.abs(
-                                                                new Date(
-                                                                  campaign.richMedia_endDate
-                                                                ) - new Date()
-                                                              ) /
-                                                                (1000 *
-                                                                  60 *
-                                                                  60 *
-                                                                  24)
-                                                            ) *
-                                                              campaign.richMedia_goal) /
-                                                              Math.ceil(
-                                                                Math.abs(
-                                                                  new Date(
-                                                                    campaign.richMedia_endDate
-                                                                  ) -
+                                                      {campaign.richMedia_revType ===
+                                                      "CPM" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.impressions /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
                                                                     new Date(
-                                                                      campaign.richMedia_startDate
-                                                                    )
-                                                                ) /
-                                                                  (1000 *
-                                                                    60 *
-                                                                    60 *
-                                                                    24)
-                                                              )
-                                                          ) -
-                                                          1) *
-                                                          100
-                                                      ).toFixed(2)}
+                                                                      campaign.richMedia_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.richMedia_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.richMedia_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.richMedia_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.richMedia_revType ===
+                                                      "CPC" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.clicks /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.richMedia_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.richMedia_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.richMedia_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.richMedia_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.richMedia_revType ===
+                                                      "CPCV" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.completed_views /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.richMedia_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.richMedia_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.richMedia_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.richMedia_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.richMedia_revType ===
+                                                      "CPL" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.conversions /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.richMedia_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.richMedia_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.richMedia_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.richMedia_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.richMedia_revType ===
+                                                      "CPA" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.conversions /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.richMedia_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.richMedia_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.richMedia_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.richMedia_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.richMedia_revType ===
+                                                      "CPViews" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.views /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.richMedia_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.richMedia_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.richMedia_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.richMedia_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.richMedia_revType ===
+                                                      "CPVisit" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.visits /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.richMedia_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.richMedia_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.richMedia_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.richMedia_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
                                                     </>
                                                   ) : (
                                                     <></>
@@ -1057,18 +3274,147 @@ export default function Content({
                                               )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              {reports.map((report) =>
-                                                JSON.parse(
-                                                  report.xlsxToJSONStr
-                                                ).map((row) =>
-                                                  row.reference ===
-                                                  campaign.reference_id_search_campaign ? (
-                                                    <>{row.impressions}</>
-                                                  ) : (
-                                                    <></>
-                                                  )
-                                                )
-                                              )}
+                                              <>
+                                                {campaign.search_revType ===
+                                                "CPM" ? (
+                                                  <>
+                                                    {" "}
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_search_campaign ? (
+                                                          <>{row.impressions}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.search_revType ===
+                                                "CPC" ? (
+                                                  <>
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_search_campaign ? (
+                                                          <>{row.clicks}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.search_revType ===
+                                                "CPCV" ? (
+                                                  <>
+                                                    {" "}
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_search_campaign ? (
+                                                          <>
+                                                            {
+                                                              row.completed_views
+                                                            }
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.search_revType ===
+                                                "CPL" ? (
+                                                  <>
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_search_campaign ? (
+                                                          <>{row.conversions}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.search_revType ===
+                                                "CPA" ? (
+                                                  <>
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_search_campaign ? (
+                                                          <>{row.conversions}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.search_revType ===
+                                                "CPViews" ? (
+                                                  <>
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_search_campaign ? (
+                                                          <>{row.views}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.search_revType ===
+                                                "CPVisit" ? (
+                                                  <>
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_search_campaign ? (
+                                                          <>{row.visits}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                              </>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.search_endDate}
@@ -1081,39 +3427,293 @@ export default function Content({
                                                   row.reference ===
                                                   campaign.reference_id_search_campaign ? (
                                                     <>
-                                                      {parseFloat(
-                                                        (row.impressions /
-                                                          Math.trunc(
-                                                            (Math.ceil(
-                                                              Math.abs(
-                                                                new Date(
-                                                                  campaign.search_endDate
-                                                                ) - new Date()
-                                                              ) /
-                                                                (1000 *
-                                                                  60 *
-                                                                  60 *
-                                                                  24)
-                                                            ) *
-                                                              campaign.search_goal) /
-                                                              Math.ceil(
-                                                                Math.abs(
-                                                                  new Date(
-                                                                    campaign.search_endDate
-                                                                  ) -
+                                                      {campaign.search_revType ===
+                                                      "CPM" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.impressions /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
                                                                     new Date(
-                                                                      campaign.search_startDate
-                                                                    )
-                                                                ) /
-                                                                  (1000 *
-                                                                    60 *
-                                                                    60 *
-                                                                    24)
-                                                              )
-                                                          ) -
-                                                          1) *
-                                                          100
-                                                      ).toFixed(2)}
+                                                                      campaign.search_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.search_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.search_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.search_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.search_revType ===
+                                                      "CPC" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.clicks /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.search_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.search_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.search_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.search_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.search_revType ===
+                                                      "CPCV" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.completed_views /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.search_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.search_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.search_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.search_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.search_revType ===
+                                                      "CPL" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.conversions /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.search_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.search_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.search_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.search_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.search_revType ===
+                                                      "CPA" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.conversions /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.search_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.search_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.search_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.search_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.search_revType ===
+                                                      "CPViews" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.views /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.search_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.search_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.search_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.search_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.search_revType ===
+                                                      "CPVisit" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.visits /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.search_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.search_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.search_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.search_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
                                                     </>
                                                   ) : (
                                                     <></>
@@ -1186,18 +3786,148 @@ export default function Content({
                                               )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              {reports.map((report) =>
-                                                JSON.parse(
-                                                  report.xlsxToJSONStr
-                                                ).map((row) =>
-                                                  row.reference ===
-                                                  campaign.reference_id_social_campaign ? (
-                                                    <>{row.impressions}</>
-                                                  ) : (
-                                                    <></>
-                                                  )
-                                                )
-                                              )}
+                                              <>
+                                                {campaign.social_revType ===
+                                                "CPM" ? (
+                                                  <>
+                                                    {" "}
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_video_campaign ? (
+                                                          <>{row.impressions}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.social_revType ===
+                                                "CPC" ? (
+                                                  <>
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_social_campaign ? (
+                                                          <>{row.clicks}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.social_revType ===
+                                                "CPCV" ? (
+                                                  <>
+                                                    {" "}
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_social_campaign ? (
+                                                          <>
+                                                            {
+                                                              row.completed_views
+                                                            }
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.social_revType ===
+                                                "CPL" ? (
+                                                  <>
+                                                    {" "}
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_social_campaign ? (
+                                                          <>{row.conversions}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.social_revType ===
+                                                "CPA" ? (
+                                                  <>
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_social_campaign ? (
+                                                          <>{row.conversions}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.social_revType ===
+                                                "CPViews" ? (
+                                                  <>
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_social_campaign ? (
+                                                          <>{row.views}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                                {campaign.social_revType ===
+                                                "CPVisit" ? (
+                                                  <>
+                                                    {reports.map((report) =>
+                                                      JSON.parse(
+                                                        report.xlsxToJSONStr
+                                                      ).map((row) =>
+                                                        row.reference ===
+                                                        campaign.reference_id_social_campaign ? (
+                                                          <>{row.visits}</>
+                                                        ) : (
+                                                          <></>
+                                                        )
+                                                      )
+                                                    )}
+                                                  </>
+                                                ) : (
+                                                  <></>
+                                                )}
+                                              </>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                               {campaign.social_endDate}
@@ -1210,39 +3940,293 @@ export default function Content({
                                                   row.reference ===
                                                   campaign.reference_id_social_campaign ? (
                                                     <>
-                                                      {parseFloat(
-                                                        (row.impressions /
-                                                          Math.trunc(
-                                                            (Math.ceil(
-                                                              Math.abs(
-                                                                new Date(
-                                                                  campaign.social_endDate
-                                                                ) - new Date()
-                                                              ) /
-                                                                (1000 *
-                                                                  60 *
-                                                                  60 *
-                                                                  24)
-                                                            ) *
-                                                              campaign.social_goal) /
-                                                              Math.ceil(
-                                                                Math.abs(
-                                                                  new Date(
-                                                                    campaign.social_endDate
-                                                                  ) -
+                                                      {campaign.social_revType ===
+                                                      "CPM" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.impressions /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
                                                                     new Date(
-                                                                      campaign.social_startDate
-                                                                    )
-                                                                ) /
-                                                                  (1000 *
-                                                                    60 *
-                                                                    60 *
-                                                                    24)
-                                                              )
-                                                          ) -
-                                                          1) *
-                                                          100
-                                                      ).toFixed(2)}
+                                                                      campaign.social_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.social_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.social_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.social_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.social_revType ===
+                                                      "CPC" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.clicks /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.social_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.social_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.social_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.social_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.social_revType ===
+                                                      "CPCV" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.completed_views /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.social_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.social_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.social_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.social_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.social_revType ===
+                                                      "CPL" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.conversions /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.social_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.social_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.social_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.social_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.social_revType ===
+                                                      "CPA" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.conversions /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.social_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.social_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.social_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.social_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.social_revType ===
+                                                      "CPViews" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.views /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.social_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.social_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.social_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.social_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.social_revType ===
+                                                      "CPVisit" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.visits /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.social_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.social_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.social_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.social_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
                                                     </>
                                                   ) : (
                                                     <></>
@@ -1314,17 +4298,143 @@ export default function Content({
                                               )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                              {reports.map((report) =>
-                                                JSON.parse(
-                                                  report.xlsxToJSONStr
-                                                ).map((row) =>
-                                                  row.reference ===
-                                                  campaign.reference_id_video_campaign ? (
-                                                    <>{row.impressions}</>
-                                                  ) : (
-                                                    <></>
-                                                  )
-                                                )
+                                              {campaign.video_revType ===
+                                              "CPM" ? (
+                                                <>
+                                                  {" "}
+                                                  {reports.map((report) =>
+                                                    JSON.parse(
+                                                      report.xlsxToJSONStr
+                                                    ).map((row) =>
+                                                      row.reference ===
+                                                      campaign.reference_id_video_campaign ? (
+                                                        <>{row.impressions}</>
+                                                      ) : (
+                                                        <></>
+                                                      )
+                                                    )
+                                                  )}
+                                                </>
+                                              ) : (
+                                                <></>
+                                              )}
+                                              {campaign.video_revType ===
+                                              "CPC" ? (
+                                                <>
+                                                  {reports.map((report) =>
+                                                    JSON.parse(
+                                                      report.xlsxToJSONStr
+                                                    ).map((row) =>
+                                                      row.reference ===
+                                                      campaign.reference_id_video_campaign ? (
+                                                        <>{row.clicks}</>
+                                                      ) : (
+                                                        <></>
+                                                      )
+                                                    )
+                                                  )}
+                                                </>
+                                              ) : (
+                                                <></>
+                                              )}
+                                              {campaign.video_revType ===
+                                              "CPCV" ? (
+                                                <>
+                                                  {" "}
+                                                  {reports.map((report) =>
+                                                    JSON.parse(
+                                                      report.xlsxToJSONStr
+                                                    ).map((row) =>
+                                                      row.reference ===
+                                                      campaign.reference_id_video_campaign ? (
+                                                        <>
+                                                          {row.completed_views}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )
+                                                    )
+                                                  )}
+                                                </>
+                                              ) : (
+                                                <></>
+                                              )}
+                                              {campaign.video_revType ===
+                                              "CPL" ? (
+                                                <>
+                                                  {" "}
+                                                  {reports.map((report) =>
+                                                    JSON.parse(
+                                                      report.xlsxToJSONStr
+                                                    ).map((row) =>
+                                                      row.reference ===
+                                                      campaign.reference_id_video_campaign ? (
+                                                        <>{row.conversions}</>
+                                                      ) : (
+                                                        <></>
+                                                      )
+                                                    )
+                                                  )}
+                                                </>
+                                              ) : (
+                                                <></>
+                                              )}
+                                              {campaign.video_revType ===
+                                              "CPA" ? (
+                                                <>
+                                                  {reports.map((report) =>
+                                                    JSON.parse(
+                                                      report.xlsxToJSONStr
+                                                    ).map((row) =>
+                                                      row.reference ===
+                                                      campaign.reference_id_video_campaign ? (
+                                                        <>{row.conversions}</>
+                                                      ) : (
+                                                        <></>
+                                                      )
+                                                    )
+                                                  )}
+                                                </>
+                                              ) : (
+                                                <></>
+                                              )}
+                                              {campaign.video_revType ===
+                                              "CPViews" ? (
+                                                <>
+                                                  {reports.map((report) =>
+                                                    JSON.parse(
+                                                      report.xlsxToJSONStr
+                                                    ).map((row) =>
+                                                      row.reference ===
+                                                      campaign.reference_id_video_campaign ? (
+                                                        <>{row.views}</>
+                                                      ) : (
+                                                        <></>
+                                                      )
+                                                    )
+                                                  )}
+                                                </>
+                                              ) : (
+                                                <></>
+                                              )}
+                                              {campaign.video_revType ===
+                                              "CPVisit" ? (
+                                                <>
+                                                  {reports.map((report) =>
+                                                    JSON.parse(
+                                                      report.xlsxToJSONStr
+                                                    ).map((row) =>
+                                                      row.reference ===
+                                                      campaign.reference_id_video_campaign ? (
+                                                        <>{row.visits}</>
+                                                      ) : (
+                                                        <></>
+                                                      )
+                                                    )
+                                                  )}
+                                                </>
+                                              ) : (
+                                                <></>
                                               )}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
@@ -1338,39 +4448,293 @@ export default function Content({
                                                   row.reference ===
                                                   campaign.reference_id_video_campaign ? (
                                                     <>
-                                                      {parseFloat(
-                                                        (row.impressions /
-                                                          Math.trunc(
-                                                            (Math.ceil(
-                                                              Math.abs(
-                                                                new Date(
-                                                                  campaign.video_endDate
-                                                                ) - new Date()
-                                                              ) /
-                                                                (1000 *
-                                                                  60 *
-                                                                  60 *
-                                                                  24)
-                                                            ) *
-                                                              campaign.video_goal) /
-                                                              Math.ceil(
-                                                                Math.abs(
-                                                                  new Date(
-                                                                    campaign.video_endDate
-                                                                  ) -
+                                                      {campaign.video_revType ===
+                                                      "CPM" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.impressions /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
                                                                     new Date(
-                                                                      campaign.video_startDate
-                                                                    )
-                                                                ) /
-                                                                  (1000 *
-                                                                    60 *
-                                                                    60 *
-                                                                    24)
-                                                              )
-                                                          ) -
-                                                          1) *
-                                                          100
-                                                      ).toFixed(2)}
+                                                                      campaign.video_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.video_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.video_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.video_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.video_revType ===
+                                                      "CPC" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.clicks /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.video_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.video_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.video_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.video_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.video_revType ===
+                                                      "CPCV" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.completed_views /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.video_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.video_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.video_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.video_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.video_revType ===
+                                                      "CPL" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.conversions /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.video_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.video_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.video_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.video_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.video_revType ===
+                                                      "CPA" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.conversions /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.video_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.video_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.video_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.video_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.video_revType ===
+                                                      "CPViews" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.views /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.video_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.video_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.video_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.video_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.video_revType ===
+                                                      "CPVisit" ? (
+                                                        <>
+                                                          {parseFloat(
+                                                            (row.visits /
+                                                              Math.trunc(
+                                                                (Math.ceil(
+                                                                  Math.abs(
+                                                                    new Date(
+                                                                      campaign.video_endDate
+                                                                    ) -
+                                                                      new Date()
+                                                                  ) /
+                                                                    (1000 *
+                                                                      60 *
+                                                                      60 *
+                                                                      24)
+                                                                ) *
+                                                                  campaign.video_goal) /
+                                                                  Math.ceil(
+                                                                    Math.abs(
+                                                                      new Date(
+                                                                        campaign.video_endDate
+                                                                      ) -
+                                                                        new Date(
+                                                                          campaign.video_startDate
+                                                                        )
+                                                                    ) /
+                                                                      (1000 *
+                                                                        60 *
+                                                                        60 *
+                                                                        24)
+                                                                  )
+                                                              ) -
+                                                              1) *
+                                                              100
+                                                          ).toFixed(2)}{" "}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
                                                     </>
                                                   ) : (
                                                     <></>
