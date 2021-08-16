@@ -85,6 +85,8 @@ export default function Content({
     current: false,
   });
 
+  campaignList && console.log("CAMPAIGN LIST:", campaignList);
+
   async function checkIsAfter() {
     let toFilter = [];
     campaignList.map((campaign) =>
