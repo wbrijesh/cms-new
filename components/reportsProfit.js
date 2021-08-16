@@ -397,36 +397,309 @@ export default function Content({
                                         selected.date &&
                                       campaign.display_campaign === true ? (
                                         <>
-                                          {reports.map((report) =>
-                                            JSON.parse(
-                                              report.xlsxToJSONStr
-                                            ).map((row) =>
-                                              row.reference ===
-                                              campaign.reference_id_display_campaign ? (
-                                                <>
-                                                  <tr>
-                                                    {/* NAME */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {campaign.name}
-                                                    </td>
-                                                    {/* CLIENT */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                      {campaign.clientName}
-                                                    </td>
-                                                    {/* CAMPAIGN TYPE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                      Display campaign
-                                                    </td>
-                                                    {/* REVENUE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      $
+                                          {JSON.parse(
+                                            reports[reports.length - 1]
+                                              .xlsxToJSONStr
+                                          ).map((row) =>
+                                            row.reference ===
+                                            campaign.reference_id_display_campaign ? (
+                                              <>
+                                                <tr>
+                                                  {/* NAME */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {campaign.name}
+                                                  </td>
+                                                  {/* CLIENT */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {campaign.clientName}
+                                                  </td>
+                                                  {/* CAMPAIGN TYPE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    Display campaign
+                                                  </td>
+                                                  {/* REVENUE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    $
+                                                    {campaign.display_revType ===
+                                                    "CPM" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          (row.impressions *
+                                                            campaign.display_unitRate) /
+                                                            1000
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.display_revType ===
+                                                    "CPC" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.clicks *
+                                                            campaign.display_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.display_revType ===
+                                                    "CPCV" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.completed_views *
+                                                            campaign.display_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.display_revType ===
+                                                    "CPL" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.conversions *
+                                                            campaign.display_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.display_revType ===
+                                                    "CPA" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.conversions *
+                                                            campaign.display_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.display_revType ===
+                                                    "CPViews" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.views *
+                                                            campaign.display_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.display_revType ===
+                                                    "CPVisit" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.visits *
+                                                            campaign.display_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                  </td>
+                                                  {/* MEDIA_COST */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <>{row.cost}</>
+                                                  </td>
+                                                  {/* REVENUE_TYPE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {campaign.display_revType}
+                                                  </td>
+                                                  {/* KICKBACK */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {
+                                                      <>
+                                                        {campaign.display_revType ===
+                                                        "CPM" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.impressions *
+                                                                        campaign.display_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100 /
+                                                                      1000}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.display_revType ===
+                                                        "CPC" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.clicks *
+                                                                        campaign.display_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.display_revType ===
+                                                        "CPCV" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.completed_views *
+                                                                        campaign.display_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.display_revType ===
+                                                        "CPL" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.conversions *
+                                                                        campaign.display_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.display_revType ===
+                                                        "CPA" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.conversions *
+                                                                        campaign.display_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.display_revType ===
+                                                        "CPViews" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.views *
+                                                                        campaign.display_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.display_revType ===
+                                                        "CPVisit" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.visits *
+                                                                        campaign.display_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                      </>
+                                                    }
+                                                  </td>
+                                                  {/* PROFIT */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <>
                                                       {campaign.display_revType ===
                                                       "CPM" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            (row.impressions *
-                                                              campaign.display_unitRate) /
-                                                              1000
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.impressions *
+                                                                      (campaign.display_unitRate /
+                                                                        1000) *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -435,9 +708,23 @@ export default function Content({
                                                       {campaign.display_revType ===
                                                       "CPC" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.clicks *
-                                                              campaign.display_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.clicks *
+                                                                      campaign.display_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -446,9 +733,23 @@ export default function Content({
                                                       {campaign.display_revType ===
                                                       "CPCV" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.completed_views *
-                                                              campaign.display_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.completed_views *
+                                                                      campaign.display_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -457,9 +758,23 @@ export default function Content({
                                                       {campaign.display_revType ===
                                                       "CPL" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.conversions *
-                                                              campaign.display_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.conversions *
+                                                                      campaign.display_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -468,9 +783,23 @@ export default function Content({
                                                       {campaign.display_revType ===
                                                       "CPA" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.conversions *
-                                                              campaign.display_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.conversions *
+                                                                      campaign.display_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -479,9 +808,23 @@ export default function Content({
                                                       {campaign.display_revType ===
                                                       "CPViews" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.views *
-                                                              campaign.display_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.views *
+                                                                      campaign.display_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -490,219 +833,255 @@ export default function Content({
                                                       {campaign.display_revType ===
                                                       "CPVisit" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.visits *
-                                                              campaign.display_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.visits *
+                                                                      campaign.display_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
                                                         <></>
                                                       )}
-                                                    </td>
-                                                    {/* MEDIA_COST */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      <>{row.cost}</>
-                                                    </td>
-                                                    {/* REVENUE_TYPE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                      {campaign.display_revType}
-                                                    </td>
-                                                    {/* KICKBACK */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {
+                                                    </>
+                                                  </td>
+                                                  {/* PROFIT_PERCENTAGE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <>
+                                                      {campaign.display_revType ===
+                                                      "CPM" ? (
                                                         <>
-                                                          {campaign.display_revType ===
-                                                          "CPM" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.impressions *
-                                                                          campaign.display_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100 /
-                                                                        1000}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.impressions *
+                                                                      (campaign.display_unitRate /
+                                                                        1000) *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.impressions *
+                                                                        campaign.display_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
-                                                          {campaign.display_revType ===
-                                                          "CPC" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.clicks *
-                                                                          campaign.display_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.display_revType ===
-                                                          "CPCV" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.completed_views *
-                                                                          campaign.display_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.display_revType ===
-                                                          "CPL" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.conversions *
-                                                                          campaign.display_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.display_revType ===
-                                                          "CPA" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.conversions *
-                                                                          campaign.display_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.display_revType ===
-                                                          "CPViews" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.views *
-                                                                          campaign.display_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.display_revType ===
-                                                          "CPVisit" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.visits *
-                                                                          campaign.display_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
+
+                                                          {" %"}
                                                         </>
-                                                      }
-                                                    </td>
-                                                    {/* PROFIT */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.display_revType ===
+                                                      "CPC" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.clicks *
+                                                                      campaign.display_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.clicks *
+                                                                        campaign.display_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.display_revType ===
+                                                      "CPCV" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.completed_views *
+                                                                      campaign.display_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.completed_views *
+                                                                        campaign.display_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.display_revType ===
+                                                      "CPL" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.conversions *
+                                                                      campaign.display_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.conversions *
+                                                                        campaign.display_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.display_revType ===
+                                                      "CPA" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.conversions *
+                                                                      campaign.display_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.conversions *
+                                                                        campaign.display_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.display_revType ===
+                                                      "CPViews" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.views *
+                                                                      campaign.display_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.views *
+                                                                        campaign.display_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.display_revType ===
+                                                      "CPVisit" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.visits *
+                                                                      campaign.display_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.visits *
+                                                                        campaign.display_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                    </>
+                                                  </td>
+
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {campaign.display_unitRate}
+                                                  </td>
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {
                                                       <>
                                                         {campaign.display_revType ===
                                                         "CPM" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.impressions *
-                                                                        (campaign.display_unitRate /
-                                                                          1000) *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              (row.cost *
+                                                                1000) /
+                                                                row.impressions
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -710,26 +1089,10 @@ export default function Content({
                                                         {campaign.display_revType ===
                                                         "CPC" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.clicks *
-                                                                        campaign.display_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.clicks
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -737,26 +1100,10 @@ export default function Content({
                                                         {campaign.display_revType ===
                                                         "CPCV" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.completed_views *
-                                                                        campaign.display_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.completed_views
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -764,26 +1111,10 @@ export default function Content({
                                                         {campaign.display_revType ===
                                                         "CPL" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.conversions *
-                                                                        campaign.display_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.conversions
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -791,26 +1122,10 @@ export default function Content({
                                                         {campaign.display_revType ===
                                                         "CPA" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.conversions *
-                                                                        campaign.display_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.conversions
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -818,26 +1133,10 @@ export default function Content({
                                                         {campaign.display_revType ===
                                                         "CPViews" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.views *
-                                                                        campaign.display_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.views
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -845,351 +1144,21 @@ export default function Content({
                                                         {campaign.display_revType ===
                                                         "CPVisit" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.visits *
-                                                                        campaign.display_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.visits
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
                                                         )}
                                                       </>
-                                                    </td>
-                                                    {/* PROFIT_PERCENTAGE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      <>
-                                                        {campaign.display_revType ===
-                                                        "CPM" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.impressions *
-                                                                        (campaign.display_unitRate /
-                                                                          1000) *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.impressions *
-                                                                          campaign.display_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.display_revType ===
-                                                        "CPC" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.clicks *
-                                                                        campaign.display_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.clicks *
-                                                                          campaign.display_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.display_revType ===
-                                                        "CPCV" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.completed_views *
-                                                                        campaign.display_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.completed_views *
-                                                                          campaign.display_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.display_revType ===
-                                                        "CPL" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.conversions *
-                                                                        campaign.display_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.conversions *
-                                                                          campaign.display_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.display_revType ===
-                                                        "CPA" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.conversions *
-                                                                        campaign.display_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.conversions *
-                                                                          campaign.display_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.display_revType ===
-                                                        "CPViews" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.views *
-                                                                        campaign.display_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.views *
-                                                                          campaign.display_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.display_revType ===
-                                                        "CPVisit" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.visits *
-                                                                        campaign.display_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.visits *
-                                                                          campaign.display_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                      </>
-                                                    </td>
-
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {
-                                                        campaign.display_unitRate
-                                                      }
-                                                    </td>
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {
-                                                        <>
-                                                          {campaign.display_revType ===
-                                                          "CPM" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                (row.cost *
-                                                                  1000) /
-                                                                  row.impressions
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.display_revType ===
-                                                          "CPC" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.clicks
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.display_revType ===
-                                                          "CPCV" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.completed_views
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.display_revType ===
-                                                          "CPL" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.conversions
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.display_revType ===
-                                                          "CPA" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.conversions
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.display_revType ===
-                                                          "CPViews" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.views
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.display_revType ===
-                                                          "CPVisit" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.visits
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                        </>
-                                                      }
-                                                    </td>
-                                                  </tr>
-                                                </>
-                                              ) : (
-                                                <></>
-                                              )
+                                                    }
+                                                  </td>
+                                                </tr>
+                                              </>
+                                            ) : (
+                                              <></>
                                             )
                                           )}
                                         </>
@@ -1201,36 +1170,311 @@ export default function Content({
                                         selected.date &&
                                       campaign.highImpact_campaign === true ? (
                                         <>
-                                          {reports.map((report) =>
-                                            JSON.parse(
-                                              report.xlsxToJSONStr
-                                            ).map((row) =>
-                                              row.reference ===
-                                              campaign.reference_id_highImpact_campaign ? (
-                                                <>
-                                                  <tr>
-                                                    {/* NAME */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {campaign.name}
-                                                    </td>
-                                                    {/* CLIENT */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                      {campaign.clientName}
-                                                    </td>
-                                                    {/* CAMPAIGN TYPE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                      High Impact campaign
-                                                    </td>
-                                                    {/* REVENUE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      $
+                                          {JSON.parse(
+                                            reports[reports.length - 1]
+                                              .xlsxToJSONStr
+                                          ).map((row) =>
+                                            row.reference ===
+                                            campaign.reference_id_highImpact_campaign ? (
+                                              <>
+                                                <tr>
+                                                  {/* NAME */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {campaign.name}
+                                                  </td>
+                                                  {/* CLIENT */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {campaign.clientName}
+                                                  </td>
+                                                  {/* CAMPAIGN TYPE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    High Impact campaign
+                                                  </td>
+                                                  {/* REVENUE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    $
+                                                    {campaign.highImpact_revType ===
+                                                    "CPM" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          (row.impressions *
+                                                            campaign.highImpact_unitRate) /
+                                                            1000
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.highImpact_revType ===
+                                                    "CPC" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.clicks *
+                                                            campaign.highImpact_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.highImpact_revType ===
+                                                    "CPCV" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.completed_views *
+                                                            campaign.highImpact_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.highImpact_revType ===
+                                                    "CPL" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.conversions *
+                                                            campaign.highImpact_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.highImpact_revType ===
+                                                    "CPA" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.conversions *
+                                                            campaign.highImpact_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.highImpact_revType ===
+                                                    "CPViews" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.views *
+                                                            campaign.highImpact_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.highImpact_revType ===
+                                                    "CPVisit" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.visits *
+                                                            campaign.highImpact_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                  </td>
+                                                  {/* MEDIA_COST */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <>{row.cost}</>
+                                                  </td>
+                                                  {/* REVENUE_TYPE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {
+                                                      campaign.highImpact_revType
+                                                    }
+                                                  </td>
+                                                  {/* KICKBACK */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {
+                                                      <>
+                                                        {campaign.highImpact_revType ===
+                                                        "CPM" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.impressions *
+                                                                        campaign.highImpact_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100 /
+                                                                      1000}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.highImpact_revType ===
+                                                        "CPC" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.clicks *
+                                                                        campaign.highImpact_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.highImpact_revType ===
+                                                        "CPCV" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.completed_views *
+                                                                        campaign.highImpact_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.highImpact_revType ===
+                                                        "CPL" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.conversions *
+                                                                        campaign.highImpact_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.highImpact_revType ===
+                                                        "CPA" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.conversions *
+                                                                        campaign.highImpact_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.highImpact_revType ===
+                                                        "CPViews" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.views *
+                                                                        campaign.highImpact_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.highImpact_revType ===
+                                                        "CPVisit" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.visits *
+                                                                        campaign.highImpact_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                      </>
+                                                    }
+                                                  </td>
+                                                  {/* PROFIT */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <>
                                                       {campaign.highImpact_revType ===
                                                       "CPM" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            (row.impressions *
-                                                              campaign.highImpact_unitRate) /
-                                                              1000
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.impressions *
+                                                                      (campaign.highImpact_unitRate /
+                                                                        1000) *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -1239,9 +1483,23 @@ export default function Content({
                                                       {campaign.highImpact_revType ===
                                                       "CPC" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.clicks *
-                                                              campaign.highImpact_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.clicks *
+                                                                      campaign.highImpact_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -1250,9 +1508,23 @@ export default function Content({
                                                       {campaign.highImpact_revType ===
                                                       "CPCV" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.completed_views *
-                                                              campaign.highImpact_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.completed_views *
+                                                                      campaign.highImpact_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -1261,9 +1533,23 @@ export default function Content({
                                                       {campaign.highImpact_revType ===
                                                       "CPL" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.conversions *
-                                                              campaign.highImpact_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.conversions *
+                                                                      campaign.highImpact_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -1272,9 +1558,23 @@ export default function Content({
                                                       {campaign.highImpact_revType ===
                                                       "CPA" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.conversions *
-                                                              campaign.highImpact_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.conversions *
+                                                                      campaign.highImpact_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -1283,9 +1583,23 @@ export default function Content({
                                                       {campaign.highImpact_revType ===
                                                       "CPViews" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.views *
-                                                              campaign.highImpact_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.views *
+                                                                      campaign.highImpact_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -1294,221 +1608,257 @@ export default function Content({
                                                       {campaign.highImpact_revType ===
                                                       "CPVisit" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.visits *
-                                                              campaign.highImpact_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.visits *
+                                                                      campaign.highImpact_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
                                                         <></>
                                                       )}
-                                                    </td>
-                                                    {/* MEDIA_COST */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      <>{row.cost}</>
-                                                    </td>
-                                                    {/* REVENUE_TYPE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                      {
-                                                        campaign.highImpact_revType
-                                                      }
-                                                    </td>
-                                                    {/* KICKBACK */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {
+                                                    </>
+                                                  </td>
+                                                  {/* PROFIT_PERCENTAGE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <>
+                                                      {campaign.highImpact_revType ===
+                                                      "CPM" ? (
                                                         <>
-                                                          {campaign.highImpact_revType ===
-                                                          "CPM" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.impressions *
-                                                                          campaign.highImpact_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100 /
-                                                                        1000}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.impressions *
+                                                                      (campaign.highImpact_unitRate /
+                                                                        1000) *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.impressions *
+                                                                        campaign.highImpact_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
-                                                          {campaign.highImpact_revType ===
-                                                          "CPC" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.clicks *
-                                                                          campaign.highImpact_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.highImpact_revType ===
-                                                          "CPCV" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.completed_views *
-                                                                          campaign.highImpact_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.highImpact_revType ===
-                                                          "CPL" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.conversions *
-                                                                          campaign.highImpact_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.highImpact_revType ===
-                                                          "CPA" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.conversions *
-                                                                          campaign.highImpact_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.highImpact_revType ===
-                                                          "CPViews" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.views *
-                                                                          campaign.highImpact_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.highImpact_revType ===
-                                                          "CPVisit" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.visits *
-                                                                          campaign.highImpact_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
+
+                                                          {" %"}
                                                         </>
-                                                      }
-                                                    </td>
-                                                    {/* PROFIT */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.highImpact_revType ===
+                                                      "CPC" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.clicks *
+                                                                      campaign.highImpact_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.clicks *
+                                                                        campaign.highImpact_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.highImpact_revType ===
+                                                      "CPCV" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.completed_views *
+                                                                      campaign.highImpact_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.completed_views *
+                                                                        campaign.highImpact_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.highImpact_revType ===
+                                                      "CPL" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.conversions *
+                                                                      campaign.highImpact_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.conversions *
+                                                                        campaign.highImpact_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.highImpact_revType ===
+                                                      "CPA" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.conversions *
+                                                                      campaign.highImpact_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.conversions *
+                                                                        campaign.highImpact_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.highImpact_revType ===
+                                                      "CPViews" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.views *
+                                                                      campaign.highImpact_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.views *
+                                                                        campaign.highImpact_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.highImpact_revType ===
+                                                      "CPVisit" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.visits *
+                                                                      campaign.highImpact_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.visits *
+                                                                        campaign.highImpact_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                    </>
+                                                  </td>
+
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {
+                                                      campaign.highImpact_unitRate
+                                                    }
+                                                  </td>
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {
                                                       <>
                                                         {campaign.highImpact_revType ===
                                                         "CPM" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.impressions *
-                                                                        (campaign.highImpact_unitRate /
-                                                                          1000) *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              (row.cost *
+                                                                1000) /
+                                                                row.impressions
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -1516,26 +1866,10 @@ export default function Content({
                                                         {campaign.highImpact_revType ===
                                                         "CPC" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.clicks *
-                                                                        campaign.highImpact_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.clicks
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -1543,26 +1877,10 @@ export default function Content({
                                                         {campaign.highImpact_revType ===
                                                         "CPCV" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.completed_views *
-                                                                        campaign.highImpact_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.completed_views
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -1570,26 +1888,10 @@ export default function Content({
                                                         {campaign.highImpact_revType ===
                                                         "CPL" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.conversions *
-                                                                        campaign.highImpact_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.conversions
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -1597,26 +1899,10 @@ export default function Content({
                                                         {campaign.highImpact_revType ===
                                                         "CPA" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.conversions *
-                                                                        campaign.highImpact_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.conversions
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -1624,26 +1910,10 @@ export default function Content({
                                                         {campaign.highImpact_revType ===
                                                         "CPViews" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.views *
-                                                                        campaign.highImpact_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.views
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -1651,351 +1921,21 @@ export default function Content({
                                                         {campaign.highImpact_revType ===
                                                         "CPVisit" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.visits *
-                                                                        campaign.highImpact_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.visits
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
                                                         )}
                                                       </>
-                                                    </td>
-                                                    {/* PROFIT_PERCENTAGE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      <>
-                                                        {campaign.highImpact_revType ===
-                                                        "CPM" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.impressions *
-                                                                        (campaign.highImpact_unitRate /
-                                                                          1000) *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.impressions *
-                                                                          campaign.highImpact_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.highImpact_revType ===
-                                                        "CPC" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.clicks *
-                                                                        campaign.highImpact_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.clicks *
-                                                                          campaign.highImpact_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.highImpact_revType ===
-                                                        "CPCV" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.completed_views *
-                                                                        campaign.highImpact_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.completed_views *
-                                                                          campaign.highImpact_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.highImpact_revType ===
-                                                        "CPL" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.conversions *
-                                                                        campaign.highImpact_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.conversions *
-                                                                          campaign.highImpact_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.highImpact_revType ===
-                                                        "CPA" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.conversions *
-                                                                        campaign.highImpact_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.conversions *
-                                                                          campaign.highImpact_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.highImpact_revType ===
-                                                        "CPViews" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.views *
-                                                                        campaign.highImpact_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.views *
-                                                                          campaign.highImpact_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.highImpact_revType ===
-                                                        "CPVisit" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.visits *
-                                                                        campaign.highImpact_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.visits *
-                                                                          campaign.highImpact_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                      </>
-                                                    </td>
-
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {
-                                                        campaign.highImpact_unitRate
-                                                      }
-                                                    </td>
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {
-                                                        <>
-                                                          {campaign.highImpact_revType ===
-                                                          "CPM" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                (row.cost *
-                                                                  1000) /
-                                                                  row.impressions
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.highImpact_revType ===
-                                                          "CPC" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.clicks
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.highImpact_revType ===
-                                                          "CPCV" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.completed_views
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.highImpact_revType ===
-                                                          "CPL" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.conversions
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.highImpact_revType ===
-                                                          "CPA" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.conversions
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.highImpact_revType ===
-                                                          "CPViews" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.views
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.highImpact_revType ===
-                                                          "CPVisit" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.visits
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                        </>
-                                                      }
-                                                    </td>
-                                                  </tr>
-                                                </>
-                                              ) : (
-                                                <></>
-                                              )
+                                                    }
+                                                  </td>
+                                                </tr>
+                                              </>
+                                            ) : (
+                                              <></>
                                             )
                                           )}
                                         </>
@@ -2008,36 +1948,309 @@ export default function Content({
                                         selected.date &&
                                       campaign.native_campaign === true ? (
                                         <>
-                                          {reports.map((report) =>
-                                            JSON.parse(
-                                              report.xlsxToJSONStr
-                                            ).map((row) =>
-                                              row.reference ===
-                                              campaign.reference_id_native_campaign ? (
-                                                <>
-                                                  <tr>
-                                                    {/* NAME */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {campaign.name}
-                                                    </td>
-                                                    {/* CLIENT */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                      {campaign.clientName}
-                                                    </td>
-                                                    {/* CAMPAIGN TYPE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                      Native campaign
-                                                    </td>
-                                                    {/* REVENUE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      $
+                                          {JSON.parse(
+                                            reports[reports.length - 1]
+                                              .xlsxToJSONStr
+                                          ).map((row) =>
+                                            row.reference ===
+                                            campaign.reference_id_native_campaign ? (
+                                              <>
+                                                <tr>
+                                                  {/* NAME */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {campaign.name}
+                                                  </td>
+                                                  {/* CLIENT */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {campaign.clientName}
+                                                  </td>
+                                                  {/* CAMPAIGN TYPE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    Native campaign
+                                                  </td>
+                                                  {/* REVENUE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    $
+                                                    {campaign.native_revType ===
+                                                    "CPM" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          (row.impressions *
+                                                            campaign.native_unitRate) /
+                                                            1000
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.native_revType ===
+                                                    "CPC" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.clicks *
+                                                            campaign.native_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.native_revType ===
+                                                    "CPCV" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.completed_views *
+                                                            campaign.native_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.native_revType ===
+                                                    "CPL" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.conversions *
+                                                            campaign.native_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.native_revType ===
+                                                    "CPA" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.conversions *
+                                                            campaign.native_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.native_revType ===
+                                                    "CPViews" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.views *
+                                                            campaign.native_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.native_revType ===
+                                                    "CPVisit" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.visits *
+                                                            campaign.native_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                  </td>
+                                                  {/* MEDIA_COST */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <>{row.cost}</>
+                                                  </td>
+                                                  {/* REVENUE_TYPE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {campaign.native_revType}
+                                                  </td>
+                                                  {/* KICKBACK */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {
+                                                      <>
+                                                        {campaign.native_revType ===
+                                                        "CPM" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.impressions *
+                                                                        campaign.native_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100 /
+                                                                      1000}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.native_revType ===
+                                                        "CPC" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.clicks *
+                                                                        campaign.native_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.native_revType ===
+                                                        "CPCV" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.completed_views *
+                                                                        campaign.native_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.native_revType ===
+                                                        "CPL" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.conversions *
+                                                                        campaign.native_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.native_revType ===
+                                                        "CPA" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.conversions *
+                                                                        campaign.native_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.native_revType ===
+                                                        "CPViews" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.views *
+                                                                        campaign.native_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.native_revType ===
+                                                        "CPVisit" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.visits *
+                                                                        campaign.native_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                      </>
+                                                    }
+                                                  </td>
+                                                  {/* PROFIT */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <>
                                                       {campaign.native_revType ===
                                                       "CPM" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            (row.impressions *
-                                                              campaign.native_unitRate) /
-                                                              1000
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.impressions *
+                                                                      (campaign.native_unitRate /
+                                                                        1000) *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -2046,9 +2259,23 @@ export default function Content({
                                                       {campaign.native_revType ===
                                                       "CPC" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.clicks *
-                                                              campaign.native_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.clicks *
+                                                                      campaign.native_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -2057,9 +2284,23 @@ export default function Content({
                                                       {campaign.native_revType ===
                                                       "CPCV" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.completed_views *
-                                                              campaign.native_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.completed_views *
+                                                                      campaign.native_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -2068,9 +2309,23 @@ export default function Content({
                                                       {campaign.native_revType ===
                                                       "CPL" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.conversions *
-                                                              campaign.native_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.conversions *
+                                                                      campaign.native_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -2079,9 +2334,23 @@ export default function Content({
                                                       {campaign.native_revType ===
                                                       "CPA" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.conversions *
-                                                              campaign.native_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.conversions *
+                                                                      campaign.native_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -2090,9 +2359,23 @@ export default function Content({
                                                       {campaign.native_revType ===
                                                       "CPViews" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.views *
-                                                              campaign.native_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.views *
+                                                                      campaign.native_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -2101,219 +2384,255 @@ export default function Content({
                                                       {campaign.native_revType ===
                                                       "CPVisit" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.visits *
-                                                              campaign.native_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.visits *
+                                                                      campaign.native_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
                                                         <></>
                                                       )}
-                                                    </td>
-                                                    {/* MEDIA_COST */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      <>{row.cost}</>
-                                                    </td>
-                                                    {/* REVENUE_TYPE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                      {campaign.native_revType}
-                                                    </td>
-                                                    {/* KICKBACK */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {
+                                                    </>
+                                                  </td>
+                                                  {/* PROFIT_PERCENTAGE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <>
+                                                      {campaign.native_revType ===
+                                                      "CPM" ? (
                                                         <>
-                                                          {campaign.native_revType ===
-                                                          "CPM" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.impressions *
-                                                                          campaign.native_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100 /
-                                                                        1000}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.impressions *
+                                                                      (campaign.native_unitRate /
+                                                                        1000) *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.impressions *
+                                                                        campaign.native_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
-                                                          {campaign.native_revType ===
-                                                          "CPC" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.clicks *
-                                                                          campaign.native_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.native_revType ===
-                                                          "CPCV" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.completed_views *
-                                                                          campaign.native_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.native_revType ===
-                                                          "CPL" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.conversions *
-                                                                          campaign.native_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.native_revType ===
-                                                          "CPA" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.conversions *
-                                                                          campaign.native_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.native_revType ===
-                                                          "CPViews" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.views *
-                                                                          campaign.native_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.native_revType ===
-                                                          "CPVisit" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.visits *
-                                                                          campaign.native_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
+
+                                                          {" %"}
                                                         </>
-                                                      }
-                                                    </td>
-                                                    {/* PROFIT */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.native_revType ===
+                                                      "CPC" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.clicks *
+                                                                      campaign.native_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.clicks *
+                                                                        campaign.native_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.native_revType ===
+                                                      "CPCV" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.completed_views *
+                                                                      campaign.native_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.completed_views *
+                                                                        campaign.native_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.native_revType ===
+                                                      "CPL" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.conversions *
+                                                                      campaign.native_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.conversions *
+                                                                        campaign.native_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.native_revType ===
+                                                      "CPA" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.conversions *
+                                                                      campaign.native_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.conversions *
+                                                                        campaign.native_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.native_revType ===
+                                                      "CPViews" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.views *
+                                                                      campaign.native_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.views *
+                                                                        campaign.native_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.native_revType ===
+                                                      "CPVisit" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.visits *
+                                                                      campaign.native_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.visits *
+                                                                        campaign.native_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                    </>
+                                                  </td>
+
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {campaign.native_unitRate}
+                                                  </td>
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {
                                                       <>
                                                         {campaign.native_revType ===
                                                         "CPM" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.impressions *
-                                                                        (campaign.native_unitRate /
-                                                                          1000) *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              (row.cost *
+                                                                1000) /
+                                                                row.impressions
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -2321,26 +2640,10 @@ export default function Content({
                                                         {campaign.native_revType ===
                                                         "CPC" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.clicks *
-                                                                        campaign.native_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.clicks
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -2348,26 +2651,10 @@ export default function Content({
                                                         {campaign.native_revType ===
                                                         "CPCV" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.completed_views *
-                                                                        campaign.native_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.completed_views
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -2375,26 +2662,10 @@ export default function Content({
                                                         {campaign.native_revType ===
                                                         "CPL" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.conversions *
-                                                                        campaign.native_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.conversions
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -2402,26 +2673,10 @@ export default function Content({
                                                         {campaign.native_revType ===
                                                         "CPA" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.conversions *
-                                                                        campaign.native_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.conversions
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -2429,26 +2684,10 @@ export default function Content({
                                                         {campaign.native_revType ===
                                                         "CPViews" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.views *
-                                                                        campaign.native_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.views
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -2456,349 +2695,21 @@ export default function Content({
                                                         {campaign.native_revType ===
                                                         "CPVisit" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.visits *
-                                                                        campaign.native_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.visits
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
                                                         )}
                                                       </>
-                                                    </td>
-                                                    {/* PROFIT_PERCENTAGE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      <>
-                                                        {campaign.native_revType ===
-                                                        "CPM" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.impressions *
-                                                                        (campaign.native_unitRate /
-                                                                          1000) *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.impressions *
-                                                                          campaign.native_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.native_revType ===
-                                                        "CPC" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.clicks *
-                                                                        campaign.native_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.clicks *
-                                                                          campaign.native_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.native_revType ===
-                                                        "CPCV" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.completed_views *
-                                                                        campaign.native_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.completed_views *
-                                                                          campaign.native_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.native_revType ===
-                                                        "CPL" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.conversions *
-                                                                        campaign.native_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.conversions *
-                                                                          campaign.native_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.native_revType ===
-                                                        "CPA" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.conversions *
-                                                                        campaign.native_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.conversions *
-                                                                          campaign.native_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.native_revType ===
-                                                        "CPViews" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.views *
-                                                                        campaign.native_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.views *
-                                                                          campaign.native_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.native_revType ===
-                                                        "CPVisit" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.visits *
-                                                                        campaign.native_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.visits *
-                                                                          campaign.native_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                      </>
-                                                    </td>
-
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {campaign.native_unitRate}
-                                                    </td>
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {
-                                                        <>
-                                                          {campaign.native_revType ===
-                                                          "CPM" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                (row.cost *
-                                                                  1000) /
-                                                                  row.impressions
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.native_revType ===
-                                                          "CPC" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.clicks
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.native_revType ===
-                                                          "CPCV" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.completed_views
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.native_revType ===
-                                                          "CPL" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.conversions
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.native_revType ===
-                                                          "CPA" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.conversions
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.native_revType ===
-                                                          "CPViews" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.views
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.native_revType ===
-                                                          "CPVisit" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.visits
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                        </>
-                                                      }
-                                                    </td>
-                                                  </tr>
-                                                </>
-                                              ) : (
-                                                <></>
-                                              )
+                                                    }
+                                                  </td>
+                                                </tr>
+                                              </>
+                                            ) : (
+                                              <></>
                                             )
                                           )}
                                         </>
@@ -2810,36 +2721,309 @@ export default function Content({
                                       {campaign.pop_endDate > selected.date &&
                                       campaign.pop_campaign === true ? (
                                         <>
-                                          {reports.map((report) =>
-                                            JSON.parse(
-                                              report.xlsxToJSONStr
-                                            ).map((row) =>
-                                              row.reference ===
-                                              campaign.reference_id_pop_campaign ? (
-                                                <>
-                                                  <tr>
-                                                    {/* NAME */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {campaign.name}
-                                                    </td>
-                                                    {/* CLIENT */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                      {campaign.clientName}
-                                                    </td>
-                                                    {/* CAMPAIGN TYPE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                      pop campaign
-                                                    </td>
-                                                    {/* REVENUE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      $
+                                          {JSON.parse(
+                                            reports[reports.length - 1]
+                                              .xlsxToJSONStr
+                                          ).map((row) =>
+                                            row.reference ===
+                                            campaign.reference_id_pop_campaign ? (
+                                              <>
+                                                <tr>
+                                                  {/* NAME */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {campaign.name}
+                                                  </td>
+                                                  {/* CLIENT */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {campaign.clientName}
+                                                  </td>
+                                                  {/* CAMPAIGN TYPE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    pop campaign
+                                                  </td>
+                                                  {/* REVENUE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    $
+                                                    {campaign.pop_revType ===
+                                                    "CPM" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          (row.impressions *
+                                                            campaign.pop_unitRate) /
+                                                            1000
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.pop_revType ===
+                                                    "CPC" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.clicks *
+                                                            campaign.pop_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.pop_revType ===
+                                                    "CPCV" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.completed_views *
+                                                            campaign.pop_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.pop_revType ===
+                                                    "CPL" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.conversions *
+                                                            campaign.pop_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.pop_revType ===
+                                                    "CPA" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.conversions *
+                                                            campaign.pop_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.pop_revType ===
+                                                    "CPViews" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.views *
+                                                            campaign.pop_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.pop_revType ===
+                                                    "CPVisit" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.visits *
+                                                            campaign.pop_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                  </td>
+                                                  {/* MEDIA_COST */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <>{row.cost}</>
+                                                  </td>
+                                                  {/* REVENUE_TYPE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {campaign.pop_revType}
+                                                  </td>
+                                                  {/* KICKBACK */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {
+                                                      <>
+                                                        {campaign.pop_revType ===
+                                                        "CPM" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.impressions *
+                                                                        campaign.pop_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100 /
+                                                                      1000}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.pop_revType ===
+                                                        "CPC" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.clicks *
+                                                                        campaign.pop_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.pop_revType ===
+                                                        "CPCV" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.completed_views *
+                                                                        campaign.pop_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.pop_revType ===
+                                                        "CPL" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.conversions *
+                                                                        campaign.pop_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.pop_revType ===
+                                                        "CPA" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.conversions *
+                                                                        campaign.pop_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.pop_revType ===
+                                                        "CPViews" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.views *
+                                                                        campaign.pop_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.pop_revType ===
+                                                        "CPVisit" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.visits *
+                                                                        campaign.pop_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                      </>
+                                                    }
+                                                  </td>
+                                                  {/* PROFIT */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <>
                                                       {campaign.pop_revType ===
                                                       "CPM" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            (row.impressions *
-                                                              campaign.pop_unitRate) /
-                                                              1000
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.impressions *
+                                                                      (campaign.pop_unitRate /
+                                                                        1000) *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -2848,9 +3032,23 @@ export default function Content({
                                                       {campaign.pop_revType ===
                                                       "CPC" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.clicks *
-                                                              campaign.pop_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.clicks *
+                                                                      campaign.pop_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -2859,9 +3057,23 @@ export default function Content({
                                                       {campaign.pop_revType ===
                                                       "CPCV" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.completed_views *
-                                                              campaign.pop_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.completed_views *
+                                                                      campaign.pop_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -2870,9 +3082,23 @@ export default function Content({
                                                       {campaign.pop_revType ===
                                                       "CPL" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.conversions *
-                                                              campaign.pop_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.conversions *
+                                                                      campaign.pop_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -2881,9 +3107,23 @@ export default function Content({
                                                       {campaign.pop_revType ===
                                                       "CPA" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.conversions *
-                                                              campaign.pop_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.conversions *
+                                                                      campaign.pop_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -2892,9 +3132,23 @@ export default function Content({
                                                       {campaign.pop_revType ===
                                                       "CPViews" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.views *
-                                                              campaign.pop_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.views *
+                                                                      campaign.pop_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -2903,219 +3157,255 @@ export default function Content({
                                                       {campaign.pop_revType ===
                                                       "CPVisit" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.visits *
-                                                              campaign.pop_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.visits *
+                                                                      campaign.pop_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
                                                         <></>
                                                       )}
-                                                    </td>
-                                                    {/* MEDIA_COST */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      <>{row.cost}</>
-                                                    </td>
-                                                    {/* REVENUE_TYPE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                      {campaign.pop_revType}
-                                                    </td>
-                                                    {/* KICKBACK */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {
+                                                    </>
+                                                  </td>
+                                                  {/* PROFIT_PERCENTAGE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <>
+                                                      {campaign.pop_revType ===
+                                                      "CPM" ? (
                                                         <>
-                                                          {campaign.pop_revType ===
-                                                          "CPM" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.impressions *
-                                                                          campaign.pop_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100 /
-                                                                        1000}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.impressions *
+                                                                      (campaign.pop_unitRate /
+                                                                        1000) *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.impressions *
+                                                                        campaign.pop_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
-                                                          {campaign.pop_revType ===
-                                                          "CPC" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.clicks *
-                                                                          campaign.pop_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.pop_revType ===
-                                                          "CPCV" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.completed_views *
-                                                                          campaign.pop_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.pop_revType ===
-                                                          "CPL" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.conversions *
-                                                                          campaign.pop_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.pop_revType ===
-                                                          "CPA" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.conversions *
-                                                                          campaign.pop_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.pop_revType ===
-                                                          "CPViews" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.views *
-                                                                          campaign.pop_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.pop_revType ===
-                                                          "CPVisit" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.visits *
-                                                                          campaign.pop_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
+
+                                                          {" %"}
                                                         </>
-                                                      }
-                                                    </td>
-                                                    {/* PROFIT */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.pop_revType ===
+                                                      "CPC" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.clicks *
+                                                                      campaign.pop_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.clicks *
+                                                                        campaign.pop_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.pop_revType ===
+                                                      "CPCV" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.completed_views *
+                                                                      campaign.pop_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.completed_views *
+                                                                        campaign.pop_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.pop_revType ===
+                                                      "CPL" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.conversions *
+                                                                      campaign.pop_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.conversions *
+                                                                        campaign.pop_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.pop_revType ===
+                                                      "CPA" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.conversions *
+                                                                      campaign.pop_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.conversions *
+                                                                        campaign.pop_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.pop_revType ===
+                                                      "CPViews" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.views *
+                                                                      campaign.pop_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.views *
+                                                                        campaign.pop_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.pop_revType ===
+                                                      "CPVisit" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.visits *
+                                                                      campaign.pop_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.visits *
+                                                                        campaign.pop_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                    </>
+                                                  </td>
+
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {campaign.pop_unitRate}
+                                                  </td>
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {
                                                       <>
                                                         {campaign.pop_revType ===
                                                         "CPM" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.impressions *
-                                                                        (campaign.pop_unitRate /
-                                                                          1000) *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              (row.cost *
+                                                                1000) /
+                                                                row.impressions
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -3123,26 +3413,10 @@ export default function Content({
                                                         {campaign.pop_revType ===
                                                         "CPC" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.clicks *
-                                                                        campaign.pop_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.clicks
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -3150,26 +3424,10 @@ export default function Content({
                                                         {campaign.pop_revType ===
                                                         "CPCV" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.completed_views *
-                                                                        campaign.pop_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.completed_views
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -3177,26 +3435,10 @@ export default function Content({
                                                         {campaign.pop_revType ===
                                                         "CPL" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.conversions *
-                                                                        campaign.pop_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.conversions
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -3204,26 +3446,10 @@ export default function Content({
                                                         {campaign.pop_revType ===
                                                         "CPA" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.conversions *
-                                                                        campaign.pop_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.conversions
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -3231,26 +3457,10 @@ export default function Content({
                                                         {campaign.pop_revType ===
                                                         "CPViews" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.views *
-                                                                        campaign.pop_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.views
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -3258,349 +3468,21 @@ export default function Content({
                                                         {campaign.pop_revType ===
                                                         "CPVisit" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.visits *
-                                                                        campaign.pop_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.visits
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
                                                         )}
                                                       </>
-                                                    </td>
-                                                    {/* PROFIT_PERCENTAGE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      <>
-                                                        {campaign.pop_revType ===
-                                                        "CPM" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.impressions *
-                                                                        (campaign.pop_unitRate /
-                                                                          1000) *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.impressions *
-                                                                          campaign.pop_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.pop_revType ===
-                                                        "CPC" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.clicks *
-                                                                        campaign.pop_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.clicks *
-                                                                          campaign.pop_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.pop_revType ===
-                                                        "CPCV" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.completed_views *
-                                                                        campaign.pop_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.completed_views *
-                                                                          campaign.pop_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.pop_revType ===
-                                                        "CPL" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.conversions *
-                                                                        campaign.pop_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.conversions *
-                                                                          campaign.pop_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.pop_revType ===
-                                                        "CPA" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.conversions *
-                                                                        campaign.pop_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.conversions *
-                                                                          campaign.pop_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.pop_revType ===
-                                                        "CPViews" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.views *
-                                                                        campaign.pop_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.views *
-                                                                          campaign.pop_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.pop_revType ===
-                                                        "CPVisit" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.visits *
-                                                                        campaign.pop_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.visits *
-                                                                          campaign.pop_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                      </>
-                                                    </td>
-
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {campaign.pop_unitRate}
-                                                    </td>
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {
-                                                        <>
-                                                          {campaign.pop_revType ===
-                                                          "CPM" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                (row.cost *
-                                                                  1000) /
-                                                                  row.impressions
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.pop_revType ===
-                                                          "CPC" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.clicks
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.pop_revType ===
-                                                          "CPCV" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.completed_views
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.pop_revType ===
-                                                          "CPL" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.conversions
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.pop_revType ===
-                                                          "CPA" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.conversions
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.pop_revType ===
-                                                          "CPViews" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.views
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.pop_revType ===
-                                                          "CPVisit" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.visits
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                        </>
-                                                      }
-                                                    </td>
-                                                  </tr>
-                                                </>
-                                              ) : (
-                                                <></>
-                                              )
+                                                    }
+                                                  </td>
+                                                </tr>
+                                              </>
+                                            ) : (
+                                              <></>
                                             )
                                           )}
                                         </>
@@ -3612,36 +3494,309 @@ export default function Content({
                                       {campaign.push_endDate > selected.date &&
                                       campaign.push_campaign === true ? (
                                         <>
-                                          {reports.map((report) =>
-                                            JSON.parse(
-                                              report.xlsxToJSONStr
-                                            ).map((row) =>
-                                              row.reference ===
-                                              campaign.reference_id_push_campaign ? (
-                                                <>
-                                                  <tr>
-                                                    {/* NAME */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {campaign.name}
-                                                    </td>
-                                                    {/* CLIENT */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                      {campaign.clientName}
-                                                    </td>
-                                                    {/* CAMPAIGN TYPE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                      push campaign
-                                                    </td>
-                                                    {/* REVENUE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      $
+                                          {JSON.parse(
+                                            reports[reports.length - 1]
+                                              .xlsxToJSONStr
+                                          ).map((row) =>
+                                            row.reference ===
+                                            campaign.reference_id_push_campaign ? (
+                                              <>
+                                                <tr>
+                                                  {/* NAME */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {campaign.name}
+                                                  </td>
+                                                  {/* CLIENT */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {campaign.clientName}
+                                                  </td>
+                                                  {/* CAMPAIGN TYPE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    push campaign
+                                                  </td>
+                                                  {/* REVENUE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    $
+                                                    {campaign.push_revType ===
+                                                    "CPM" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          (row.impressions *
+                                                            campaign.push_unitRate) /
+                                                            1000
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.push_revType ===
+                                                    "CPC" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.clicks *
+                                                            campaign.push_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.push_revType ===
+                                                    "CPCV" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.completed_views *
+                                                            campaign.push_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.push_revType ===
+                                                    "CPL" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.conversions *
+                                                            campaign.push_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.push_revType ===
+                                                    "CPA" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.conversions *
+                                                            campaign.push_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.push_revType ===
+                                                    "CPViews" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.views *
+                                                            campaign.push_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.push_revType ===
+                                                    "CPVisit" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.visits *
+                                                            campaign.push_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                  </td>
+                                                  {/* MEDIA_COST */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <>{row.cost}</>
+                                                  </td>
+                                                  {/* REVENUE_TYPE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {campaign.push_revType}
+                                                  </td>
+                                                  {/* KICKBACK */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {
+                                                      <>
+                                                        {campaign.push_revType ===
+                                                        "CPM" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.impressions *
+                                                                        campaign.push_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100 /
+                                                                      1000}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.push_revType ===
+                                                        "CPC" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.clicks *
+                                                                        campaign.push_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.push_revType ===
+                                                        "CPCV" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.completed_views *
+                                                                        campaign.push_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.push_revType ===
+                                                        "CPL" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.conversions *
+                                                                        campaign.push_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.push_revType ===
+                                                        "CPA" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.conversions *
+                                                                        campaign.push_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.push_revType ===
+                                                        "CPViews" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.views *
+                                                                        campaign.push_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.push_revType ===
+                                                        "CPVisit" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.visits *
+                                                                        campaign.push_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                      </>
+                                                    }
+                                                  </td>
+                                                  {/* PROFIT */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <>
                                                       {campaign.push_revType ===
                                                       "CPM" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            (row.impressions *
-                                                              campaign.push_unitRate) /
-                                                              1000
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.impressions *
+                                                                      (campaign.push_unitRate /
+                                                                        1000) *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -3650,9 +3805,23 @@ export default function Content({
                                                       {campaign.push_revType ===
                                                       "CPC" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.clicks *
-                                                              campaign.push_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.clicks *
+                                                                      campaign.push_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -3661,9 +3830,23 @@ export default function Content({
                                                       {campaign.push_revType ===
                                                       "CPCV" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.completed_views *
-                                                              campaign.push_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.completed_views *
+                                                                      campaign.push_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -3672,9 +3855,23 @@ export default function Content({
                                                       {campaign.push_revType ===
                                                       "CPL" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.conversions *
-                                                              campaign.push_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.conversions *
+                                                                      campaign.push_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -3683,9 +3880,23 @@ export default function Content({
                                                       {campaign.push_revType ===
                                                       "CPA" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.conversions *
-                                                              campaign.push_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.conversions *
+                                                                      campaign.push_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -3694,9 +3905,23 @@ export default function Content({
                                                       {campaign.push_revType ===
                                                       "CPViews" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.views *
-                                                              campaign.push_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.views *
+                                                                      campaign.push_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -3705,219 +3930,255 @@ export default function Content({
                                                       {campaign.push_revType ===
                                                       "CPVisit" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.visits *
-                                                              campaign.push_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.visits *
+                                                                      campaign.push_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
                                                         <></>
                                                       )}
-                                                    </td>
-                                                    {/* MEDIA_COST */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      <>{row.cost}</>
-                                                    </td>
-                                                    {/* REVENUE_TYPE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                      {campaign.push_revType}
-                                                    </td>
-                                                    {/* KICKBACK */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {
+                                                    </>
+                                                  </td>
+                                                  {/* PROFIT_PERCENTAGE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <>
+                                                      {campaign.push_revType ===
+                                                      "CPM" ? (
                                                         <>
-                                                          {campaign.push_revType ===
-                                                          "CPM" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.impressions *
-                                                                          campaign.push_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100 /
-                                                                        1000}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.impressions *
+                                                                      (campaign.push_unitRate /
+                                                                        1000) *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.impressions *
+                                                                        campaign.push_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
-                                                          {campaign.push_revType ===
-                                                          "CPC" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.clicks *
-                                                                          campaign.push_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.push_revType ===
-                                                          "CPCV" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.completed_views *
-                                                                          campaign.push_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.push_revType ===
-                                                          "CPL" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.conversions *
-                                                                          campaign.push_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.push_revType ===
-                                                          "CPA" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.conversions *
-                                                                          campaign.push_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.push_revType ===
-                                                          "CPViews" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.views *
-                                                                          campaign.push_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.push_revType ===
-                                                          "CPVisit" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.visits *
-                                                                          campaign.push_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
+
+                                                          {" %"}
                                                         </>
-                                                      }
-                                                    </td>
-                                                    {/* PROFIT */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.push_revType ===
+                                                      "CPC" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.clicks *
+                                                                      campaign.push_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.clicks *
+                                                                        campaign.push_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.push_revType ===
+                                                      "CPCV" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.completed_views *
+                                                                      campaign.push_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.completed_views *
+                                                                        campaign.push_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.push_revType ===
+                                                      "CPL" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.conversions *
+                                                                      campaign.push_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.conversions *
+                                                                        campaign.push_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.push_revType ===
+                                                      "CPA" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.conversions *
+                                                                      campaign.push_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.conversions *
+                                                                        campaign.push_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.push_revType ===
+                                                      "CPViews" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.views *
+                                                                      campaign.push_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.views *
+                                                                        campaign.push_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.push_revType ===
+                                                      "CPVisit" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.visits *
+                                                                      campaign.push_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.visits *
+                                                                        campaign.push_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                    </>
+                                                  </td>
+
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {campaign.push_unitRate}
+                                                  </td>
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {
                                                       <>
                                                         {campaign.push_revType ===
                                                         "CPM" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.impressions *
-                                                                        (campaign.push_unitRate /
-                                                                          1000) *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              (row.cost *
+                                                                1000) /
+                                                                row.impressions
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -3925,26 +4186,10 @@ export default function Content({
                                                         {campaign.push_revType ===
                                                         "CPC" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.clicks *
-                                                                        campaign.push_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.clicks
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -3952,26 +4197,10 @@ export default function Content({
                                                         {campaign.push_revType ===
                                                         "CPCV" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.completed_views *
-                                                                        campaign.push_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.completed_views
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -3979,26 +4208,10 @@ export default function Content({
                                                         {campaign.push_revType ===
                                                         "CPL" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.conversions *
-                                                                        campaign.push_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.conversions
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -4006,26 +4219,10 @@ export default function Content({
                                                         {campaign.push_revType ===
                                                         "CPA" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.conversions *
-                                                                        campaign.push_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.conversions
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -4033,26 +4230,10 @@ export default function Content({
                                                         {campaign.push_revType ===
                                                         "CPViews" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.views *
-                                                                        campaign.push_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.views
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -4060,349 +4241,21 @@ export default function Content({
                                                         {campaign.push_revType ===
                                                         "CPVisit" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.visits *
-                                                                        campaign.push_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.visits
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
                                                         )}
                                                       </>
-                                                    </td>
-                                                    {/* PROFIT_PERCENTAGE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      <>
-                                                        {campaign.push_revType ===
-                                                        "CPM" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.impressions *
-                                                                        (campaign.push_unitRate /
-                                                                          1000) *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.impressions *
-                                                                          campaign.push_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.push_revType ===
-                                                        "CPC" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.clicks *
-                                                                        campaign.push_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.clicks *
-                                                                          campaign.push_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.push_revType ===
-                                                        "CPCV" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.completed_views *
-                                                                        campaign.push_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.completed_views *
-                                                                          campaign.push_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.push_revType ===
-                                                        "CPL" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.conversions *
-                                                                        campaign.push_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.conversions *
-                                                                          campaign.push_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.push_revType ===
-                                                        "CPA" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.conversions *
-                                                                        campaign.push_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.conversions *
-                                                                          campaign.push_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.push_revType ===
-                                                        "CPViews" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.views *
-                                                                        campaign.push_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.views *
-                                                                          campaign.push_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.push_revType ===
-                                                        "CPVisit" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.visits *
-                                                                        campaign.push_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.visits *
-                                                                          campaign.push_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                      </>
-                                                    </td>
-
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {campaign.push_unitRate}
-                                                    </td>
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {
-                                                        <>
-                                                          {campaign.push_revType ===
-                                                          "CPM" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                (row.cost *
-                                                                  1000) /
-                                                                  row.impressions
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.push_revType ===
-                                                          "CPC" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.clicks
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.push_revType ===
-                                                          "CPCV" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.completed_views
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.push_revType ===
-                                                          "CPL" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.conversions
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.push_revType ===
-                                                          "CPA" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.conversions
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.push_revType ===
-                                                          "CPViews" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.views
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.push_revType ===
-                                                          "CPVisit" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.visits
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                        </>
-                                                      }
-                                                    </td>
-                                                  </tr>
-                                                </>
-                                              ) : (
-                                                <></>
-                                              )
+                                                    }
+                                                  </td>
+                                                </tr>
+                                              </>
+                                            ) : (
+                                              <></>
                                             )
                                           )}
                                         </>
@@ -4415,36 +4268,309 @@ export default function Content({
                                         selected.date &&
                                       campaign.richMedia_campaign === true ? (
                                         <>
-                                          {reports.map((report) =>
-                                            JSON.parse(
-                                              report.xlsxToJSONStr
-                                            ).map((row) =>
-                                              row.reference ===
-                                              campaign.reference_id_richMedia_campaign ? (
-                                                <>
-                                                  <tr>
-                                                    {/* NAME */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {campaign.name}
-                                                    </td>
-                                                    {/* CLIENT */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                      {campaign.clientName}
-                                                    </td>
-                                                    {/* CAMPAIGN TYPE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                      Rich Media campaign
-                                                    </td>
-                                                    {/* REVENUE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      $
+                                          {JSON.parse(
+                                            reports[reports.length - 1]
+                                              .xlsxToJSONStr
+                                          ).map((row) =>
+                                            row.reference ===
+                                            campaign.reference_id_richMedia_campaign ? (
+                                              <>
+                                                <tr>
+                                                  {/* NAME */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {campaign.name}
+                                                  </td>
+                                                  {/* CLIENT */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {campaign.clientName}
+                                                  </td>
+                                                  {/* CAMPAIGN TYPE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    Rich Media campaign
+                                                  </td>
+                                                  {/* REVENUE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    $
+                                                    {campaign.richMedia_revType ===
+                                                    "CPM" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          (row.impressions *
+                                                            campaign.richMedia_unitRate) /
+                                                            1000
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.richMedia_revType ===
+                                                    "CPC" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.clicks *
+                                                            campaign.richMedia_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.richMedia_revType ===
+                                                    "CPCV" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.completed_views *
+                                                            campaign.richMedia_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.richMedia_revType ===
+                                                    "CPL" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.conversions *
+                                                            campaign.richMedia_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.richMedia_revType ===
+                                                    "CPA" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.conversions *
+                                                            campaign.richMedia_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.richMedia_revType ===
+                                                    "CPViews" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.views *
+                                                            campaign.richMedia_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.richMedia_revType ===
+                                                    "CPVisit" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.visits *
+                                                            campaign.richMedia_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                  </td>
+                                                  {/* MEDIA_COST */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <>{row.cost}</>
+                                                  </td>
+                                                  {/* REVENUE_TYPE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {campaign.richMedia_revType}
+                                                  </td>
+                                                  {/* KICKBACK */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {
+                                                      <>
+                                                        {campaign.richMedia_revType ===
+                                                        "CPM" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.impressions *
+                                                                        campaign.richMedia_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100 /
+                                                                      1000}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.richMedia_revType ===
+                                                        "CPC" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.clicks *
+                                                                        campaign.richMedia_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.richMedia_revType ===
+                                                        "CPCV" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.completed_views *
+                                                                        campaign.richMedia_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.richMedia_revType ===
+                                                        "CPL" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.conversions *
+                                                                        campaign.richMedia_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.richMedia_revType ===
+                                                        "CPA" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.conversions *
+                                                                        campaign.richMedia_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.richMedia_revType ===
+                                                        "CPViews" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.views *
+                                                                        campaign.richMedia_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.richMedia_revType ===
+                                                        "CPVisit" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.visits *
+                                                                        campaign.richMedia_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                      </>
+                                                    }
+                                                  </td>
+                                                  {/* PROFIT */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <>
                                                       {campaign.richMedia_revType ===
                                                       "CPM" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            (row.impressions *
-                                                              campaign.richMedia_unitRate) /
-                                                              1000
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.impressions *
+                                                                      (campaign.richMedia_unitRate /
+                                                                        1000) *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -4453,9 +4579,23 @@ export default function Content({
                                                       {campaign.richMedia_revType ===
                                                       "CPC" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.clicks *
-                                                              campaign.richMedia_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.clicks *
+                                                                      campaign.richMedia_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -4464,9 +4604,23 @@ export default function Content({
                                                       {campaign.richMedia_revType ===
                                                       "CPCV" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.completed_views *
-                                                              campaign.richMedia_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.completed_views *
+                                                                      campaign.richMedia_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -4475,9 +4629,23 @@ export default function Content({
                                                       {campaign.richMedia_revType ===
                                                       "CPL" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.conversions *
-                                                              campaign.richMedia_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.conversions *
+                                                                      campaign.richMedia_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -4486,9 +4654,23 @@ export default function Content({
                                                       {campaign.richMedia_revType ===
                                                       "CPA" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.conversions *
-                                                              campaign.richMedia_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.conversions *
+                                                                      campaign.richMedia_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -4497,9 +4679,23 @@ export default function Content({
                                                       {campaign.richMedia_revType ===
                                                       "CPViews" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.views *
-                                                              campaign.richMedia_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.views *
+                                                                      campaign.richMedia_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -4508,221 +4704,257 @@ export default function Content({
                                                       {campaign.richMedia_revType ===
                                                       "CPVisit" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.visits *
-                                                              campaign.richMedia_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.visits *
+                                                                      campaign.richMedia_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
                                                         <></>
                                                       )}
-                                                    </td>
-                                                    {/* MEDIA_COST */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      <>{row.cost}</>
-                                                    </td>
-                                                    {/* REVENUE_TYPE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                      {
-                                                        campaign.richMedia_revType
-                                                      }
-                                                    </td>
-                                                    {/* KICKBACK */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {
+                                                    </>
+                                                  </td>
+                                                  {/* PROFIT_PERCENTAGE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <>
+                                                      {campaign.richMedia_revType ===
+                                                      "CPM" ? (
                                                         <>
-                                                          {campaign.richMedia_revType ===
-                                                          "CPM" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.impressions *
-                                                                          campaign.richMedia_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100 /
-                                                                        1000}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.impressions *
+                                                                      (campaign.richMedia_unitRate /
+                                                                        1000) *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.impressions *
+                                                                        campaign.richMedia_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
-                                                          {campaign.richMedia_revType ===
-                                                          "CPC" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.clicks *
-                                                                          campaign.richMedia_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.richMedia_revType ===
-                                                          "CPCV" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.completed_views *
-                                                                          campaign.richMedia_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.richMedia_revType ===
-                                                          "CPL" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.conversions *
-                                                                          campaign.richMedia_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.richMedia_revType ===
-                                                          "CPA" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.conversions *
-                                                                          campaign.richMedia_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.richMedia_revType ===
-                                                          "CPViews" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.views *
-                                                                          campaign.richMedia_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.richMedia_revType ===
-                                                          "CPVisit" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.visits *
-                                                                          campaign.richMedia_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
+
+                                                          {" %"}
                                                         </>
-                                                      }
-                                                    </td>
-                                                    {/* PROFIT */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.richMedia_revType ===
+                                                      "CPC" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.clicks *
+                                                                      campaign.richMedia_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.clicks *
+                                                                        campaign.richMedia_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.richMedia_revType ===
+                                                      "CPCV" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.completed_views *
+                                                                      campaign.richMedia_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.completed_views *
+                                                                        campaign.richMedia_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.richMedia_revType ===
+                                                      "CPL" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.conversions *
+                                                                      campaign.richMedia_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.conversions *
+                                                                        campaign.richMedia_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.richMedia_revType ===
+                                                      "CPA" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.conversions *
+                                                                      campaign.richMedia_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.conversions *
+                                                                        campaign.richMedia_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.richMedia_revType ===
+                                                      "CPViews" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.views *
+                                                                      campaign.richMedia_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.views *
+                                                                        campaign.richMedia_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.richMedia_revType ===
+                                                      "CPVisit" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.visits *
+                                                                      campaign.richMedia_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.visits *
+                                                                        campaign.richMedia_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                    </>
+                                                  </td>
+
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {
+                                                      campaign.richMedia_unitRate
+                                                    }
+                                                  </td>
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {
                                                       <>
                                                         {campaign.richMedia_revType ===
                                                         "CPM" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.impressions *
-                                                                        (campaign.richMedia_unitRate /
-                                                                          1000) *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              (row.cost *
+                                                                1000) /
+                                                                row.impressions
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -4730,26 +4962,10 @@ export default function Content({
                                                         {campaign.richMedia_revType ===
                                                         "CPC" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.clicks *
-                                                                        campaign.richMedia_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.clicks
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -4757,26 +4973,10 @@ export default function Content({
                                                         {campaign.richMedia_revType ===
                                                         "CPCV" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.completed_views *
-                                                                        campaign.richMedia_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.completed_views
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -4784,26 +4984,10 @@ export default function Content({
                                                         {campaign.richMedia_revType ===
                                                         "CPL" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.conversions *
-                                                                        campaign.richMedia_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.conversions
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -4811,26 +4995,10 @@ export default function Content({
                                                         {campaign.richMedia_revType ===
                                                         "CPA" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.conversions *
-                                                                        campaign.richMedia_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.conversions
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -4838,26 +5006,10 @@ export default function Content({
                                                         {campaign.richMedia_revType ===
                                                         "CPViews" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.views *
-                                                                        campaign.richMedia_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.views
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -4865,351 +5017,21 @@ export default function Content({
                                                         {campaign.richMedia_revType ===
                                                         "CPVisit" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.visits *
-                                                                        campaign.richMedia_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.visits
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
                                                         )}
                                                       </>
-                                                    </td>
-                                                    {/* PROFIT_PERCENTAGE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      <>
-                                                        {campaign.richMedia_revType ===
-                                                        "CPM" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.impressions *
-                                                                        (campaign.richMedia_unitRate /
-                                                                          1000) *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.impressions *
-                                                                          campaign.richMedia_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.richMedia_revType ===
-                                                        "CPC" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.clicks *
-                                                                        campaign.richMedia_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.clicks *
-                                                                          campaign.richMedia_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.richMedia_revType ===
-                                                        "CPCV" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.completed_views *
-                                                                        campaign.richMedia_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.completed_views *
-                                                                          campaign.richMedia_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.richMedia_revType ===
-                                                        "CPL" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.conversions *
-                                                                        campaign.richMedia_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.conversions *
-                                                                          campaign.richMedia_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.richMedia_revType ===
-                                                        "CPA" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.conversions *
-                                                                        campaign.richMedia_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.conversions *
-                                                                          campaign.richMedia_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.richMedia_revType ===
-                                                        "CPViews" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.views *
-                                                                        campaign.richMedia_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.views *
-                                                                          campaign.richMedia_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.richMedia_revType ===
-                                                        "CPVisit" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.visits *
-                                                                        campaign.richMedia_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.visits *
-                                                                          campaign.richMedia_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                      </>
-                                                    </td>
-
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {
-                                                        campaign.richMedia_unitRate
-                                                      }
-                                                    </td>
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {
-                                                        <>
-                                                          {campaign.richMedia_revType ===
-                                                          "CPM" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                (row.cost *
-                                                                  1000) /
-                                                                  row.impressions
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.richMedia_revType ===
-                                                          "CPC" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.clicks
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.richMedia_revType ===
-                                                          "CPCV" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.completed_views
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.richMedia_revType ===
-                                                          "CPL" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.conversions
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.richMedia_revType ===
-                                                          "CPA" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.conversions
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.richMedia_revType ===
-                                                          "CPViews" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.views
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.richMedia_revType ===
-                                                          "CPVisit" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.visits
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                        </>
-                                                      }
-                                                    </td>
-                                                  </tr>
-                                                </>
-                                              ) : (
-                                                <></>
-                                              )
+                                                    }
+                                                  </td>
+                                                </tr>
+                                              </>
+                                            ) : (
+                                              <></>
                                             )
                                           )}
                                         </>
@@ -5222,36 +5044,309 @@ export default function Content({
                                         selected.date &&
                                       campaign.search_campaign === true ? (
                                         <>
-                                          {reports.map((report) =>
-                                            JSON.parse(
-                                              report.xlsxToJSONStr
-                                            ).map((row) =>
-                                              row.reference ===
-                                              campaign.reference_id_search_campaign ? (
-                                                <>
-                                                  <tr>
-                                                    {/* NAME */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {campaign.name}
-                                                    </td>
-                                                    {/* CLIENT */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                      {campaign.clientName}
-                                                    </td>
-                                                    {/* CAMPAIGN TYPE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                      Search campaign
-                                                    </td>
-                                                    {/* REVENUE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      $
+                                          {JSON.parse(
+                                            reports[reports.length - 1]
+                                              .xlsxToJSONStr
+                                          ).map((row) =>
+                                            row.reference ===
+                                            campaign.reference_id_search_campaign ? (
+                                              <>
+                                                <tr>
+                                                  {/* NAME */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {campaign.name}
+                                                  </td>
+                                                  {/* CLIENT */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {campaign.clientName}
+                                                  </td>
+                                                  {/* CAMPAIGN TYPE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    Search campaign
+                                                  </td>
+                                                  {/* REVENUE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    $
+                                                    {campaign.search_revType ===
+                                                    "CPM" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          (row.impressions *
+                                                            campaign.search_unitRate) /
+                                                            1000
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.search_revType ===
+                                                    "CPC" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.clicks *
+                                                            campaign.search_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.search_revType ===
+                                                    "CPCV" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.completed_views *
+                                                            campaign.search_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.search_revType ===
+                                                    "CPL" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.conversions *
+                                                            campaign.search_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.search_revType ===
+                                                    "CPA" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.conversions *
+                                                            campaign.search_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.search_revType ===
+                                                    "CPViews" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.views *
+                                                            campaign.search_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.search_revType ===
+                                                    "CPVisit" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.visits *
+                                                            campaign.search_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                  </td>
+                                                  {/* MEDIA_COST */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <>{row.cost}</>
+                                                  </td>
+                                                  {/* REVENUE_TYPE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {campaign.search_revType}
+                                                  </td>
+                                                  {/* KICKBACK */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {
+                                                      <>
+                                                        {campaign.search_revType ===
+                                                        "CPM" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.impressions *
+                                                                        campaign.search_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100 /
+                                                                      1000}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.search_revType ===
+                                                        "CPC" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.clicks *
+                                                                        campaign.search_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.search_revType ===
+                                                        "CPCV" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.completed_views *
+                                                                        campaign.search_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.search_revType ===
+                                                        "CPL" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.conversions *
+                                                                        campaign.search_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.search_revType ===
+                                                        "CPA" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.conversions *
+                                                                        campaign.search_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.search_revType ===
+                                                        "CPViews" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.views *
+                                                                        campaign.search_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.search_revType ===
+                                                        "CPVisit" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.visits *
+                                                                        campaign.search_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                      </>
+                                                    }
+                                                  </td>
+                                                  {/* PROFIT */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <>
                                                       {campaign.search_revType ===
                                                       "CPM" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            (row.impressions *
-                                                              campaign.search_unitRate) /
-                                                              1000
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.impressions *
+                                                                      (campaign.search_unitRate /
+                                                                        1000) *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -5260,9 +5355,23 @@ export default function Content({
                                                       {campaign.search_revType ===
                                                       "CPC" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.clicks *
-                                                              campaign.search_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.clicks *
+                                                                      campaign.search_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -5271,9 +5380,23 @@ export default function Content({
                                                       {campaign.search_revType ===
                                                       "CPCV" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.completed_views *
-                                                              campaign.search_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.completed_views *
+                                                                      campaign.search_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -5282,9 +5405,23 @@ export default function Content({
                                                       {campaign.search_revType ===
                                                       "CPL" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.conversions *
-                                                              campaign.search_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.conversions *
+                                                                      campaign.search_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -5293,9 +5430,23 @@ export default function Content({
                                                       {campaign.search_revType ===
                                                       "CPA" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.conversions *
-                                                              campaign.search_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.conversions *
+                                                                      campaign.search_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -5304,9 +5455,23 @@ export default function Content({
                                                       {campaign.search_revType ===
                                                       "CPViews" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.views *
-                                                              campaign.search_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.views *
+                                                                      campaign.search_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -5315,219 +5480,255 @@ export default function Content({
                                                       {campaign.search_revType ===
                                                       "CPVisit" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.visits *
-                                                              campaign.search_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.visits *
+                                                                      campaign.search_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
                                                         <></>
                                                       )}
-                                                    </td>
-                                                    {/* MEDIA_COST */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      <>{row.cost}</>
-                                                    </td>
-                                                    {/* REVENUE_TYPE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                      {campaign.search_revType}
-                                                    </td>
-                                                    {/* KICKBACK */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {
+                                                    </>
+                                                  </td>
+                                                  {/* PROFIT_PERCENTAGE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <>
+                                                      {campaign.search_revType ===
+                                                      "CPM" ? (
                                                         <>
-                                                          {campaign.search_revType ===
-                                                          "CPM" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.impressions *
-                                                                          campaign.search_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100 /
-                                                                        1000}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.impressions *
+                                                                      (campaign.search_unitRate /
+                                                                        1000) *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.impressions *
+                                                                        campaign.search_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
-                                                          {campaign.search_revType ===
-                                                          "CPC" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.clicks *
-                                                                          campaign.search_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.search_revType ===
-                                                          "CPCV" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.completed_views *
-                                                                          campaign.search_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.search_revType ===
-                                                          "CPL" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.conversions *
-                                                                          campaign.search_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.search_revType ===
-                                                          "CPA" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.conversions *
-                                                                          campaign.search_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.search_revType ===
-                                                          "CPViews" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.views *
-                                                                          campaign.search_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.search_revType ===
-                                                          "CPVisit" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.visits *
-                                                                          campaign.search_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
+
+                                                          {" %"}
                                                         </>
-                                                      }
-                                                    </td>
-                                                    {/* PROFIT */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.search_revType ===
+                                                      "CPC" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.clicks *
+                                                                      campaign.search_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.clicks *
+                                                                        campaign.search_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.search_revType ===
+                                                      "CPCV" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.completed_views *
+                                                                      campaign.search_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.completed_views *
+                                                                        campaign.search_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.search_revType ===
+                                                      "CPL" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.conversions *
+                                                                      campaign.search_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.conversions *
+                                                                        campaign.search_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.search_revType ===
+                                                      "CPA" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.conversions *
+                                                                      campaign.search_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.conversions *
+                                                                        campaign.search_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.search_revType ===
+                                                      "CPViews" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.views *
+                                                                      campaign.search_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.views *
+                                                                        campaign.search_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.search_revType ===
+                                                      "CPVisit" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.visits *
+                                                                      campaign.search_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.visits *
+                                                                        campaign.search_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                    </>
+                                                  </td>
+
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {campaign.search_unitRate}
+                                                  </td>
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {
                                                       <>
                                                         {campaign.search_revType ===
                                                         "CPM" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.impressions *
-                                                                        (campaign.search_unitRate /
-                                                                          1000) *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              (row.cost *
+                                                                1000) /
+                                                                row.impressions
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -5535,26 +5736,10 @@ export default function Content({
                                                         {campaign.search_revType ===
                                                         "CPC" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.clicks *
-                                                                        campaign.search_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.clicks
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -5562,26 +5747,10 @@ export default function Content({
                                                         {campaign.search_revType ===
                                                         "CPCV" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.completed_views *
-                                                                        campaign.search_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.completed_views
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -5589,26 +5758,10 @@ export default function Content({
                                                         {campaign.search_revType ===
                                                         "CPL" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.conversions *
-                                                                        campaign.search_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.conversions
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -5616,26 +5769,10 @@ export default function Content({
                                                         {campaign.search_revType ===
                                                         "CPA" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.conversions *
-                                                                        campaign.search_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.conversions
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -5643,26 +5780,10 @@ export default function Content({
                                                         {campaign.search_revType ===
                                                         "CPViews" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.views *
-                                                                        campaign.search_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.views
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -5670,349 +5791,21 @@ export default function Content({
                                                         {campaign.search_revType ===
                                                         "CPVisit" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.visits *
-                                                                        campaign.search_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.visits
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
                                                         )}
                                                       </>
-                                                    </td>
-                                                    {/* PROFIT_PERCENTAGE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      <>
-                                                        {campaign.search_revType ===
-                                                        "CPM" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.impressions *
-                                                                        (campaign.search_unitRate /
-                                                                          1000) *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.impressions *
-                                                                          campaign.search_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.search_revType ===
-                                                        "CPC" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.clicks *
-                                                                        campaign.search_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.clicks *
-                                                                          campaign.search_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.search_revType ===
-                                                        "CPCV" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.completed_views *
-                                                                        campaign.search_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.completed_views *
-                                                                          campaign.search_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.search_revType ===
-                                                        "CPL" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.conversions *
-                                                                        campaign.search_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.conversions *
-                                                                          campaign.search_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.search_revType ===
-                                                        "CPA" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.conversions *
-                                                                        campaign.search_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.conversions *
-                                                                          campaign.search_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.search_revType ===
-                                                        "CPViews" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.views *
-                                                                        campaign.search_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.views *
-                                                                          campaign.search_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.search_revType ===
-                                                        "CPVisit" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.visits *
-                                                                        campaign.search_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.visits *
-                                                                          campaign.search_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                      </>
-                                                    </td>
-
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {campaign.search_unitRate}
-                                                    </td>
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {
-                                                        <>
-                                                          {campaign.search_revType ===
-                                                          "CPM" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                (row.cost *
-                                                                  1000) /
-                                                                  row.impressions
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.search_revType ===
-                                                          "CPC" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.clicks
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.search_revType ===
-                                                          "CPCV" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.completed_views
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.search_revType ===
-                                                          "CPL" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.conversions
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.search_revType ===
-                                                          "CPA" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.conversions
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.search_revType ===
-                                                          "CPViews" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.views
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.search_revType ===
-                                                          "CPVisit" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.visits
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                        </>
-                                                      }
-                                                    </td>
-                                                  </tr>
-                                                </>
-                                              ) : (
-                                                <></>
-                                              )
+                                                    }
+                                                  </td>
+                                                </tr>
+                                              </>
+                                            ) : (
+                                              <></>
                                             )
                                           )}
                                         </>
@@ -6025,36 +5818,309 @@ export default function Content({
                                         selected.date &&
                                       campaign.social_campaign === true ? (
                                         <>
-                                          {reports.map((report) =>
-                                            JSON.parse(
-                                              report.xlsxToJSONStr
-                                            ).map((row) =>
-                                              row.reference ===
-                                              campaign.reference_id_social_campaign ? (
-                                                <>
-                                                  <tr>
-                                                    {/* NAME */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {campaign.name}
-                                                    </td>
-                                                    {/* CLIENT */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                      {campaign.clientName}
-                                                    </td>
-                                                    {/* CAMPAIGN TYPE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                      Social campaign
-                                                    </td>
-                                                    {/* REVENUE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      $
+                                          {JSON.parse(
+                                            reports[reports.length - 1]
+                                              .xlsxToJSONStr
+                                          ).map((row) =>
+                                            row.reference ===
+                                            campaign.reference_id_social_campaign ? (
+                                              <>
+                                                <tr>
+                                                  {/* NAME */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {campaign.name}
+                                                  </td>
+                                                  {/* CLIENT */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {campaign.clientName}
+                                                  </td>
+                                                  {/* CAMPAIGN TYPE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    Social campaign
+                                                  </td>
+                                                  {/* REVENUE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    $
+                                                    {campaign.social_revType ===
+                                                    "CPM" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          (row.impressions *
+                                                            campaign.social_unitRate) /
+                                                            1000
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.social_revType ===
+                                                    "CPC" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.clicks *
+                                                            campaign.social_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.social_revType ===
+                                                    "CPCV" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.completed_views *
+                                                            campaign.social_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.social_revType ===
+                                                    "CPL" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.conversions *
+                                                            campaign.social_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.social_revType ===
+                                                    "CPA" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.conversions *
+                                                            campaign.social_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.social_revType ===
+                                                    "CPViews" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.views *
+                                                            campaign.social_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.social_revType ===
+                                                    "CPVisit" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.visits *
+                                                            campaign.social_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                  </td>
+                                                  {/* MEDIA_COST */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <>{row.cost}</>
+                                                  </td>
+                                                  {/* REVENUE_TYPE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {campaign.social_revType}
+                                                  </td>
+                                                  {/* KICKBACK */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {
+                                                      <>
+                                                        {campaign.social_revType ===
+                                                        "CPM" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.impressions *
+                                                                        campaign.social_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100 /
+                                                                      1000}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.social_revType ===
+                                                        "CPC" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.clicks *
+                                                                        campaign.social_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.social_revType ===
+                                                        "CPCV" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.completed_views *
+                                                                        campaign.social_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.social_revType ===
+                                                        "CPL" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.conversions *
+                                                                        campaign.social_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.social_revType ===
+                                                        "CPA" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.conversions *
+                                                                        campaign.social_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.social_revType ===
+                                                        "CPViews" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.views *
+                                                                        campaign.social_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.social_revType ===
+                                                        "CPVisit" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.visits *
+                                                                        campaign.social_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                      </>
+                                                    }
+                                                  </td>
+                                                  {/* PROFIT */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <>
                                                       {campaign.social_revType ===
                                                       "CPM" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            (row.impressions *
-                                                              campaign.social_unitRate) /
-                                                              1000
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.impressions *
+                                                                      (campaign.social_unitRate /
+                                                                        1000) *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -6063,9 +6129,23 @@ export default function Content({
                                                       {campaign.social_revType ===
                                                       "CPC" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.clicks *
-                                                              campaign.social_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.clicks *
+                                                                      campaign.social_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -6074,9 +6154,23 @@ export default function Content({
                                                       {campaign.social_revType ===
                                                       "CPCV" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.completed_views *
-                                                              campaign.social_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.completed_views *
+                                                                      campaign.social_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -6085,9 +6179,23 @@ export default function Content({
                                                       {campaign.social_revType ===
                                                       "CPL" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.conversions *
-                                                              campaign.social_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.conversions *
+                                                                      campaign.social_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -6096,9 +6204,23 @@ export default function Content({
                                                       {campaign.social_revType ===
                                                       "CPA" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.conversions *
-                                                              campaign.social_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.conversions *
+                                                                      campaign.social_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -6107,9 +6229,23 @@ export default function Content({
                                                       {campaign.social_revType ===
                                                       "CPViews" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.views *
-                                                              campaign.social_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.views *
+                                                                      campaign.social_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -6118,219 +6254,255 @@ export default function Content({
                                                       {campaign.social_revType ===
                                                       "CPVisit" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.visits *
-                                                              campaign.social_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.visits *
+                                                                      campaign.social_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
                                                         <></>
                                                       )}
-                                                    </td>
-                                                    {/* MEDIA_COST */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      <>{row.cost}</>
-                                                    </td>
-                                                    {/* REVENUE_TYPE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                      {campaign.social_revType}
-                                                    </td>
-                                                    {/* KICKBACK */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {
+                                                    </>
+                                                  </td>
+                                                  {/* PROFIT_PERCENTAGE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <>
+                                                      {campaign.social_revType ===
+                                                      "CPM" ? (
                                                         <>
-                                                          {campaign.social_revType ===
-                                                          "CPM" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.impressions *
-                                                                          campaign.social_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100 /
-                                                                        1000}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.impressions *
+                                                                      (campaign.social_unitRate /
+                                                                        1000) *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.impressions *
+                                                                        campaign.social_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
-                                                          {campaign.social_revType ===
-                                                          "CPC" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.clicks *
-                                                                          campaign.social_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.social_revType ===
-                                                          "CPCV" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.completed_views *
-                                                                          campaign.social_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.social_revType ===
-                                                          "CPL" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.conversions *
-                                                                          campaign.social_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.social_revType ===
-                                                          "CPA" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.conversions *
-                                                                          campaign.social_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.social_revType ===
-                                                          "CPViews" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.views *
-                                                                          campaign.social_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.social_revType ===
-                                                          "CPVisit" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.visits *
-                                                                          campaign.social_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
+
+                                                          {" %"}
                                                         </>
-                                                      }
-                                                    </td>
-                                                    {/* PROFIT */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.social_revType ===
+                                                      "CPC" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.clicks *
+                                                                      campaign.social_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.clicks *
+                                                                        campaign.social_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.social_revType ===
+                                                      "CPCV" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.completed_views *
+                                                                      campaign.social_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.completed_views *
+                                                                        campaign.social_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.social_revType ===
+                                                      "CPL" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.conversions *
+                                                                      campaign.social_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.conversions *
+                                                                        campaign.social_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.social_revType ===
+                                                      "CPA" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.conversions *
+                                                                      campaign.social_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.conversions *
+                                                                        campaign.social_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.social_revType ===
+                                                      "CPViews" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.views *
+                                                                      campaign.social_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.views *
+                                                                        campaign.social_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.social_revType ===
+                                                      "CPVisit" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.visits *
+                                                                      campaign.social_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.visits *
+                                                                        campaign.social_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                    </>
+                                                  </td>
+
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {campaign.social_unitRate}
+                                                  </td>
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {
                                                       <>
                                                         {campaign.social_revType ===
                                                         "CPM" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.impressions *
-                                                                        (campaign.social_unitRate /
-                                                                          1000) *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              (row.cost *
+                                                                1000) /
+                                                                row.impressions
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -6338,26 +6510,10 @@ export default function Content({
                                                         {campaign.social_revType ===
                                                         "CPC" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.clicks *
-                                                                        campaign.social_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.clicks
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -6365,26 +6521,10 @@ export default function Content({
                                                         {campaign.social_revType ===
                                                         "CPCV" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.completed_views *
-                                                                        campaign.social_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.completed_views
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -6392,26 +6532,10 @@ export default function Content({
                                                         {campaign.social_revType ===
                                                         "CPL" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.conversions *
-                                                                        campaign.social_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.conversions
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -6419,26 +6543,10 @@ export default function Content({
                                                         {campaign.social_revType ===
                                                         "CPA" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.conversions *
-                                                                        campaign.social_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.conversions
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -6446,26 +6554,10 @@ export default function Content({
                                                         {campaign.social_revType ===
                                                         "CPViews" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.views *
-                                                                        campaign.social_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.views
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -6473,349 +6565,21 @@ export default function Content({
                                                         {campaign.social_revType ===
                                                         "CPVisit" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.visits *
-                                                                        campaign.social_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.visits
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
                                                         )}
                                                       </>
-                                                    </td>
-                                                    {/* PROFIT_PERCENTAGE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      <>
-                                                        {campaign.social_revType ===
-                                                        "CPM" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.impressions *
-                                                                        (campaign.social_unitRate /
-                                                                          1000) *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.impressions *
-                                                                          campaign.social_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.social_revType ===
-                                                        "CPC" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.clicks *
-                                                                        campaign.social_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.clicks *
-                                                                          campaign.social_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.social_revType ===
-                                                        "CPCV" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.completed_views *
-                                                                        campaign.social_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.completed_views *
-                                                                          campaign.social_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.social_revType ===
-                                                        "CPL" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.conversions *
-                                                                        campaign.social_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.conversions *
-                                                                          campaign.social_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.social_revType ===
-                                                        "CPA" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.conversions *
-                                                                        campaign.social_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.conversions *
-                                                                          campaign.social_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.social_revType ===
-                                                        "CPViews" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.views *
-                                                                        campaign.social_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.views *
-                                                                          campaign.social_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.social_revType ===
-                                                        "CPVisit" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.visits *
-                                                                        campaign.social_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.visits *
-                                                                          campaign.social_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                      </>
-                                                    </td>
-
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {campaign.social_unitRate}
-                                                    </td>
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {
-                                                        <>
-                                                          {campaign.social_revType ===
-                                                          "CPM" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                (row.cost *
-                                                                  1000) /
-                                                                  row.impressions
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.social_revType ===
-                                                          "CPC" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.clicks
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.social_revType ===
-                                                          "CPCV" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.completed_views
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.social_revType ===
-                                                          "CPL" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.conversions
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.social_revType ===
-                                                          "CPA" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.conversions
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.social_revType ===
-                                                          "CPViews" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.views
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.social_revType ===
-                                                          "CPVisit" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.visits
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                        </>
-                                                      }
-                                                    </td>
-                                                  </tr>
-                                                </>
-                                              ) : (
-                                                <></>
-                                              )
+                                                    }
+                                                  </td>
+                                                </tr>
+                                              </>
+                                            ) : (
+                                              <></>
                                             )
                                           )}
                                         </>
@@ -6827,36 +6591,309 @@ export default function Content({
                                       {campaign.video_endDate > selected.date &&
                                       campaign.video_campaign === true ? (
                                         <>
-                                          {reports.map((report) =>
-                                            JSON.parse(
-                                              report.xlsxToJSONStr
-                                            ).map((row) =>
-                                              row.reference ===
-                                              campaign.reference_id_video_campaign ? (
-                                                <>
-                                                  <tr>
-                                                    {/* NAME */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {campaign.name}
-                                                    </td>
-                                                    {/* CLIENT */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                      {campaign.clientName}
-                                                    </td>
-                                                    {/* CAMPAIGN TYPE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                      video campaign
-                                                    </td>
-                                                    {/* REVENUE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      $
+                                          {JSON.parse(
+                                            reports[reports.length - 1]
+                                              .xlsxToJSONStr
+                                          ).map((row) =>
+                                            row.reference ===
+                                            campaign.reference_id_video_campaign ? (
+                                              <>
+                                                <tr>
+                                                  {/* NAME */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {campaign.name}
+                                                  </td>
+                                                  {/* CLIENT */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {campaign.clientName}
+                                                  </td>
+                                                  {/* CAMPAIGN TYPE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    video campaign
+                                                  </td>
+                                                  {/* REVENUE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    $
+                                                    {campaign.video_revType ===
+                                                    "CPM" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          (row.impressions *
+                                                            campaign.video_unitRate) /
+                                                            1000
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.video_revType ===
+                                                    "CPC" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.clicks *
+                                                            campaign.video_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.video_revType ===
+                                                    "CPCV" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.completed_views *
+                                                            campaign.video_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.video_revType ===
+                                                    "CPL" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.conversions *
+                                                            campaign.video_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.video_revType ===
+                                                    "CPA" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.conversions *
+                                                            campaign.video_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.video_revType ===
+                                                    "CPViews" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.views *
+                                                            campaign.video_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                    {campaign.video_revType ===
+                                                    "CPVisit" ? (
+                                                      <>
+                                                        {parseFloat(
+                                                          row.visits *
+                                                            campaign.video_unitRate
+                                                        )}
+                                                      </>
+                                                    ) : (
+                                                      <></>
+                                                    )}
+                                                  </td>
+                                                  {/* MEDIA_COST */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <>{row.cost}</>
+                                                  </td>
+                                                  {/* REVENUE_TYPE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {campaign.video_revType}
+                                                  </td>
+                                                  {/* KICKBACK */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {
+                                                      <>
+                                                        {campaign.video_revType ===
+                                                        "CPM" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.impressions *
+                                                                        campaign.video_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100 /
+                                                                      1000}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.video_revType ===
+                                                        "CPC" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.clicks *
+                                                                        campaign.video_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.video_revType ===
+                                                        "CPCV" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.completed_views *
+                                                                        campaign.video_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.video_revType ===
+                                                        "CPL" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.conversions *
+                                                                        campaign.video_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.video_revType ===
+                                                        "CPA" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.conversions *
+                                                                        campaign.video_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.video_revType ===
+                                                        "CPViews" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.views *
+                                                                        campaign.video_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                        {campaign.video_revType ===
+                                                        "CPVisit" ? (
+                                                          <>
+                                                            {clients.map(
+                                                              (client) =>
+                                                                campaign.clientName ===
+                                                                client.name ? (
+                                                                  <>
+                                                                    {(parseFloat(
+                                                                      row.visits *
+                                                                        campaign.video_unitRate
+                                                                    ) *
+                                                                      client.kickback_value) /
+                                                                      100}
+                                                                  </>
+                                                                ) : (
+                                                                  <></>
+                                                                )
+                                                            )}
+                                                          </>
+                                                        ) : (
+                                                          <></>
+                                                        )}
+                                                      </>
+                                                    }
+                                                  </td>
+                                                  {/* PROFIT */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <>
                                                       {campaign.video_revType ===
                                                       "CPM" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            (row.impressions *
-                                                              campaign.video_unitRate) /
-                                                              1000
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.impressions *
+                                                                      (campaign.video_unitRate /
+                                                                        1000) *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -6865,9 +6902,23 @@ export default function Content({
                                                       {campaign.video_revType ===
                                                       "CPC" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.clicks *
-                                                              campaign.video_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.clicks *
+                                                                      campaign.video_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -6876,9 +6927,23 @@ export default function Content({
                                                       {campaign.video_revType ===
                                                       "CPCV" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.completed_views *
-                                                              campaign.video_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.completed_views *
+                                                                      campaign.video_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -6887,9 +6952,23 @@ export default function Content({
                                                       {campaign.video_revType ===
                                                       "CPL" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.conversions *
-                                                              campaign.video_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.conversions *
+                                                                      campaign.video_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -6898,9 +6977,23 @@ export default function Content({
                                                       {campaign.video_revType ===
                                                       "CPA" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.conversions *
-                                                              campaign.video_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.conversions *
+                                                                      campaign.video_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -6909,9 +7002,23 @@ export default function Content({
                                                       {campaign.video_revType ===
                                                       "CPViews" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.views *
-                                                              campaign.video_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.views *
+                                                                      campaign.video_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
@@ -6920,219 +7027,255 @@ export default function Content({
                                                       {campaign.video_revType ===
                                                       "CPVisit" ? (
                                                         <>
-                                                          {parseFloat(
-                                                            row.visits *
-                                                              campaign.video_unitRate
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    row.visits *
+                                                                      campaign.video_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
                                                         </>
                                                       ) : (
                                                         <></>
                                                       )}
-                                                    </td>
-                                                    {/* MEDIA_COST */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      <>{row.cost}</>
-                                                    </td>
-                                                    {/* REVENUE_TYPE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                      {campaign.video_revType}
-                                                    </td>
-                                                    {/* KICKBACK */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {
+                                                    </>
+                                                  </td>
+                                                  {/* PROFIT_PERCENTAGE */}
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    <>
+                                                      {campaign.video_revType ===
+                                                      "CPM" ? (
                                                         <>
-                                                          {campaign.video_revType ===
-                                                          "CPM" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.impressions *
-                                                                          campaign.video_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100 /
-                                                                        1000}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.impressions *
+                                                                      (campaign.video_unitRate /
+                                                                        1000) *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.impressions *
+                                                                        campaign.video_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
                                                           )}
-                                                          {campaign.video_revType ===
-                                                          "CPC" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.clicks *
-                                                                          campaign.video_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.video_revType ===
-                                                          "CPCV" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.completed_views *
-                                                                          campaign.video_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.video_revType ===
-                                                          "CPL" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.conversions *
-                                                                          campaign.video_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.video_revType ===
-                                                          "CPA" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.conversions *
-                                                                          campaign.video_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.video_revType ===
-                                                          "CPViews" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.views *
-                                                                          campaign.video_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.video_revType ===
-                                                          "CPVisit" ? (
-                                                            <>
-                                                              {clients.map(
-                                                                (client) =>
-                                                                  campaign.clientName ===
-                                                                  client.name ? (
-                                                                    <>
-                                                                      {(parseFloat(
-                                                                        row.visits *
-                                                                          campaign.video_unitRate
-                                                                      ) *
-                                                                        client.kickback_value) /
-                                                                        100}
-                                                                    </>
-                                                                  ) : (
-                                                                    <></>
-                                                                  )
-                                                              )}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
+
+                                                          {" %"}
                                                         </>
-                                                      }
-                                                    </td>
-                                                    {/* PROFIT */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.video_revType ===
+                                                      "CPC" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.clicks *
+                                                                      campaign.video_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.clicks *
+                                                                        campaign.video_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.video_revType ===
+                                                      "CPCV" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.completed_views *
+                                                                      campaign.video_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.completed_views *
+                                                                        campaign.video_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.video_revType ===
+                                                      "CPL" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.conversions *
+                                                                      campaign.video_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.conversions *
+                                                                        campaign.video_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.video_revType ===
+                                                      "CPA" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.conversions *
+                                                                      campaign.video_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.conversions *
+                                                                        campaign.video_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.video_revType ===
+                                                      "CPViews" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.views *
+                                                                      campaign.video_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.views *
+                                                                        campaign.video_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                      {campaign.video_revType ===
+                                                      "CPVisit" ? (
+                                                        <>
+                                                          {clients.map(
+                                                            (client) =>
+                                                              campaign.clientName ===
+                                                              client.name ? (
+                                                                <>
+                                                                  {parseFloat(
+                                                                    ((row.visits *
+                                                                      campaign.video_unitRate *
+                                                                      (1 -
+                                                                        client.kickback_value /
+                                                                          100) -
+                                                                      row.cost) /
+                                                                      (row.visits *
+                                                                        campaign.video_unitRate)) *
+                                                                      100
+                                                                  ).toFixed(2)}
+                                                                </>
+                                                              ) : (
+                                                                <></>
+                                                              )
+                                                          )}
+                                                          {" %"}
+                                                        </>
+                                                      ) : (
+                                                        <></>
+                                                      )}
+                                                    </>
+                                                  </td>
+
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {campaign.video_unitRate}
+                                                  </td>
+                                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {
                                                       <>
                                                         {campaign.video_revType ===
                                                         "CPM" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.impressions *
-                                                                        (campaign.video_unitRate /
-                                                                          1000) *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              (row.cost *
+                                                                1000) /
+                                                                row.impressions
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -7140,26 +7283,10 @@ export default function Content({
                                                         {campaign.video_revType ===
                                                         "CPC" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.clicks *
-                                                                        campaign.video_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.clicks
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -7167,26 +7294,10 @@ export default function Content({
                                                         {campaign.video_revType ===
                                                         "CPCV" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.completed_views *
-                                                                        campaign.video_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.completed_views
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -7194,26 +7305,10 @@ export default function Content({
                                                         {campaign.video_revType ===
                                                         "CPL" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.conversions *
-                                                                        campaign.video_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.conversions
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -7221,26 +7316,10 @@ export default function Content({
                                                         {campaign.video_revType ===
                                                         "CPA" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.conversions *
-                                                                        campaign.video_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.conversions
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -7248,26 +7327,10 @@ export default function Content({
                                                         {campaign.video_revType ===
                                                         "CPViews" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.views *
-                                                                        campaign.video_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.views
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
@@ -7275,349 +7338,21 @@ export default function Content({
                                                         {campaign.video_revType ===
                                                         "CPVisit" ? (
                                                           <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      row.visits *
-                                                                        campaign.video_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
+                                                            {parseFloat(
+                                                              row.cost /
+                                                                row.visits
+                                                            ).toFixed(2)}
                                                           </>
                                                         ) : (
                                                           <></>
                                                         )}
                                                       </>
-                                                    </td>
-                                                    {/* PROFIT_PERCENTAGE */}
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      <>
-                                                        {campaign.video_revType ===
-                                                        "CPM" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.impressions *
-                                                                        (campaign.video_unitRate /
-                                                                          1000) *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.impressions *
-                                                                          campaign.video_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.video_revType ===
-                                                        "CPC" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.clicks *
-                                                                        campaign.video_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.clicks *
-                                                                          campaign.video_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.video_revType ===
-                                                        "CPCV" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.completed_views *
-                                                                        campaign.video_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.completed_views *
-                                                                          campaign.video_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.video_revType ===
-                                                        "CPL" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.conversions *
-                                                                        campaign.video_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.conversions *
-                                                                          campaign.video_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.video_revType ===
-                                                        "CPA" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.conversions *
-                                                                        campaign.video_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.conversions *
-                                                                          campaign.video_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.video_revType ===
-                                                        "CPViews" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.views *
-                                                                        campaign.video_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.views *
-                                                                          campaign.video_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                        {campaign.video_revType ===
-                                                        "CPVisit" ? (
-                                                          <>
-                                                            {clients.map(
-                                                              (client) =>
-                                                                campaign.clientName ===
-                                                                client.name ? (
-                                                                  <>
-                                                                    {parseFloat(
-                                                                      ((row.visits *
-                                                                        campaign.video_unitRate *
-                                                                        (1 -
-                                                                          client.kickback_value /
-                                                                            100) -
-                                                                        row.cost) /
-                                                                        (row.visits *
-                                                                          campaign.video_unitRate)) *
-                                                                        100
-                                                                    ).toFixed(
-                                                                      2
-                                                                    )}
-                                                                  </>
-                                                                ) : (
-                                                                  <></>
-                                                                )
-                                                            )}
-                                                            {" %"}
-                                                          </>
-                                                        ) : (
-                                                          <></>
-                                                        )}
-                                                      </>
-                                                    </td>
-
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {campaign.video_unitRate}
-                                                    </td>
-                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                      {
-                                                        <>
-                                                          {campaign.video_revType ===
-                                                          "CPM" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                (row.cost *
-                                                                  1000) /
-                                                                  row.impressions
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.video_revType ===
-                                                          "CPC" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.clicks
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.video_revType ===
-                                                          "CPCV" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.completed_views
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.video_revType ===
-                                                          "CPL" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.conversions
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.video_revType ===
-                                                          "CPA" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.conversions
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.video_revType ===
-                                                          "CPViews" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.views
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                          {campaign.video_revType ===
-                                                          "CPVisit" ? (
-                                                            <>
-                                                              {parseFloat(
-                                                                row.cost /
-                                                                  row.visits
-                                                              ).toFixed(2)}
-                                                            </>
-                                                          ) : (
-                                                            <></>
-                                                          )}
-                                                        </>
-                                                      }
-                                                    </td>
-                                                  </tr>
-                                                </>
-                                              ) : (
-                                                <></>
-                                              )
+                                                    }
+                                                  </td>
+                                                </tr>
+                                              </>
+                                            ) : (
+                                              <></>
                                             )
                                           )}
                                         </>
