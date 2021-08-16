@@ -14,6 +14,7 @@ import {
   UploadIcon,
 } from "@heroicons/react/solid";
 import moment from "moment";
+import { parse } from "postcss";
 
 const navigation = [
   { name: "Home", href: "/", icon: HomeIcon, current: false },
@@ -269,26 +270,31 @@ export default function Content({
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                                   <>
-                                                    {(Math.ceil(
-                                                      Math.abs(
-                                                        new Date(
-                                                          campaign.display_endDate
-                                                        ) - new Date()
-                                                      ) /
-                                                        (1000 * 60 * 60 * 24)
-                                                    ) *
-                                                      campaign.display_goal) /
-                                                      Math.ceil(
+                                                    {parseFloat(
+                                                      (Math.ceil(
                                                         Math.abs(
                                                           new Date(
                                                             campaign.display_endDate
-                                                          ) -
-                                                            new Date(
-                                                              campaign.display_startDate
-                                                            )
+                                                          ) - new Date()
                                                         ) /
                                                           (1000 * 60 * 60 * 24)
-                                                      )}
+                                                      ) *
+                                                        campaign.display_goal) /
+                                                        Math.ceil(
+                                                          Math.abs(
+                                                            new Date(
+                                                              campaign.display_endDate
+                                                            ) -
+                                                              new Date(
+                                                                campaign.display_startDate
+                                                              )
+                                                          ) /
+                                                            (1000 *
+                                                              60 *
+                                                              60 *
+                                                              24)
+                                                        )
+                                                    ).toFixed(0)}
                                                   </>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
@@ -690,26 +696,31 @@ export default function Content({
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                                   <>
-                                                    {(Math.ceil(
-                                                      Math.abs(
-                                                        new Date(
-                                                          campaign.highImpact_endDate
-                                                        ) - new Date()
-                                                      ) /
-                                                        (1000 * 60 * 60 * 24)
-                                                    ) *
-                                                      campaign.highImpact_goal) /
-                                                      Math.ceil(
+                                                    {parseFloat(
+                                                      (Math.ceil(
                                                         Math.abs(
                                                           new Date(
                                                             campaign.highImpact_endDate
-                                                          ) -
-                                                            new Date(
-                                                              campaign.highImpact_startDate
-                                                            )
+                                                          ) - new Date()
                                                         ) /
                                                           (1000 * 60 * 60 * 24)
-                                                      )}
+                                                      ) *
+                                                        campaign.highImpact_goal) /
+                                                        Math.ceil(
+                                                          Math.abs(
+                                                            new Date(
+                                                              campaign.highImpact_endDate
+                                                            ) -
+                                                              new Date(
+                                                                campaign.highImpact_startDate
+                                                              )
+                                                          ) /
+                                                            (1000 *
+                                                              60 *
+                                                              60 *
+                                                              24)
+                                                        )
+                                                    ).toFixed(0)}
                                                   </>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
@@ -1110,26 +1121,31 @@ export default function Content({
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                                   <>
-                                                    {(Math.ceil(
-                                                      Math.abs(
-                                                        new Date(
-                                                          campaign.native_endDate
-                                                        ) - new Date()
-                                                      ) /
-                                                        (1000 * 60 * 60 * 24)
-                                                    ) *
-                                                      campaign.native_goal) /
-                                                      Math.ceil(
+                                                    {parseFloat(
+                                                      (Math.ceil(
                                                         Math.abs(
                                                           new Date(
                                                             campaign.native_endDate
-                                                          ) -
-                                                            new Date(
-                                                              campaign.native_startDate
-                                                            )
+                                                          ) - new Date()
                                                         ) /
                                                           (1000 * 60 * 60 * 24)
-                                                      )}
+                                                      ) *
+                                                        campaign.native_goal) /
+                                                        Math.ceil(
+                                                          Math.abs(
+                                                            new Date(
+                                                              campaign.native_endDate
+                                                            ) -
+                                                              new Date(
+                                                                campaign.native_startDate
+                                                              )
+                                                          ) /
+                                                            (1000 *
+                                                              60 *
+                                                              60 *
+                                                              24)
+                                                        )
+                                                    ).toFixed(0)}
                                                   </>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
@@ -1530,26 +1546,31 @@ export default function Content({
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                                   <>
-                                                    {(Math.ceil(
-                                                      Math.abs(
-                                                        new Date(
-                                                          campaign.pop_endDate
-                                                        ) - new Date()
-                                                      ) /
-                                                        (1000 * 60 * 60 * 24)
-                                                    ) *
-                                                      campaign.pop_goal) /
-                                                      Math.ceil(
+                                                    {parseFloat(
+                                                      (Math.ceil(
                                                         Math.abs(
                                                           new Date(
                                                             campaign.pop_endDate
-                                                          ) -
-                                                            new Date(
-                                                              campaign.pop_startDate
-                                                            )
+                                                          ) - new Date()
                                                         ) /
                                                           (1000 * 60 * 60 * 24)
-                                                      )}
+                                                      ) *
+                                                        campaign.pop_goal) /
+                                                        Math.ceil(
+                                                          Math.abs(
+                                                            new Date(
+                                                              campaign.pop_endDate
+                                                            ) -
+                                                              new Date(
+                                                                campaign.pop_startDate
+                                                              )
+                                                          ) /
+                                                            (1000 *
+                                                              60 *
+                                                              60 *
+                                                              24)
+                                                        )
+                                                    ).toFixed(0)}
                                                   </>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
@@ -1950,26 +1971,31 @@ export default function Content({
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                                   <>
-                                                    {(Math.ceil(
-                                                      Math.abs(
-                                                        new Date(
-                                                          campaign.push_endDate
-                                                        ) - new Date()
-                                                      ) /
-                                                        (1000 * 60 * 60 * 24)
-                                                    ) *
-                                                      campaign.push_goal) /
-                                                      Math.ceil(
+                                                    {parseFloat(
+                                                      (Math.ceil(
                                                         Math.abs(
                                                           new Date(
                                                             campaign.push_endDate
-                                                          ) -
-                                                            new Date(
-                                                              campaign.push_startDate
-                                                            )
+                                                          ) - new Date()
                                                         ) /
                                                           (1000 * 60 * 60 * 24)
-                                                      )}
+                                                      ) *
+                                                        campaign.push_goal) /
+                                                        Math.ceil(
+                                                          Math.abs(
+                                                            new Date(
+                                                              campaign.push_endDate
+                                                            ) -
+                                                              new Date(
+                                                                campaign.push_startDate
+                                                              )
+                                                          ) /
+                                                            (1000 *
+                                                              60 *
+                                                              60 *
+                                                              24)
+                                                        )
+                                                    ).toFixed(0)}
                                                   </>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
@@ -2372,26 +2398,31 @@ export default function Content({
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                                   <>
-                                                    {(Math.ceil(
-                                                      Math.abs(
-                                                        new Date(
-                                                          campaign.richMedia_endDate
-                                                        ) - new Date()
-                                                      ) /
-                                                        (1000 * 60 * 60 * 24)
-                                                    ) *
-                                                      campaign.richMedia_goal) /
-                                                      Math.ceil(
+                                                    {parseFloat(
+                                                      (Math.ceil(
                                                         Math.abs(
                                                           new Date(
                                                             campaign.richMedia_endDate
-                                                          ) -
-                                                            new Date(
-                                                              campaign.richMedia_startDate
-                                                            )
+                                                          ) - new Date()
                                                         ) /
                                                           (1000 * 60 * 60 * 24)
-                                                      )}
+                                                      ) *
+                                                        campaign.richMedia_goal) /
+                                                        Math.ceil(
+                                                          Math.abs(
+                                                            new Date(
+                                                              campaign.richMedia_endDate
+                                                            ) -
+                                                              new Date(
+                                                                campaign.richMedia_startDate
+                                                              )
+                                                          ) /
+                                                            (1000 *
+                                                              60 *
+                                                              60 *
+                                                              24)
+                                                        )
+                                                    ).toFixed(0)}
                                                   </>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
@@ -2792,15 +2823,20 @@ export default function Content({
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                                   <>
-                                                    {(Math.ceil(
-                                                      Math.abs(
-                                                        new Date(
-                                                          campaign.search_endDate
-                                                        ) - new Date()
+                                                    {(
+                                                      parseFloat(
+                                                        Math.ceil(
+                                                          Math.abs(
+                                                            new Date(
+                                                              campaign.search_endDate
+                                                            ) - new Date()
+                                                          ) /
+                                                            (1000 *
+                                                              60 *
+                                                              60 *
+                                                              24)
+                                                        ) * campaign.search_goal
                                                       ) /
-                                                        (1000 * 60 * 60 * 24)
-                                                    ) *
-                                                      campaign.search_goal) /
                                                       Math.ceil(
                                                         Math.abs(
                                                           new Date(
@@ -2811,7 +2847,8 @@ export default function Content({
                                                             )
                                                         ) /
                                                           (1000 * 60 * 60 * 24)
-                                                      )}
+                                                      )
+                                                    ).toFixed(0)}
                                                   </>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
@@ -3212,26 +3249,31 @@ export default function Content({
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                                   <>
-                                                    {(Math.ceil(
-                                                      Math.abs(
-                                                        new Date(
-                                                          campaign.social_endDate
-                                                        ) - new Date()
-                                                      ) /
-                                                        (1000 * 60 * 60 * 24)
-                                                    ) *
-                                                      campaign.social_goal) /
-                                                      Math.ceil(
+                                                    {parseFloat(
+                                                      (Math.ceil(
                                                         Math.abs(
                                                           new Date(
                                                             campaign.social_endDate
-                                                          ) -
-                                                            new Date(
-                                                              campaign.social_startDate
-                                                            )
+                                                          ) - new Date()
                                                         ) /
                                                           (1000 * 60 * 60 * 24)
-                                                      )}
+                                                      ) *
+                                                        campaign.social_goal) /
+                                                        Math.ceil(
+                                                          Math.abs(
+                                                            new Date(
+                                                              campaign.social_endDate
+                                                            ) -
+                                                              new Date(
+                                                                campaign.social_startDate
+                                                              )
+                                                          ) /
+                                                            (1000 *
+                                                              60 *
+                                                              60 *
+                                                              24)
+                                                        )
+                                                    ).toFixed(0)}
                                                   </>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
@@ -3632,26 +3674,31 @@ export default function Content({
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                                   <>
-                                                    {(Math.ceil(
-                                                      Math.abs(
-                                                        new Date(
-                                                          campaign.video_endDate
-                                                        ) - new Date()
-                                                      ) /
-                                                        (1000 * 60 * 60 * 24)
-                                                    ) *
-                                                      campaign.video_goal) /
-                                                      Math.ceil(
+                                                    {parseFloat(
+                                                      (Math.ceil(
                                                         Math.abs(
                                                           new Date(
                                                             campaign.video_endDate
-                                                          ) -
-                                                            new Date(
-                                                              campaign.video_startDate
-                                                            )
+                                                          ) - new Date()
                                                         ) /
                                                           (1000 * 60 * 60 * 24)
-                                                      )}
+                                                      ) *
+                                                        campaign.video_goal) /
+                                                        Math.ceil(
+                                                          Math.abs(
+                                                            new Date(
+                                                              campaign.video_endDate
+                                                            ) -
+                                                              new Date(
+                                                                campaign.video_startDate
+                                                              )
+                                                          ) /
+                                                            (1000 *
+                                                              60 *
+                                                              60 *
+                                                              24)
+                                                        )
+                                                    ).toFixed(0)}
                                                   </>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
