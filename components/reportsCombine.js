@@ -61,6 +61,43 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
+// FROM STACKOVERFLOW START
+const combine = (data) => {
+  let combinedData = data.reduce((acc, curr) => {
+    delete curr.date;
+
+    if (acc.length == 0) {
+      acc.push(curr);
+      return acc;
+    }
+
+    let d = acc.find(
+      (x) =>
+        x.campaign == curr.campaign &&
+        x.reference == curr.reference &&
+        x.platform == curr.platform
+    );
+
+    if (d) {
+      d.impressions += curr.impressions;
+      d.clicks += curr.clicks;
+      d.visits += curr.visits;
+      d.views += curr.views;
+      d.completed_views += curr.completed_views;
+      d.conversions += curr.conversions;
+      d.viewability += curr.viewability;
+      d.cost += curr.cost;
+    } else {
+      acc.push(curr);
+    }
+
+    return acc;
+  }, []);
+
+  return combinedData;
+};
+// ^^ FROM STACKOVERFLOW END ^^
+
 export default function Content({
   setNavigation,
   setSidebarOpen,
@@ -76,52 +113,26 @@ export default function Content({
 
   useEffect(() => {
     console.log("PAGE RELOAD");
+    console.log(reports);
     console.log("CAMPAIGNS HERE: ", campaigns);
     const combineReports = (reports) => {
       {
         reports.map((report) =>
           JSON.parse(report.xlsxToJSONStr).map((row) => reportsInJSON.push(row))
         );
+        console.log(reportsInJSON);
         setJSONReports(reportsInJSON);
       }
-      JSONReports && console.log(JSONReports);
     };
-
-    const combineArrayFunc = async (JSONReports) => {
-      let result = [];
-
-      JSONReports.forEach(function (a) {
-        if (!this[a.reference]) {
-          this[a.reference] = {
-            campaign: a.campaign,
-            reference: a.reference,
-            impressions: 0,
-            clicks: 0,
-            cost: 0,
-            conversions: 0,
-            visits: 0,
-            views: 0,
-            completed_views: 0,
-            viewability: 0,
-          };
-          setCombinedArray([...combinedArray, this[a.reference]]);
-        }
-        this[a.reference].impressions += a.impressions;
-        this[a.reference].clicks += a.clicks;
-        this[a.reference].cost += a.cost;
-        this[a.reference].conversions += a.conversions;
-        this[a.reference].visits += a.visits;
-        this[a.reference].views += a.views;
-        this[a.reference].completed_views += a.completed_views;
-        this[a.reference].viewability += a.viewability;
-      }, Object.create(null));
-
-      console.log("result: ", result);
-      combinedArray && console.log("COMBINED_ARRAY: ", combinedArray);
-    };
-    reports && combineReports(reports);
-    JSONReports && combineArrayFunc(JSONReports);
+    combineReports(reports);
   }, [reports]);
+
+  useEffect(() => {
+    let thisIsCombined = combine(JSONReports);
+    console.log("comb: ", thisIsCombined);
+    setCombinedArray(thisIsCombined);
+  }, [JSONReports]);
+
   return (
     <>
       {
