@@ -1,6 +1,6 @@
 {
     "identityPoolName": "testAuthIdentityPool",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "campai669de17b",
     "userPoolName": "campaignmanagementsystem",
     "autoVerifiedAttributes": [
